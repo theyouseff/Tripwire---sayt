@@ -261,7 +261,7 @@
     align-items: center;
     gap: 16px;
   }
-  .circle { flex: 1 1 0; min-width: 0; transition: flex-grow .75s cubic-bezier(.22,1,.36,1), flex-basis .75s cubic-bezier(.22,1,.36,1), box-shadow .5s, transform .25s; }
+  .circle { flex: 1 1 0; min-width: 0; }
   .circle.expanded { flex-grow: 2.4; z-index: 3; }
   @media (max-width: 1240px) {
     .circles {
@@ -284,9 +284,11 @@
     padding: 5px;
     background: conic-gradient(var(--teal), var(--night), var(--teal));
     cursor: pointer;
-    transition: transform .25s;
+    transition: flex-grow .9s cubic-bezier(.65,0,.35,1), flex-basis .9s cubic-bezier(.65,0,.35,1), box-shadow .6s ease, transform .3s ease;
+    will-change: flex-grow, flex-basis;
   }
   .circle:hover { transform: scale(1.03); }
+  .circle.expanded:hover { transform: none; }
   .circle-inner {
     position: relative;
     width: 100%; height: 100%;
@@ -658,7 +660,7 @@
           var back = function () { if (c.classList.contains('expanded')) shrink(c); };
           pl.on(pl.Events.Pause, function () {
             // sekin yurgizilganda (seek) emas, haqiqiy to'xtatilganda qaytadi
-            setTimeout(function () { pl.isPaused().then(function (p) { if (p) back(); }); }, 450);
+            setTimeout(function () { pl.isPaused().then(function (p) { if (p) back(); }); }, 300);
           });
           pl.on(pl.Events.Ended, back);
           return pl;
@@ -675,7 +677,7 @@
       current = c;
       c.classList.add('expanded');
       c.ready.then(function (pl) { if (pl) pl.play(); });
-      setTimeout(function () { c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 200);
+      setTimeout(function () { c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 650);
     }
 
     circles.forEach(function (c) {
