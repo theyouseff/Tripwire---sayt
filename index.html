@@ -267,98 +267,75 @@
     .rcard-desc { font-size: 14.5px; }
   }
 
-  /* ---------- Ikki yo'l ---------- */
+  /* ---------- Uch variant (Kiyim / Ovqatlanish / Bizning dars) ---------- */
   .paths {
     position: relative;
     color: var(--white);
-    padding: 80px 0 116px;
+    padding: 72px 0 112px;
     margin-bottom: -28px;
     background:
       radial-gradient(55% 75% at 6% 28%, rgba(15,92,110,.55), transparent 70%),
       radial-gradient(55% 75% at 96% 80%, rgba(79,195,232,.20), transparent 70%),
       linear-gradient(180deg, var(--night) 0%, #050f16 22%, #050f16 78%, var(--night) 100%);
   }
-  .paths .container { max-width: 1200px; }
-  .paths-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 28px; align-items: center; }
-  .path {
+  .paths .container { max-width: 1240px; }
+  .tri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+  .tri {
     --cyan: #4fc3e8;
-    position: relative; overflow: hidden;
-    border-radius: 28px; padding: 30px 30px 32px;
-    min-height: 100%;
-  }
-  .path-no {
-    position: absolute; top: 4px; left: 20px;
-    font-size: 96px; font-weight: 800; line-height: 1; letter-spacing: -.04em;
-    pointer-events: none; user-select: none;
-  }
-  .path-badge {
-    position: relative; display: inline-flex; align-items: center; gap: 4px;
-    margin-top: 38px; margin-bottom: 18px;
-    font-weight: 700; font-size: 15px; letter-spacing: .04em;
-  }
-  .path-badge > span:last-child { padding: 7px 18px; border-radius: 999px; }
-  .path h3 { position: relative; font-size: clamp(22px, 2.4vw, 28px); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
-  .path p { position: relative; font-size: 16.5px; line-height: 1.55; max-width: 460px; }
-
-  .path-1 {
-    background:
-      linear-gradient(90deg, rgba(5,14,21,.96) 0%, rgba(5,14,21,.78) 48%, rgba(5,14,21,.2) 100%),
-      linear-gradient(0deg, rgba(5,14,21,.55), transparent 45%),
-      url(images/path-1.webp) right center / cover no-repeat,
-      #07131b;
+    position: relative; isolation: isolate; overflow: hidden;
+    display: flex; flex-direction: column;
+    border-radius: 28px; padding: 26px 26px 28px;
+    background: linear-gradient(160deg, #0c2231, #07131b);
     border: 1.5px solid var(--white-20);
-    color: var(--white-60);
-  }
-  .path-1 .path-no { color: rgba(255,255,255,.07); }
-  .path-1 .path-ico { color: rgba(255,255,255,.55); }
-  .path-1 .path-badge > span:last-child { background: var(--white-10); color: var(--white-60); }
-  .path-1 h3 { color: var(--white); opacity: .85; }
-
-  .path-list { position: relative; list-style: none; margin: 4px 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 17px; }
-  .path-list li { display: flex; align-items: center; gap: 12px; }
-  .path-list li span { font-size: 22px; line-height: 1; }
-  .path-end { color: var(--white); font-weight: 600; }
-  .path-2 {
-    background:
-      linear-gradient(90deg, rgba(6,24,36,.97) 0%, rgba(8,34,50,.82) 50%, rgba(10,50,70,.2) 100%),
-      linear-gradient(0deg, rgba(6,24,36,.6), transparent 45%),
-      url(images/path-2.webp) right center / cover no-repeat,
-      #08202e;
-    border: 1.5px solid rgba(79,195,232,.7);
     color: var(--white);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .tri::before {
+    content: ""; position: absolute; inset: 0; z-index: -2;
+    background: var(--photo) right center / cover no-repeat;
+    -webkit-mask-image: linear-gradient(90deg, transparent 54%, #000 92%);
+            mask-image: linear-gradient(90deg, transparent 54%, #000 92%);
+    opacity: .9;
+  }
+  .tri::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(0deg, rgba(5,14,21,.72) 0%, transparent 46%);
+    pointer-events: none;
+  }
+  .tri:hover { transform: translateY(-4px); }
+  .tri-head { display: flex; align-items: center; gap: 4px; margin-bottom: 22px; }
+  .tri-ico {
+    width: 58px; height: 58px; flex: 0 0 58px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 26px;
+    background: rgba(255,255,255,.1); border: 1.5px solid var(--white-20);
+  }
+  .tri-tag { padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .05em; background: rgba(255,255,255,.1); color: var(--white-60); }
+  .tri h3 { font-size: clamp(24px, 2.2vw, 30px); font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+  .tri h3 em { font-style: normal; color: var(--white-60); }
+  .tri-list { list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15.5px; line-height: 1.4; color: rgba(255,255,255,.85); margin-bottom: 22px; }
+  .tri-list li { display: flex; align-items: center; gap: 14px; }
+  .tri-list li span { flex: 0 0 26px; font-size: 20px; text-align: center; line-height: 1; }
+  .tri-foot { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--white-10); font-size: 15.5px; line-height: 1.45; color: var(--white-60); }
+  .tri-foot b { color: var(--cyan); font-weight: 700; }
+
+  .tri-3 {
+    background: linear-gradient(160deg, rgba(15,92,110,.55), #07202c 70%);
+    border-color: rgba(79,195,232,.7);
     box-shadow: 0 0 36px -10px var(--cyan), inset 0 0 28px -14px var(--cyan);
   }
-  .path-2 .path-no { color: rgba(79,195,232,.22); }
-  .path-2 .path-ico { color: var(--cyan); filter: drop-shadow(0 0 6px var(--cyan)); }
-  .path-2 .path-badge > span:last-child { background: rgba(79,195,232,.18); color: var(--white); }
-  .path-2 p { color: rgba(255,255,255,.82); }
-  .path-btn {
-    position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    margin-top: 26px; padding: 8px 8px 8px 28px;
-    border-radius: 999px; text-decoration: none; color: var(--white);
-    font-weight: 700; font-size: 18px;
-    background: linear-gradient(90deg, var(--teal), #1590ad);
-    border: 1px solid rgba(79,195,232,.8);
-    box-shadow: 0 10px 30px -10px var(--cyan);
-    transition: transform .2s, box-shadow .25s;
-  }
-  .path-btn b { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.2); transition: transform .25s; }
-  .path-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px -8px var(--cyan); }
-  .path-btn:hover b { transform: translateX(4px); }
+  .tri-3 .tri-ico { background: rgba(79,195,232,.18); border-color: rgba(79,195,232,.6); box-shadow: 0 0 16px -4px var(--cyan); }
+  .tri-3 .tri-tag { background: rgba(79,195,232,.2); color: var(--white); }
+  .tri-3 h3 em { color: var(--cyan); }
+  .tri-3 .tri-foot { color: rgba(255,255,255,.9); border-top-color: rgba(79,195,232,.3); }
+  .tri-3:hover { box-shadow: 0 0 46px -6px var(--cyan), inset 0 0 28px -14px var(--cyan); }
 
-  .paths-or { display: flex; flex-direction: column; align-items: center; gap: 14px; align-self: stretch; justify-content: center; }
-  .paths-or span { font-size: 28px; font-weight: 700; color: var(--white); }
-  .paths-or i { flex: 1; width: 2px; max-height: 150px; background: linear-gradient(180deg, transparent, var(--cyan, #4fc3e8)); opacity: .8; }
-  .paths-or i:last-child { background: linear-gradient(0deg, transparent, #4fc3e8); }
-  @media (max-width: 860px) {
-    .paths-grid { grid-template-columns: 1fr; gap: 18px; }
-    .paths-or { flex-direction: row; }
-    .paths-or i { width: auto; height: 2px; max-height: none; flex: 1; background: linear-gradient(90deg, transparent, #4fc3e8); }
-    .paths-or i:last-child { background: linear-gradient(270deg, transparent, #4fc3e8); }
-    .paths-or span { font-size: 22px; }
-    .path { padding: 24px 22px 26px; }
-    .path-no { font-size: 80px; }
-    .path-btn { font-size: 16.5px; padding-left: 22px; }
+  @media (max-width: 1000px) {
+    .tri-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; gap: 18px; }
+    .tri::before { -webkit-mask-image: linear-gradient(90deg, transparent 50%, #000 90%); mask-image: linear-gradient(90deg, transparent 50%, #000 90%); }
+  }
+  @media (max-width: 560px) {
+    .tri { padding: 22px 20px 24px; }
+    .tri-list, .tri-foot { font-size: 15px; }
   }
 
   /* ---------- 3. KRUJOKLAR ---------- */
@@ -717,32 +694,38 @@
 
 <section class="paths">
   <div class="container">
-    <div class="paths-grid">
-      <article class="path path-1 reveal">
-        <span class="path-no" aria-hidden="true">01</span>
-        <div class="path-badge"><span class="path-ico"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g transform="rotate(-40 20 20)"><rect x="4" y="13" width="32" height="14" rx="7" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width="2"/><path d="M20 13h9a7 7 0 0 1 0 14h-9z" fill="currentColor" opacity=".6"/></g></svg></span><span>1-YO'L</span></div>
-        <h3>97 000 so‘mni bugungi ehtiyojlarga sarflash</h3>
-        <ul class="path-list">
-          <li><span>☕</span>3–4 marta qahva</li>
-          <li><span>🍔</span>bir necha marta ovqat</li>
-          <li><span>🛍️</span>mayda xaridlar</li>
+    <div class="tri-grid">
+      <article class="tri tri-1 reveal" style="--photo:url(images/card-kiyim.webp)">
+        <div class="tri-head"><span class="tri-ico">👕</span><span class="tri-tag">KIYIM</span></div>
+        <h3>Tanani chiroyli <em>ko‘rsatish</em></h3>
+        <ul class="tri-list">
+          <li><span>👔</span>O’ziga ishonchni oshiradi</li>
+          <li><span>👥</span>Atrofdagilarda yaxshi taassurot qoldiradi</li>
+          <li><span>💎</span>Tashqi ko’rinishni yaxshilaydi</li>
         </ul>
-        <p class="path-end">Bir necha kundan keyin esa — undan hech narsa qolmaydi.</p>
+        <p class="tri-foot">Faqat tashqi ko’rinishni o’zgartiradi, lekin bilim va ko’nikma bermaydi.</p>
       </article>
 
-      <div class="paths-or reveal"><i></i><span>yoki</span><i></i></div>
-
-      <article class="path path-2 reveal">
-        <span class="path-no" aria-hidden="true">02</span>
-        <div class="path-badge"><span class="path-ico"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g transform="rotate(-40 20 20)"><rect x="4" y="13" width="32" height="14" rx="7" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width="2"/><path d="M20 13h9a7 7 0 0 1 0 14h-9z" fill="currentColor" opacity=".6"/></g></svg></span><span>2-YO'L</span></div>
-        <h3>97 000 so‘mni bilimga aylantirish</h3>
-        <ul class="path-list">
-          <li><span>📚</span>2 ta amaliy dars</li>
-          <li><span>🧠</span>LOR amaliyotida kerak bo‘ladigan bilim</li>
-          <li><span>⏳</span>Keyinchalik ham qayta ko‘rib, foydalanish imkoniyati</li>
+      <article class="tri tri-2 reveal" style="--photo:url(images/card-ovqat.webp)">
+        <div class="tri-head"><span class="tri-ico">🍔</span><span class="tri-tag">OVQATLANISH</span></div>
+        <h3>Energiyani <em>ta’minlash</em></h3>
+        <ul class="tri-list">
+          <li><span>⚡</span>Kuch va energiya beradi</li>
+          <li><span>❤️</span>Sog’liqni saqlashga yordam beradi</li>
+          <li><span>💪</span>Tana formasini yaxshilaydi</li>
         </ul>
-        <p class="path-end">Bir marta to‘laysiz — bilimdan qayta-qayta foydalanasiz.</p>
-        <a class="path-btn" href="#dars"><span>2-yo’lni tanlayman</span><b><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></b></a>
+        <p class="tri-foot">Faqat tanani to’yintiradi, bilim va professional ko’nikma bermaydi.</p>
+      </article>
+
+      <article class="tri tri-3 reveal" style="--photo:url(images/card-dars.webp)">
+        <div class="tri-head"><span class="tri-ico">🎓</span><span class="tri-tag">BIZNING DARS</span></div>
+        <h3>Bilim va <em>ko‘nikma berish</em></h3>
+        <ul class="tri-list">
+          <li><span>🧠</span>Amaliy bilim va real ko’nikmalar</li>
+          <li><span>📈</span>Kasbiy rivojlanish imkoniyati</li>
+          <li><span>⭐</span>Kelajakda yuqori daromad va erkinlik uchun asos</li>
+        </ul>
+        <p class="tri-foot">Bu dars sizga faqat hozir emas, <b>kelajakda ham foyda beradi.</b></p>
       </article>
     </div>
   </div>
