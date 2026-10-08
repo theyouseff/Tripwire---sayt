@@ -102,10 +102,19 @@
 
   /* ---------- 1. HERO ---------- */
   .hero {
+    position: relative;
+    isolation: isolate;
     background: var(--night);
     color: var(--white);
     padding: 64px 0 72px;
     overflow: hidden;
+  }
+  /* Plashka orqasidagi radial nur (sayt ranglarida: teal) */
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle 520px at 50% 86px, rgba(15, 92, 110, .85), transparent);
   }
   /* Rasm badge tepasidan "…o'rganing!" oxirigacha bo'lgan balandlikni egallaydi */
   .hero-inner {
@@ -186,6 +195,7 @@
   }
   @media (max-width: 820px) {
     .hero { padding: 40px 0 0; }
+    .hero::before { background-image: radial-gradient(circle 340px at 50% 62px, rgba(15, 92, 110, .85), transparent); }
     .hero-inner {
       grid-template-columns: 1fr;
       grid-template-areas: "badge" "title" "cta" "img";
