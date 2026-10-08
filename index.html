@@ -310,6 +310,10 @@
   .path-1 .path-badge > span:last-child { background: var(--white-10); color: var(--white-60); }
   .path-1 h3 { color: var(--white); opacity: .85; }
 
+  .path-list { position: relative; list-style: none; margin: 4px 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 17px; }
+  .path-list li { display: flex; align-items: center; gap: 12px; }
+  .path-list li span { font-size: 22px; line-height: 1; }
+  .path-1 .path-end { color: var(--white); font-weight: 600; }
   .path-2 {
     background: linear-gradient(160deg, rgba(15,92,110,.75), rgba(11,42,60,.9) 70%);
     border: 1.5px solid rgba(79,195,232,.7);
@@ -709,8 +713,13 @@
       <article class="path path-1 reveal">
         <span class="path-no" aria-hidden="true">01</span>
         <div class="path-badge"><span class="path-ico"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g transform="rotate(-40 20 20)"><rect x="4" y="13" width="32" height="14" rx="7" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width="2"/><path d="M20 13h9a7 7 0 0 1 0 14h-9z" fill="currentColor" opacity=".6"/></g></svg></span><span>1-YO'L</span></div>
-        <h3>Hech narsani o’zgartirmaslik</h3>
-        <p>Tashxoqlik, noqulay protez va takroran shamollash bilan yashashda davom etasiz. Vaqt o’tgan sari muammo yanada kuchayadi.</p>
+        <h3>97 000 so‘mni bugungi ehtiyojlarga sarflash</h3>
+        <ul class="path-list">
+          <li><span>☕</span>3–4 marta qahva</li>
+          <li><span>🍔</span>bir necha marta ovqat</li>
+          <li><span>🛍️</span>mayda xaridlar</li>
+        </ul>
+        <p class="path-end">Bir necha kundan keyin esa — undan hech narsa qolmaydi.</p>
       </article>
 
       <div class="paths-or reveal"><i></i><span>yoki</span><i></i></div>
