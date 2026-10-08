@@ -430,7 +430,106 @@
     box-shadow: 0 0 0 1px var(--white-20), 0 18px 44px -18px var(--teal);
   }
   .center { text-align: center; }
-  .final { background: var(--night); border-radius: var(--radius) var(--radius) 0 0; padding: 56px 0 72px; margin-top: -28px; position: relative; }
+  .final { background: var(--night); border-radius: var(--radius) var(--radius) 0 0; padding: 72px 0 96px; margin-top: -28px; position: relative; }
+  .reg-wrap { max-width: 1100px; }
+  .reg-head { display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap; margin-bottom: 36px; }
+  .reg-title { color: var(--white); text-align: left; margin: 0; }
+  .reg-title::after { display: none; }
+  .timer { display: flex; align-items: center; gap: 14px; color: var(--white-60); font-size: 15px; }
+  .timer b {
+    min-width: 92px; text-align: center;
+    font-size: 26px; font-weight: 800; letter-spacing: .02em; font-variant-numeric: tabular-nums;
+    color: var(--white);
+    background: var(--teal);
+    border-radius: 14px; padding: 8px 16px;
+    box-shadow: 0 0 0 1px var(--white-20), 0 10px 28px -12px var(--teal);
+  }
+  .reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+  .reg-steps { display: flex; flex-direction: column; gap: 16px; }
+  .step {
+    background: var(--white-10);
+    border: 1px solid var(--white-10);
+    border-radius: 24px;
+    padding: 22px 24px;
+    color: var(--white);
+    font-size: 16.5px;
+  }
+  .step em { font-style: normal; font-weight: 700; color: #4fc3e8; }
+  .pay {
+    margin-top: 16px;
+    background: linear-gradient(135deg, var(--teal), #0a3a4d 70%);
+    border: 1.5px solid rgba(79,195,232,.55);
+    border-radius: 20px;
+    padding: 20px 22px;
+    box-shadow: 0 0 24px -10px #4fc3e8, inset 0 0 18px -12px #4fc3e8;
+  }
+  .pay-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  .pay-num { font-size: clamp(22px, 3.2vw, 30px); font-weight: 800; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+  .pay-name { margin-top: 10px; font-weight: 700; color: var(--white-60); }
+  .copy {
+    font: inherit; font-size: 14px; font-weight: 600; color: var(--white);
+    background: var(--night); border: 1px solid rgba(79,195,232,.6);
+    border-radius: 999px; padding: 9px 18px; cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .copy:hover { background: rgba(11,42,60,.6); transform: translateY(-1px); }
+  .copy.done { background: #4fc3e8; color: var(--night); border-color: #4fc3e8; }
+
+  .reg-form {
+    display: flex; flex-direction: column; gap: 14px;
+    background: var(--white-10);
+    border: 1px solid var(--white-10);
+    border-radius: 24px;
+    padding: 28px 26px;
+    color: var(--white);
+  }
+  .field {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.07);
+    border: 1.5px solid var(--white-20);
+    border-radius: 16px;
+    padding: 0 16px;
+    height: 56px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .field:focus-within { border-color: #4fc3e8; box-shadow: 0 0 0 4px rgba(79,195,232,.18); }
+  .field.invalid { border-color: #ffcc4d; }
+  .field input {
+    flex: 1; min-width: 0; height: 100%;
+    background: transparent; border: 0; outline: 0;
+    font: inherit; font-size: 16px; color: var(--white);
+  }
+  .field input::placeholder { color: var(--white-60); }
+  .phone .flag { font-size: 20px; line-height: 1; }
+  .phone .code { font-weight: 600; }
+  .up-label { margin-top: 6px; font-size: 16px; }
+  .upload { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; cursor: pointer; }
+  .upload-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--teal); color: var(--white);
+    font-weight: 600; font-size: 15px;
+    border: 1px solid var(--white-20);
+    border-radius: 999px; padding: 12px 22px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .upload:hover .upload-btn { transform: translateY(-2px); box-shadow: 0 10px 24px -10px var(--teal); }
+  .upload.invalid .upload-btn { box-shadow: 0 0 0 2px #ffcc4d; }
+  .upload-name { font-size: 14px; color: var(--white-60); word-break: break-all; }
+  .form-note { min-height: 20px; font-size: 14px; color: #ffcc4d; }
+  .form-note.ok { color: #4fc3e8; }
+  .cta-submit { width: 100%; min-width: 0; font: inherit; text-align: left; cursor: pointer; margin-top: 4px; }
+  .cta-submit:disabled { opacity: .6; cursor: progress; }
+  @media (max-width: 860px) {
+    .reg-grid { grid-template-columns: 1fr; }
+    .reg-head { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 560px) {
+    .final { padding: 56px 0 80px; }
+    .reg-form { padding: 22px 18px; }
+    .step { padding: 18px 18px; font-size: 16px; }
+    .timer { flex-wrap: wrap; }
+    .cta-submit { max-width: none; }
+  }
 
   /* ---------- Mobil sticky CTA ---------- */
   .sticky {
@@ -586,22 +685,52 @@
   </div>
 </section>
 
-<section class="final">
-  <div class="container">
-    <div class="center">
-      <a class="cta" href="#dars">
-      <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
-      <span class="cta-sep"></span>
-      <span class="cta-text">Darslikni <em>olish</em></span>
-      <svg class="cta-curve" viewBox="0 0 112 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 C 38 70, 46 0, 112 0"/></svg>
-      <span class="cta-arrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M14 5l7 7-7 7"/></svg></span>
-    </a>
+<section class="final" id="dars">
+  <div class="container reg-wrap">
+    <div class="reg-head reveal">
+      <h2 class="reg-title">Ro’yxatdan o’tish tartibi:</h2>
+      <div class="timer"><span>Ro'yxatdan o'tish uchun qolgan vaqt:</span><b id="timer" aria-live="off">15:00</b></div>
+    </div>
+
+    <div class="reg-grid">
+      <div class="reg-steps reveal">
+        <div class="step">
+          <p>1) Quyidagi karta raqamiga ushbu to’lovni amalga oshirasiz: <em>97,000 so'm</em></p>
+          <div class="pay">
+            <div class="pay-row">
+              <div class="pay-num" id="card-num">9860 2701 0289 3236</div>
+              <button type="button" class="copy" id="copy-btn">Nusxalash</button>
+            </div>
+            <div class="pay-name">Mirkamol Nosirjonov</div>
+          </div>
+        </div>
+        <div class="step"><p>2) To’lovingiz chekini rasmga olasiz</p></div>
+        <div class="step"><p>3) Va ushbu formani to’ldirasiz</p></div>
+      </div>
+
+      <form class="reg-form reveal" id="reg-form" novalidate>
+        <label class="field"><input type="text" id="f-name" name="name" placeholder="Ismingizni kiriting" autocomplete="name" required></label>
+        <label class="field phone"><span class="flag">🇺🇿</span><span class="code">+998</span><input type="tel" id="f-phone" name="phone" inputmode="numeric" placeholder="00-000-0000" autocomplete="tel-national" required></label>
+        <p class="up-label">4) To'lov chekini pastdagi tugmani bosib yuklang:</p>
+        <label class="upload">
+          <input type="file" id="f-file" name="receipt" accept="image/*" hidden>
+          <span class="upload-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>Chekni yuklash</span>
+          <span class="upload-name" id="file-name"></span>
+        </label>
+        <p class="form-note" id="form-note" role="status"></p>
+        <button class="cta cta-submit" type="submit">
+          <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
+          <span class="cta-sep"></span>
+          <span class="cta-text">Darslikni <em>olish</em></span>
+          <svg class="cta-curve" viewBox="0 0 112 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 C 38 70, 46 0, 112 0"/></svg>
+          <span class="cta-arrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M14 5l7 7-7 7"/></svg></span>
+        </button>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- Keyingi bloklar (ro'yxatdan o'tish, taymer, forma) shu yerga qo'shiladi -->
-<div id="dars"></div>
 
 <!-- Mobil sticky CTA -->
 <div class="sticky" aria-hidden="true">
@@ -674,6 +803,68 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && current) shrink(current); });
   })();
 
+  // ---- Ro'yxatdan o'tish bloki ----
+  (function () {
+    // Forma yuboriladigan manzil. Hozircha ulanmagan (bo'sh) — keyin Telegram bot / Google Sheets / CRM manzili qo'yiladi.
+    var SUBMIT_URL = '';
+
+    // Taymer: 15:00 dan teskari sanaydi, sahifa qayta ochilganda ham davom etadi
+    var t = document.getElementById('timer'), KEY = 'tw_end', end;
+    try { end = parseInt(localStorage.getItem(KEY), 10); } catch (e) {}
+    if (!end || end < Date.now() - 60000) { end = Date.now() + 15 * 60 * 1000; try { localStorage.setItem(KEY, end); } catch (e) {} }
+    function tick() {
+      var left = Math.max(0, Math.round((end - Date.now()) / 1000));
+      var m = String(Math.floor(left / 60)).padStart(2, '0'), s = String(left % 60).padStart(2, '0');
+      t.textContent = m + ':' + s;
+    }
+    tick(); setInterval(tick, 1000);
+
+    // Karta raqamini nusxalash
+    var cb = document.getElementById('copy-btn');
+    cb.addEventListener('click', function () {
+      var num = document.getElementById('card-num').textContent.replace(/\s/g, '');
+      var done = function () { cb.textContent = 'Nusxalandi ✓'; cb.classList.add('done'); setTimeout(function () { cb.textContent = 'Nusxalash'; cb.classList.remove('done'); }, 1800); };
+      if (navigator.clipboard) navigator.clipboard.writeText(num).then(done, done);
+      else { var ta = document.createElement('textarea'); ta.value = num; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); done(); }
+    });
+
+    // Telefon maskasi: 90-123-4567
+    var ph = document.getElementById('f-phone');
+    ph.addEventListener('input', function () {
+      var d = ph.value.replace(/\D/g, '').slice(0, 9), o = d.slice(0, 2);
+      if (d.length > 2) o += '-' + d.slice(2, 5);
+      if (d.length > 5) o += '-' + d.slice(5, 9);
+      ph.value = o;
+    });
+
+    // Fayl nomi
+    var file = document.getElementById('f-file'), fname = document.getElementById('file-name');
+    file.addEventListener('change', function () { fname.textContent = file.files[0] ? file.files[0].name : ''; file.closest('.upload').classList.remove('invalid'); });
+
+    // Yuborish
+    var form = document.getElementById('reg-form'), note = document.getElementById('form-note');
+    var nameI = document.getElementById('f-name');
+    [nameI, ph].forEach(function (i) { i.addEventListener('input', function () { i.closest('.field').classList.remove('invalid'); }); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      note.className = 'form-note'; note.textContent = '';
+      var bad = false;
+      if (nameI.value.trim().length < 2) { nameI.closest('.field').classList.add('invalid'); bad = true; }
+      if (ph.value.replace(/\D/g, '').length !== 9) { ph.closest('.field').classList.add('invalid'); bad = true; }
+      if (!file.files[0]) { file.closest('.upload').classList.add('invalid'); bad = true; }
+      if (bad) { note.textContent = '⚠️ Iltimos, ism, telefon raqam va to\'lov chekini kiriting.'; return; }
+      if (!SUBMIT_URL) { note.textContent = '⚠️ Forma hozircha serverga ulanmagan, ma\'lumotlar yuborilmadi.'; return; }
+      var btn = form.querySelector('.cta-submit'); btn.disabled = true;
+      var fd = new FormData(form); fd.set('phone', '+998' + ph.value.replace(/\D/g, ''));
+      fetch(SUBMIT_URL, { method: 'POST', body: fd }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        note.className = 'form-note ok'; note.textContent = 'Rahmat! Arizangiz qabul qilindi.'; form.reset(); fname.textContent = '';
+      }).catch(function () {
+        note.textContent = '⚠️ Yuborib bo\'lmadi. Qaytadan urinib ko\'ring.';
+      }).then(function () { btn.disabled = false; });
+    });
+  })();
+
   // Bo'limlar ko'rinishga kirganda yumshoq paydo bo'lishi
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
@@ -688,7 +879,7 @@
     new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); })
       .observe(document.querySelector('.hero .cta'));
     new IntersectionObserver(function (e) { darsVisible = e[0].isIntersecting; update(); })
-      .observe(document.querySelector('.final .center'));
+      .observe(document.querySelector('#dars'));
   } else {
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
