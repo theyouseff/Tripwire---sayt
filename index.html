@@ -100,12 +100,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "badge img"
+      "badge badge"
       "title img"
       "cta   .";
     column-gap: 40px;
   }
-  .badge { grid-area: badge; justify-self: start; }
+  .badge { grid-area: badge; justify-self: center; margin-bottom: 40px; }
   .hero h1 { grid-area: title; }
   .hero .cta { grid-area: cta; justify-self: start; margin-top: 36px; }
   .hero-visual { grid-area: img; position: relative; min-height: 260px; }
@@ -124,7 +124,6 @@
     padding: 8px 22px;
     font-size: 15px;
     font-weight: 500;
-    margin-bottom: 26px;
   }
   .hero h1 {
     font-size: clamp(28px, 4vw, 54px);
