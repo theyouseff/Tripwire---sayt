@@ -293,6 +293,10 @@
     background: radial-gradient(circle at 30% 25%, var(--teal), var(--night) 80%);
   }
   .circle video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .circle iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .circle.embed { cursor: default; }
+  .circle.embed:hover { transform: none; }
+  .circle.embed { box-shadow: 0 14px 34px -14px var(--teal); }
   .circle .play {
     position: absolute; inset: 0;
     display: grid; place-items: center;
@@ -525,7 +529,7 @@
   <div class="container">
     <h2 class="reveal">O'quvchilarim nima deydi?</h2>
     <div class="circles reveal">
-      <div class="circle"><div class="circle-inner"><video src="videos/1.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/qfQKvrNSEzueTaLCAGHpQj" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
       <div class="circle"><div class="circle-inner"><video src="videos/2.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
       <div class="circle"><div class="circle-inner"><video src="videos/3.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
       <div class="circle"><div class="circle-inner"><video src="videos/4.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
@@ -600,9 +604,11 @@
   // Krujoklar: bosilganda ovoz bilan o'ynaydi, qayta bosilsa to'xtaydi
   document.querySelectorAll('.circle').forEach(function (c) {
     var v = c.querySelector('video');
+    if (!v) return; // Kinescope iframe o'zi boshqariladi
     c.addEventListener('click', function () {
       document.querySelectorAll('.circle').forEach(function (o) {
-        if (o !== c) { o.querySelector('video').pause(); o.classList.remove('playing'); }
+        var ov = o.querySelector('video');
+        if (o !== c && ov) { ov.pause(); o.classList.remove('playing'); }
       });
       if (v.paused) { v.play(); c.classList.add('playing'); }
       else { v.pause(); c.classList.remove('playing'); }
