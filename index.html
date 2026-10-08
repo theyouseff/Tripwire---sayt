@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>97,000 So'mlik darsni olish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-1: #4a93e3;
+    --blue-2: #1f4f9c;
+    --text: #111;
+    --muted: #f4f4f4;
+    --red: #e04b3c;
+    --green: #3f9a2a;
+    --radius: 28px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Poppins", Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 40px 0; }
+  h2 {
+    font-size: clamp(24px, 5vw, 34px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 32px;
+  }
+
+  /* ---------- 1. HERO ---------- */
+  .hero { padding-top: 16px; }
+  .hero-card {
+    background: linear-gradient(180deg, var(--blue-1) 0%, var(--blue-2) 100%);
+    border-radius: var(--radius);
+    padding: 36px 20px 0;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+  .badge {
+    display: inline-block;
+    border: 1.5px solid rgba(255,255,255,.85);
+    border-radius: 999px;
+    padding: 8px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 6.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.3;
+    max-width: 640px;
+    margin: 0 auto 28px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    max-width: 100%;
+  }
+  .cta-text {
+    background: #fff;
+    color: #111;
+    font-weight: 500;
+    font-size: 17px;
+    border-radius: 999px;
+    padding: 18px 56px;
+    transition: transform .2s;
+  }
+  .cta-arrow {
+    width: 60px; height: 60px; flex: 0 0 60px;
+    background: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    transition: transform .25s;
+  }
+  .cta:hover .cta-arrow { transform: rotate(45deg); }
+  .cta:hover .cta-text { transform: scale(1.03); }
+  .cta.dark .cta-text, .cta.dark .cta-arrow { background: linear-gradient(180deg, var(--blue-1), var(--blue-2)); color: #fff; }
+  .cta.dark svg { stroke: #fff; }
+  .hero-img {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    margin: 28px auto 0;
+  }
+
+  /* ---------- 2. NATIJALAR / 4. VALUE STACK ---------- */
+  .card {
+    background: var(--muted);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 20px;
+    font-size: 17px;
+  }
+  .dot {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    margin-bottom: 18px;
+    background: radial-gradient(circle at 35% 30%, #5f9ff0, #1f4f9c 75%);
+    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  }
+  .card .price { color: var(--red); }
+  .card.total {
+    background: #f6c9c6;
+    border: 1px solid #d0473b;
+    font-weight: 700;
+  }
+  .card.total .dot { background: radial-gradient(circle at 35% 30%, #e0473a, #8e1610 75%); }
+  .card.now {
+    background: #b0f7b4;
+    border: 1px solid #3f9a2a;
+    font-weight: 700;
+  }
+  .card.now .dot { background: radial-gradient(circle at 35% 30%, #6fd64d, #2b8a19 75%); }
+
+  .ps {
+    margin-top: 36px;
+    background: #fff;
+    border: 1.5px dashed #9bb9e4;
+    border-radius: 24px;
+    padding: 28px 24px;
+    font-size: 17px;
+  }
+  .ps-label {
+    display: inline-block;
+    background: linear-gradient(180deg, var(--blue-1), var(--blue-2));
+    color: #fff;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 4px 16px;
+    margin-bottom: 16px;
+  }
+  .ps p + p { margin-top: 14px; }
+  .ps strong { color: var(--blue-2); }
+  .ps .last { font-weight: 700; }
+  .center { text-align: center; margin-top: 32px; }
+
+  /* ---------- 3. O'QUVCHILAR NATIJALARI (krujoklar) ---------- */
+  .circles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .circle {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--blue-1), var(--blue-2));
+    box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--blue-1);
+    cursor: pointer;
+  }
+  .circle video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .circle .play {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    transition: opacity .2s;
+    pointer-events: none;
+  }
+  .circle .play span {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.45);
+    display: grid; place-items: center;
+  }
+  .circle.playing .play { opacity: 0; }
+  .circles-note { text-align: center; color: #666; margin-top: 22px; font-size: 15px; }
+
+  @media (max-width: 560px) {
+    .circles { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .cta-text { padding: 18px 40px; font-size: 16px; }
+    .card, .ps { font-size: 16px; }
+  }
+  @media (max-width: 360px) {
+    .cta-text { padding: 16px 26px; }
+    .cta-arrow { width: 54px; height: 54px; flex-basis: 54px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-card">
+      <div class="badge">⚠️Lor shifokorlari diqqatiga! ⚠️</div>
+      <h1>Endoskopik Peshona Operatsiyalarini xavfsiz va asoratsiz o'tkazishni bu 5 qadam orqali o'rganing!</h1>
+      <a class="cta" href="#dars">
+        <span class="cta-text">Darslikni olish</span>
+        <span class="cta-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+      </a>
+      <img class="hero-img" src="images/doctor.webp" alt="Mirkamol Nosirjonov">
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. NATIJALAR ============ -->
+<section>
+  <div class="container">
+    <h2>Bu darsni ko'rganingizdan keyin qanday natija olasiz:</h2>
+
+    <div class="card"><div class="dot"></div>
+      Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz
+    </div>
+    <div class="card"><div class="dot"></div>
+      Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz
+    </div>
+    <div class="card"><div class="dot"></div>
+      Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz
+    </div>
+    <div class="card"><div class="dot"></div>
+      Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz
+    </div>
+    <div class="card"><div class="dot"></div>
+      Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. O'QUVCHILARIM NATIJALARI ============ -->
+<!-- Videolarni videos/ papkasiga 1.mp4, 2.mp4 ... nomi bilan qo'ying -->
+<section>
+  <div class="container">
+    <h2>O'quvchilarim natijalari</h2>
+    <div class="circles">
+      <div class="circle"><video src="videos/1.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+      <div class="circle"><video src="videos/2.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+      <div class="circle"><video src="videos/3.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+      <div class="circle"><video src="videos/4.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+      <div class="circle"><video src="videos/5.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+      <div class="circle"><video src="videos/6.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. VALUE STACK ============ -->
+<section>
+  <div class="container">
+    <h2>Bu darslikda siz nimalarni olasiz:</h2>
+
+    <div class="card"><div class="dot"></div>
+      Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz
+      <span class="price">(qiymati 270.000 so'm)</span>
+    </div>
+    <div class="card"><div class="dot"></div>
+      Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz
+      <span class="price">(qiymati 190.000so'm)</span>
+    </div>
+    <div class="card"><div class="dot"></div>
+      Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz
+      <span class="price">(qiymati 370.000 so'm)</span>
+    </div>
+    <div class="card"><div class="dot"></div>
+      Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz
+      <span class="price">(qiymati 540.000 so'm)</span>
+    </div>
+    <div class="card"><div class="dot"></div>
+      Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi
+      <span class="price">(qiymati 290.000 so'm)</span>
+    </div>
+
+    <div class="card total"><div class="dot"></div>Jami qiymati: 1.670.000 so'm</div>
+    <div class="card now"><div class="dot"></div>Lekin hozir sotib olsangiz:<br>97.000 so'm</div>
+
+    <div class="ps">
+      <span class="ps-label">P.S.</span>
+      <p>Agar siz bu materiallarning har birini alohida izlab, o‘rganib chiqmoqchi bo‘lsangiz, buning uchun nafaqat ancha vaqt, balki sezilarli mablag‘ ham sarflashingizga to‘g‘ri keladi.</p>
+      <p>Chunki bu yerda oddiy LOR bilimlaridan ko‘ra, amaliyotda kerak bo‘ladigan, murakkab holatlarni tushunish va klinik qarorlarni yanada aniqroq qabul qilishga yordam beradigan materiallar jamlangan.</p>
+      <p><strong>Eng muhimi — bu materiallarning ayrimlari ommaga umuman ochiq emas.</strong></p>
+      <p>Ular mening 5 000 000 so‘mlik kursimda tahsil olgan shifokorlar uchun maxsus tayyorlangan darslik va materiallar.</p>
+      <p>Lekin men bu bilimlarni faqat kursim ishtirokchilarida qolib ketishini xohlamadim.</p>
+      <p>Shuning uchun sizga ham birinchi marta ushbu materiallarni ko‘rib chiqish imkoniyatini bermoqchiman.</p>
+      <p>Agar siz hozir qo‘shilsangiz, 5 000 000 so‘mlik kurs ishtirokchilariga berilgan ushbu materiallarni <strong>atigi 97 000 so‘mga</strong> olishingiz mumkin.</p>
+      <p>Ya’ni, to‘liq kursga yozilmasdan turib, uning ichidagi eng kerakli darslik va materiallar bilan tanishish imkoniyati siz uchun ham ochiladi.</p>
+      <p class="last">Buning uchun hoziroq 97 000 so‘mlik kirishni oling.</p>
+    </div>
+
+    <div class="center">
+      <a class="cta dark" href="#dars">
+        <span class="cta-text">Darslikni olish</span>
+        <span class="cta-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Keyingi bloklar (ro'yxatdan o'tish, taymer, forma) shu yerga qo'shiladi -->
+<div id="dars"></div>
+
+<script>
+  // Krujoklar: bosilganda ovoz bilan o'ynaydi, qayta bosilsa to'xtaydi
+  document.querySelectorAll('.circle').forEach(function (c) {
+    var v = c.querySelector('video');
+    c.addEventListener('click', function () {
+      document.querySelectorAll('.circle video').forEach(function (o) {
+        if (o !== v) { o.pause(); o.parentElement.classList.remove('playing'); }
+      });
+      if (v.paused) { v.play(); c.classList.add('playing'); }
+      else { v.pause(); c.classList.remove('playing'); }
+    });
+    v.addEventListener('ended', function () { c.classList.remove('playing'); });
+  });
+</script>
+</body>
+</html>
