@@ -4,169 +4,206 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>97,000 So'mlik darsni olish</title>
+<meta name="theme-color" content="#0B2A3C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --blue-1: #4a93e3;
-    --blue-2: #1f4f9c;
-    --text: #111;
-    --muted: #f4f4f4;
-    --red: #e04b3c;
-    --green: #3f9a2a;
+    --teal: #0F5C6E;
+    --night: #0B2A3C;
+    --teal-06: rgba(15, 92, 110, .06);
+    --teal-10: rgba(15, 92, 110, .10);
+    --teal-20: rgba(15, 92, 110, .20);
+    --teal-40: rgba(15, 92, 110, .40);
+    --night-70: rgba(11, 42, 60, .72);
+    --white: #fff;
+    --white-10: rgba(255, 255, 255, .10);
+    --white-20: rgba(255, 255, 255, .20);
+    --white-60: rgba(255, 255, 255, .62);
     --radius: 28px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     font-family: "Poppins", Arial, sans-serif;
-    color: var(--text);
-    background: #fff;
-    line-height: 1.5;
+    color: var(--night);
+    background: var(--white);
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
+  img { max-width: 100%; }
   .container { max-width: 760px; margin: 0 auto; padding: 0 16px; }
-  section { padding: 40px 0; }
+  section { padding: 64px 0; }
   h2 {
-    font-size: clamp(24px, 5vw, 34px);
+    font-size: clamp(24px, 5vw, 36px);
     font-weight: 700;
     text-align: center;
-    line-height: 1.3;
-    margin-bottom: 32px;
+    line-height: 1.25;
+    letter-spacing: -.01em;
+    margin-bottom: 36px;
+  }
+  h2::after {
+    content: "";
+    display: block;
+    width: 56px; height: 4px;
+    border-radius: 4px;
+    background: var(--teal);
+    margin: 18px auto 0;
   }
 
-  /* ---------- 1. HERO ---------- */
-  .hero { padding-top: 16px; }
-  .hero-card {
-    background: linear-gradient(180deg, var(--blue-1) 0%, var(--blue-2) 100%);
-    border-radius: var(--radius);
-    padding: 36px 20px 0;
-    text-align: center;
-    color: #fff;
-    overflow: hidden;
-  }
-  .badge {
-    display: inline-block;
-    border: 1.5px solid rgba(255,255,255,.85);
-    border-radius: 999px;
-    padding: 8px 22px;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 24px;
-  }
-  .hero h1 {
-    font-size: clamp(26px, 6.2vw, 44px);
-    font-weight: 700;
-    line-height: 1.3;
-    max-width: 640px;
-    margin: 0 auto 28px;
-  }
+  /* ---------- CTA ---------- */
   .cta {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     text-decoration: none;
     max-width: 100%;
   }
   .cta-text {
-    background: #fff;
-    color: #111;
-    font-weight: 500;
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 600;
     font-size: 17px;
     border-radius: 999px;
-    padding: 18px 56px;
-    transition: transform .2s;
+    padding: 18px 52px;
+    box-shadow: 0 10px 30px -8px var(--teal-40);
+    transition: transform .2s, box-shadow .2s;
   }
   .cta-arrow {
     width: 60px; height: 60px; flex: 0 0 60px;
-    background: #fff;
+    background: var(--white);
     border-radius: 50%;
     display: grid; place-items: center;
-    transition: transform .25s;
+    transition: transform .3s;
   }
+  .cta-arrow svg { stroke: var(--teal); }
+  .cta:hover .cta-text { transform: translateY(-2px); box-shadow: 0 14px 34px -8px var(--teal); }
   .cta:hover .cta-arrow { transform: rotate(45deg); }
-  .cta:hover .cta-text { transform: scale(1.03); }
-  .cta.dark .cta-text, .cta.dark .cta-arrow { background: linear-gradient(180deg, var(--blue-1), var(--blue-2)); color: #fff; }
-  .cta.dark svg { stroke: #fff; }
-  .hero-img {
-    display: block;
-    width: 100%;
-    max-width: 440px;
-    margin: 28px auto 0;
-  }
+  .hero .cta-text { background: var(--white); color: var(--night); box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
+  .hero .cta-arrow { background: var(--teal); box-shadow: 0 0 0 1px var(--white-20); }
+  .hero .cta-arrow svg { stroke: var(--white); }
 
-  /* ---------- 2. NATIJALAR / 4. VALUE STACK ---------- */
-  .card {
-    background: var(--muted);
-    border-radius: 24px;
-    padding: 24px;
-    margin-bottom: 20px;
-    font-size: 17px;
+  /* ---------- 1. HERO ---------- */
+  .hero { padding: 16px 0 0; }
+  .hero-card {
+    position: relative;
+    background:
+      radial-gradient(120% 70% at 100% 0%, var(--teal) 0%, transparent 60%),
+      radial-gradient(90% 60% at 0% 100%, var(--teal-40) 0%, transparent 70%),
+      var(--night);
+    border-radius: var(--radius);
+    padding: 40px 20px 0;
+    text-align: center;
+    color: var(--white);
+    overflow: hidden;
+    isolation: isolate;
   }
-  .dot {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    margin-bottom: 18px;
-    background: radial-gradient(circle at 35% 30%, #5f9ff0, #1f4f9c 75%);
-    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  .hero-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(var(--white-10) 1px, transparent 1px);
+    background-size: 22px 22px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+    z-index: -1;
   }
-  .card .price { color: var(--red); }
-  .card.total {
-    background: #f6c9c6;
-    border: 1px solid #d0473b;
-    font-weight: 700;
-  }
-  .card.total .dot { background: radial-gradient(circle at 35% 30%, #e0473a, #8e1610 75%); }
-  .card.now {
-    background: #b0f7b4;
-    border: 1px solid #3f9a2a;
-    font-weight: 700;
-  }
-  .card.now .dot { background: radial-gradient(circle at 35% 30%, #6fd64d, #2b8a19 75%); }
-
-  .ps {
-    margin-top: 36px;
-    background: #fff;
-    border: 1.5px dashed #9bb9e4;
-    border-radius: 24px;
-    padding: 28px 24px;
-    font-size: 17px;
-  }
-  .ps-label {
+  .badge {
     display: inline-block;
-    background: linear-gradient(180deg, var(--blue-1), var(--blue-2));
-    color: #fff;
-    font-weight: 700;
+    background: var(--white-10);
+    border: 1px solid var(--white-20);
+    backdrop-filter: blur(6px);
     border-radius: 999px;
-    padding: 4px 16px;
-    margin-bottom: 16px;
+    padding: 8px 22px;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 26px;
   }
-  .ps p + p { margin-top: 14px; }
-  .ps strong { color: var(--blue-2); }
-  .ps .last { font-weight: 700; }
-  .center { text-align: center; margin-top: 32px; }
+  .hero h1 {
+    font-size: clamp(27px, 6.2vw, 46px);
+    font-weight: 800;
+    line-height: 1.22;
+    letter-spacing: -.015em;
+    max-width: 660px;
+    margin: 0 auto 32px;
+  }
+  .hero-visual {
+    position: relative;
+    max-width: 440px;
+    margin: 32px auto 0;
+  }
+  .hero-visual::before {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: 8%;
+    width: 86%; aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--teal) 0%, transparent 68%);
+    border: 1px solid var(--white-20);
+    z-index: -1;
+  }
+  .hero-img { display: block; width: 100%; }
 
-  /* ---------- 3. O'QUVCHILAR NATIJALARI (krujoklar) ---------- */
+  /* ---------- 2. NATIJALAR ---------- */
+  .results { counter-reset: n; }
+  .result {
+    counter-increment: n;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: var(--white);
+    border: 1px solid var(--teal-20);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 16px;
+    font-size: 17px;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .result::before {
+    content: counter(n, decimal-leading-zero);
+    flex: 0 0 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 16px;
+    display: grid; place-items: center;
+  }
+  .result:hover {
+    transform: translateY(-3px);
+    border-color: var(--teal-40);
+    box-shadow: 0 16px 32px -18px var(--teal);
+  }
+
+  /* ---------- 3. KRUJOKLAR ---------- */
+  .students { background: var(--teal-06); }
   .circles {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    gap: 22px;
   }
   .circle {
     position: relative;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
-    overflow: hidden;
-    background: linear-gradient(180deg, var(--blue-1), var(--blue-2));
-    box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--blue-1);
+    padding: 5px;
+    background: conic-gradient(var(--teal), var(--night), var(--teal));
     cursor: pointer;
+    transition: transform .25s;
   }
-  .circle video {
+  .circle:hover { transform: scale(1.03); }
+  .circle-inner {
+    position: relative;
     width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--white);
+    background: radial-gradient(circle at 30% 25%, var(--teal), var(--night) 80%);
   }
+  .circle video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .circle .play {
     position: absolute; inset: 0;
     display: grid; place-items: center;
@@ -174,21 +211,179 @@
     pointer-events: none;
   }
   .circle .play span {
-    width: 44px; height: 44px;
+    width: 48px; height: 48px;
     border-radius: 50%;
-    background: rgba(0,0,0,.45);
+    background: var(--white-20);
+    border: 1px solid var(--white-60);
+    backdrop-filter: blur(4px);
     display: grid; place-items: center;
   }
   .circle.playing .play { opacity: 0; }
-  .circles-note { text-align: center; color: #666; margin-top: 22px; font-size: 15px; }
+  .circle.playing { animation: spin 3s linear infinite; }
+  .circle.playing .circle-inner { animation: spin 3s linear infinite reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- 4. VALUE STACK ---------- */
+  .stack {
+    background:
+      radial-gradient(70% 40% at 50% 0%, var(--teal-40), transparent 70%),
+      var(--night);
+    color: var(--white);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .stack h2 { color: var(--white); }
+  .stack h2::after { background: var(--white); }
+  .item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--white-10);
+    border: 1px solid var(--white-10);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 14px;
+    font-size: 16.5px;
+  }
+  .check {
+    flex: 0 0 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: grid; place-items: center;
+    margin-top: 2px;
+  }
+  .price {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+  .total {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--white-60);
+    border: 1px dashed var(--white-20);
+    border-radius: 22px;
+    padding: 18px;
+  }
+  .total s { text-decoration-thickness: 2px; }
+  .now {
+    position: relative;
+    margin-top: 14px;
+    text-align: center;
+    background: var(--teal);
+    border-radius: 26px;
+    padding: 30px 20px;
+    box-shadow: 0 0 0 1px var(--white-20), 0 24px 60px -20px var(--teal);
+    overflow: hidden;
+  }
+  .now::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, var(--white-20) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: shine 3.5s ease-in-out infinite;
+  }
+  @keyframes shine { 60%, 100% { transform: translateX(100%); } }
+  .now-label { position: relative; font-size: 17px; font-weight: 500; }
+  .now-price {
+    position: relative;
+    display: block;
+    font-size: clamp(40px, 11vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-top: 6px;
+  }
+
+  .ps {
+    margin-top: 40px;
+    background: var(--white);
+    color: var(--night);
+    border-radius: 24px;
+    padding: 32px 26px;
+    font-size: 16.5px;
+    border-left: 6px solid var(--teal);
+  }
+  .ps-label {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+  .ps p + p { margin-top: 14px; }
+  .ps .hl {
+    color: var(--teal);
+    font-weight: 700;
+    background: var(--teal-10);
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+  .ps strong { color: var(--teal); }
+  .ps .last { font-weight: 700; font-size: 18px; }
+  .center { text-align: center; margin-top: 40px; }
+  .stack .cta-arrow { background: var(--white); }
+
+  /* ---------- Mobil sticky CTA ---------- */
+  .sticky {
+    position: fixed;
+    left: 12px; right: 12px; bottom: 12px;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--night);
+    border: 1px solid var(--white-20);
+    border-radius: 999px;
+    padding: 8px 8px 8px 22px;
+    color: var(--white);
+    box-shadow: 0 12px 40px -10px var(--night);
+    transform: translateY(140%);
+    transition: transform .35s ease;
+  }
+  .sticky.show { transform: translateY(0); }
+  .sticky-price { font-weight: 800; font-size: 18px; white-space: nowrap; }
+  .sticky a {
+    background: var(--teal);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 13px 22px;
+    white-space: nowrap;
+  }
+
+  /* ---------- Animatsiya ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .now::before, .circle.playing, .circle.playing .circle-inner { animation: none; }
+    html { scroll-behavior: auto; }
+  }
 
   @media (max-width: 560px) {
-    .circles { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .cta-text { padding: 18px 40px; font-size: 16px; }
-    .card, .ps { font-size: 16px; }
+    section { padding: 48px 0; }
+    .circles { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .cta-text { padding: 18px 36px; font-size: 16px; }
+    .result, .item, .ps { font-size: 16px; }
+    .result { padding: 18px; gap: 14px; }
+    .result::before { flex-basis: 42px; height: 42px; font-size: 15px; }
+    .ps { padding: 26px 20px; }
+    .sticky { display: flex; }
+    body { padding-bottom: 84px; }
   }
   @media (max-width: 360px) {
-    .cta-text { padding: 16px 26px; }
+    .cta-text { padding: 16px 24px; }
     .cta-arrow { width: 54px; height: 54px; flex-basis: 54px; }
   }
 </style>
@@ -203,86 +398,76 @@
       <h1>Endoskopik Peshona Operatsiyalarini xavfsiz va asoratsiz o'tkazishni bu 5 qadam orqali o'rganing!</h1>
       <a class="cta" href="#dars">
         <span class="cta-text">Darslikni olish</span>
-        <span class="cta-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+        <span class="cta-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
       </a>
-      <img class="hero-img" src="images/doctor.webp" alt="Mirkamol Nosirjonov">
+      <div class="hero-visual">
+        <img class="hero-img" src="images/doctor.webp" alt="Mirkamol Nosirjonov">
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 2. NATIJALAR ============ -->
-<section>
+<section class="results">
   <div class="container">
-    <h2>Bu darsni ko'rganingizdan keyin qanday natija olasiz:</h2>
+    <h2 class="reveal">Bu darsni ko'rganingizdan keyin qanday natija olasiz:</h2>
 
-    <div class="card"><div class="dot"></div>
-      Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz
-    </div>
-    <div class="card"><div class="dot"></div>
-      Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz
-    </div>
-    <div class="card"><div class="dot"></div>
-      Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz
-    </div>
-    <div class="card"><div class="dot"></div>
-      Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz
-    </div>
-    <div class="card"><div class="dot"></div>
-      Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi
-    </div>
+    <div class="result reveal"><div>Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz</div></div>
+    <div class="result reveal"><div>Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz</div></div>
+    <div class="result reveal"><div>Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz</div></div>
+    <div class="result reveal"><div>Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz</div></div>
+    <div class="result reveal"><div>Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi</div></div>
   </div>
 </section>
 
 <!-- ============ 3. O'QUVCHILARIM NATIJALARI ============ -->
 <!-- Videolarni videos/ papkasiga 1.mp4, 2.mp4 ... nomi bilan qo'ying -->
-<section>
+<section class="students">
   <div class="container">
-    <h2>O'quvchilarim natijalari</h2>
-    <div class="circles">
-      <div class="circle"><video src="videos/1.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-      <div class="circle"><video src="videos/2.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-      <div class="circle"><video src="videos/3.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-      <div class="circle"><video src="videos/4.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-      <div class="circle"><video src="videos/5.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-      <div class="circle"><video src="videos/6.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div>
+    <h2 class="reveal">O'quvchilarim natijalari</h2>
+    <div class="circles reveal">
+      <div class="circle"><div class="circle-inner"><video src="videos/1.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
+      <div class="circle"><div class="circle-inner"><video src="videos/2.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
+      <div class="circle"><div class="circle-inner"><video src="videos/3.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
+      <div class="circle"><div class="circle-inner"><video src="videos/4.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
+      <div class="circle"><div class="circle-inner"><video src="videos/5.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
+      <div class="circle"><div class="circle-inner"><video src="videos/6.mp4" playsinline preload="metadata"></video><div class="play"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- ============ 4. VALUE STACK ============ -->
-<section>
+<section class="stack" id="stack">
   <div class="container">
-    <h2>Bu darslikda siz nimalarni olasiz:</h2>
+    <h2 class="reveal">Bu darslikda siz nimalarni olasiz:</h2>
 
-    <div class="card"><div class="dot"></div>
-      Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz
-      <span class="price">(qiymati 270.000 so'm)</span>
+    <div class="item reveal"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+      <div>Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz<br><span class="price">(qiymati 270.000 so'm)</span></div>
     </div>
-    <div class="card"><div class="dot"></div>
-      Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz
-      <span class="price">(qiymati 190.000so'm)</span>
+    <div class="item reveal"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+      <div>Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz<br><span class="price">(qiymati 190.000so'm)</span></div>
     </div>
-    <div class="card"><div class="dot"></div>
-      Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz
-      <span class="price">(qiymati 370.000 so'm)</span>
+    <div class="item reveal"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+      <div>Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz<br><span class="price">(qiymati 370.000 so'm)</span></div>
     </div>
-    <div class="card"><div class="dot"></div>
-      Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz
-      <span class="price">(qiymati 540.000 so'm)</span>
+    <div class="item reveal"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+      <div>Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz<br><span class="price">(qiymati 540.000 so'm)</span></div>
     </div>
-    <div class="card"><div class="dot"></div>
-      Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi
-      <span class="price">(qiymati 290.000 so'm)</span>
+    <div class="item reveal"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+      <div>Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi<br><span class="price">(qiymati 290.000 so'm)</span></div>
     </div>
 
-    <div class="card total"><div class="dot"></div>Jami qiymati: 1.670.000 so'm</div>
-    <div class="card now"><div class="dot"></div>Lekin hozir sotib olsangiz:<br>97.000 so'm</div>
+    <div class="total reveal">Jami qiymati: <s>1.670.000 so'm</s></div>
+    <div class="now reveal">
+      <div class="now-label">Lekin hozir sotib olsangiz:</div>
+      <span class="now-price">97.000 so'm</span>
+    </div>
 
-    <div class="ps">
+    <div class="ps reveal">
       <span class="ps-label">P.S.</span>
       <p>Agar siz bu materiallarning har birini alohida izlab, o‘rganib chiqmoqchi bo‘lsangiz, buning uchun nafaqat ancha vaqt, balki sezilarli mablag‘ ham sarflashingizga to‘g‘ri keladi.</p>
       <p>Chunki bu yerda oddiy LOR bilimlaridan ko‘ra, amaliyotda kerak bo‘ladigan, murakkab holatlarni tushunish va klinik qarorlarni yanada aniqroq qabul qilishga yordam beradigan materiallar jamlangan.</p>
-      <p><strong>Eng muhimi — bu materiallarning ayrimlari ommaga umuman ochiq emas.</strong></p>
+      <p class="hl">Eng muhimi — bu materiallarning ayrimlari ommaga umuman ochiq emas.</p>
       <p>Ular mening 5 000 000 so‘mlik kursimda tahsil olgan shifokorlar uchun maxsus tayyorlangan darslik va materiallar.</p>
       <p>Lekin men bu bilimlarni faqat kursim ishtirokchilarida qolib ketishini xohlamadim.</p>
       <p>Shuning uchun sizga ham birinchi marta ushbu materiallarni ko‘rib chiqish imkoniyatini bermoqchiman.</p>
@@ -292,9 +477,9 @@
     </div>
 
     <div class="center">
-      <a class="cta dark" href="#dars">
+      <a class="cta" href="#dars">
         <span class="cta-text">Darslikni olish</span>
-        <span class="cta-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+        <span class="cta-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
       </a>
     </div>
   </div>
@@ -303,19 +488,44 @@
 <!-- Keyingi bloklar (ro'yxatdan o'tish, taymer, forma) shu yerga qo'shiladi -->
 <div id="dars"></div>
 
+<!-- Mobil sticky CTA -->
+<div class="sticky" aria-hidden="true">
+  <span class="sticky-price">97.000 so'm</span>
+  <a href="#dars" tabindex="-1">Darslikni olish</a>
+</div>
+
 <script>
   // Krujoklar: bosilganda ovoz bilan o'ynaydi, qayta bosilsa to'xtaydi
   document.querySelectorAll('.circle').forEach(function (c) {
     var v = c.querySelector('video');
     c.addEventListener('click', function () {
-      document.querySelectorAll('.circle video').forEach(function (o) {
-        if (o !== v) { o.pause(); o.parentElement.classList.remove('playing'); }
+      document.querySelectorAll('.circle').forEach(function (o) {
+        if (o !== c) { o.querySelector('video').pause(); o.classList.remove('playing'); }
       });
       if (v.paused) { v.play(); c.classList.add('playing'); }
       else { v.pause(); c.classList.remove('playing'); }
     });
     v.addEventListener('ended', function () { c.classList.remove('playing'); });
   });
+
+  // Bo'limlar ko'rinishga kirganda yumshoq paydo bo'lishi
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    // Sticky CTA: hero'dan o'tgach chiqadi, ro'yxatdan o'tish joyida yashirinadi
+    var sticky = document.querySelector('.sticky');
+    var heroVisible = true, darsVisible = false;
+    var update = function () { sticky.classList.toggle('show', !heroVisible && !darsVisible); };
+    new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); })
+      .observe(document.querySelector('.hero .cta'));
+    new IntersectionObserver(function (e) { darsVisible = e[0].isIntersecting; update(); })
+      .observe(document.querySelector('#stack .center'));
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }
 </script>
 </body>
 </html>
