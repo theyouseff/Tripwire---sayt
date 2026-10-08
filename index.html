@@ -445,7 +445,7 @@
     border-radius: 14px; padding: 8px 16px;
     box-shadow: 0 0 0 1px var(--white-20), 0 10px 28px -12px var(--teal);
   }
-  .reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+  .reg-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
   .reg-steps { display: flex; flex-direction: column; gap: 16px; }
   .step {
     background: var(--white-10);
@@ -465,7 +465,7 @@
     box-shadow: 0 0 24px -10px #4fc3e8, inset 0 0 18px -12px #4fc3e8;
   }
   .pay-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-  .pay-num { font-size: clamp(22px, 3.2vw, 30px); font-weight: 800; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+  .pay-num { font-size: clamp(18px, 5.2vw, 30px); font-weight: 800; white-space: nowrap; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
   .pay-name { margin-top: 10px; font-weight: 700; color: var(--white-60); }
   .copy {
     font: inherit; font-size: 14px; font-weight: 600; color: var(--white);
@@ -504,22 +504,23 @@
   .phone .flag { font-size: 20px; line-height: 1; }
   .phone .code { font-weight: 600; }
   .up-label { margin-top: 6px; font-size: 16px; }
-  .tg-btn {
-    align-self: flex-start;
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--teal); color: var(--white); text-decoration: none;
-    font-weight: 600; font-size: 15px;
-    border: 1px solid var(--white-20);
-    border-radius: 999px; padding: 13px 24px;
-    transition: transform .2s, box-shadow .2s;
+  .cta-tg { padding: 7px 30px 7px 7px; gap: 18px; justify-content: space-between; }
+  .cta-tg .cta-text { flex: 1; }
+  .tg-ico {
+    flex: 0 0 58px; width: 58px; height: 58px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--white);
+    background: radial-gradient(circle at 35% 30%, #1f7f95, var(--teal) 70%);
+    border: 1.5px solid rgba(79,195,232,.55);
+    box-shadow: 0 0 18px -4px #4fc3e8;
   }
-  .tg-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px var(--teal); }
+  .tg-arrow { color: var(--white); display: grid; place-items: center; transition: transform .25s; }
+  .cta-tg:hover .tg-arrow { transform: translateX(6px); }
   .form-note { min-height: 20px; font-size: 14px; color: #ffcc4d; }
   .form-note.ok { color: #4fc3e8; }
-  .cta-submit { width: 100%; min-width: 0; font: inherit; text-align: left; cursor: pointer; margin-top: 4px; }
+  .cta-submit { width: 100%; min-width: 0; font: inherit; text-align: left; cursor: pointer; margin-top: 8px; }
   .cta-submit:disabled { opacity: .6; cursor: progress; }
   @media (max-width: 860px) {
-    .reg-grid { grid-template-columns: 1fr; }
+    .reg-grid { grid-template-columns: minmax(0, 1fr); }
     .reg-head { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 560px) {
@@ -528,6 +529,9 @@
     .step { padding: 18px 18px; font-size: 16px; }
     .timer { flex-wrap: wrap; }
     .cta-submit { max-width: none; }
+    .cta-tg { padding-right: 20px; gap: 12px; }
+    .tg-ico { flex-basis: 50px; width: 50px; height: 50px; }
+    .cta-tg .cta-text { font-size: 16px; }
   }
 
   /* ---------- Mobil sticky CTA ---------- */
@@ -712,17 +716,11 @@
         <label class="field"><input type="text" id="f-name" name="name" placeholder="Ismingizni kiriting" autocomplete="name" required></label>
         <label class="field phone"><span class="flag">🇺🇿</span><span class="code">+998</span><input type="tel" id="f-phone" name="phone" inputmode="numeric" placeholder="00-000-0000" autocomplete="tel-national" required></label>
         <p class="up-label">To'lovni amalga oshirganingizdan so'ng pastdagi tugma orqali telegram profilga o'tib to'lov chekini tashlang!</p>
-        <a class="tg-btn" id="tg-btn" href="https://t.me/" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.5 3.3 2.9 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.1.8.7.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.5.2 1.7-.8l3-14.3c.3-1.2-.4-1.7-1.3-1.3zM9 13.7l9.3-5.9c.4-.3.8-.1.5.2l-7.7 7-.3 3.2-1.8-4.5z"/></svg>
-          Telegramga o'tish
-        </a>
         <p class="form-note" id="form-note" role="status"></p>
-        <button class="cta cta-submit" type="submit">
-          <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
-          <span class="cta-sep"></span>
-          <span class="cta-text">Darslikni <em>olish</em></span>
-          <svg class="cta-curve" viewBox="0 0 112 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 C 38 70, 46 0, 112 0"/></svg>
-          <span class="cta-arrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M14 5l7 7-7 7"/></svg></span>
+        <button class="cta cta-submit cta-tg" type="submit">
+          <span class="tg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.5 3.3 2.9 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.1.8.7.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.5.2 1.7-.8l3-14.3c.3-1.2-.4-1.7-1.3-1.3zM9 13.7l9.3-5.9c.4-.3.8-.1.5.2l-7.7 7-.3 3.2-1.8-4.5z"/></svg></span>
+          <span class="cta-text">Telegramga <em>o'tish</em></span>
+          <span class="tg-arrow"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M14 5l7 7-7 7"/></svg></span>
         </button>
       </form>
     </div>
@@ -806,6 +804,8 @@
   (function () {
     // Forma yuboriladigan manzil. Hozircha ulanmagan (bo'sh) — keyin Telegram bot / Google Sheets / CRM manzili qo'yiladi.
     var SUBMIT_URL = '';
+    // Chek tashlanadigan Telegram profil (@username kiritilgach https://t.me/username qilib almashtiring)
+    var TELEGRAM_URL = 'https://t.me/';
 
     // Taymer: 15:00 dan teskari sanaydi, sahifa qayta ochilganda ham davom etadi
     var t = document.getElementById('timer'), KEY = 'tw_end', end;
@@ -847,15 +847,12 @@
       if (nameI.value.trim().length < 2) { nameI.closest('.field').classList.add('invalid'); bad = true; }
       if (ph.value.replace(/\D/g, '').length !== 9) { ph.closest('.field').classList.add('invalid'); bad = true; }
       if (bad) { note.textContent = '⚠️ Iltimos, ism va telefon raqamni kiriting.'; return; }
-      if (!SUBMIT_URL) { note.textContent = '⚠️ Forma hozircha serverga ulanmagan, ma\'lumotlar yuborilmadi.'; return; }
-      var btn = form.querySelector('.cta-submit'); btn.disabled = true;
-      var fd = new FormData(form); fd.set('phone', '+998' + ph.value.replace(/\D/g, ''));
-      fetch(SUBMIT_URL, { method: 'POST', body: fd }).then(function (r) {
-        if (!r.ok) throw new Error(r.status);
-        note.className = 'form-note ok'; note.textContent = 'Rahmat! Arizangiz qabul qilindi.'; form.reset();
-      }).catch(function () {
-        note.textContent = '⚠️ Yuborib bo\'lmadi. Qaytadan urinib ko\'ring.';
-      }).then(function () { btn.disabled = false; });
+      var go = function () { window.open(TELEGRAM_URL, '_blank', 'noopener'); };
+      if (SUBMIT_URL) {
+        var fd = new FormData(form); fd.set('phone', '+998' + ph.value.replace(/\D/g, ''));
+        try { fetch(SUBMIT_URL, { method: 'POST', body: fd, keepalive: true }); } catch (err) {}
+      }
+      go();
     });
   })();
 
