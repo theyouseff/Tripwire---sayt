@@ -195,35 +195,62 @@
   }
 
   /* ---------- 2. NATIJALAR ---------- */
-  .results { counter-reset: n; }
-  .result {
-    counter-increment: n;
+  .results { background: var(--night); color: var(--white); }
+  .results h2::after { background: var(--white); }
+  .results .container { max-width: 1200px; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .rcard {
+    --cyan: #4fc3e8;
     display: flex;
-    gap: 18px;
-    align-items: flex-start;
-    background: var(--white);
-    border: 1px solid var(--teal-20);
+    flex-direction: column;
+    background: #04141e;
+    border: 1.5px solid rgba(79,195,232,.55);
     border-radius: 22px;
-    padding: 22px;
-    margin-bottom: 16px;
-    font-size: 17px;
+    overflow: hidden;
+    box-shadow: 0 0 24px -10px var(--cyan), inset 0 0 18px -12px var(--cyan);
     transition: transform .25s, box-shadow .25s, border-color .25s;
   }
-  .result::before {
-    content: counter(n, decimal-leading-zero);
-    flex: 0 0 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: var(--teal);
-    color: var(--white);
-    font-weight: 700;
-    font-size: 16px;
-    display: grid; place-items: center;
+  .rcard:hover { transform: translateY(-4px); border-color: var(--cyan); box-shadow: 0 0 34px -6px var(--cyan), inset 0 0 20px -10px var(--cyan); }
+  .rcard-img {
+    display: block; width: 100%; height: auto;
+    -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
   }
-  .result:hover {
-    transform: translateY(-3px);
-    border-color: var(--teal-40);
-    box-shadow: 0 16px 32px -18px var(--teal);
+  .rcard-body { padding: 0 18px 22px; margin-top: -6px; }
+  .rcard-body::before {
+    content: ""; display: block;
+    width: 28px; height: 2px; background: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .rcard-title { font-size: 15px; font-weight: 700; line-height: 1.4; }
+  .rcard-title em { font-style: normal; color: var(--cyan); }
+  .rcard-desc { font-size: 13.5px; line-height: 1.5; color: var(--white-60); margin-top: 8px; }
+  @media (max-width: 1080px) {
+    .cards { grid-template-columns: repeat(6, 1fr); }
+    .rcard { grid-column: span 2; }
+    .rcard:nth-child(4) { grid-column: 2 / span 2; }
+    .rcard:nth-child(5) { grid-column: 4 / span 2; }
+  }
+  @media (max-width: 700px) {
+    .cards {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 16px;
+      gap: 14px;
+      margin: 0 -16px;
+      padding: 6px 16px 18px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .rcard { flex: 0 0 78%; grid-column: auto; scroll-snap-align: start; scroll-margin-left: 16px; }
+    .rcard:hover { transform: none; }
+    .rcard-title { font-size: 16px; }
+    .rcard-desc { font-size: 14.5px; }
   }
 
   /* ---------- 3. KRUJOKLAR ---------- */
@@ -426,9 +453,7 @@
     .cta-text { font-size: 16px; }
     .cta-curve { width: 84px; }
     .cta-arrow { right: 18px; }
-    .result, .item, .ps { font-size: 16px; }
-    .result { padding: 18px; gap: 14px; }
-    .result::before { flex-basis: 42px; height: 42px; font-size: 15px; }
+    .item, .ps { font-size: 16px; }
     .ps { padding: 26px 20px; }
     .sticky { display: flex; }
     body { padding-bottom: 84px; }
@@ -465,12 +490,18 @@
 <section class="results">
   <div class="container">
     <h2 class="reveal">Bu darsni ko'rganingizdan keyin qanday natija olasiz:</h2>
-
-    <div class="result reveal"><div>Shifokor sifatida Peshona cho'ntagini mustaqil va xatosiz tahlil qilishni hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz</div></div>
-    <div class="result reveal"><div>Peshona operatsiyalarida kutilgan natijaga erisish uchun,<br>Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz</div></div>
-    <div class="result reveal"><div>Sinus frontalisning 5 ta asosiy drenaj yo'li (UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT) bo'yicha eng ishonchli kirishni o'zlashtirasiz</div></div>
-    <div class="result reveal"><div>Vittorio Rampanelli qoidasiga tayanib ("kam va kerakli ish qil"), miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz</div></div>
-    <div class="result reveal"><div>Murakkab peshona operatsiyalarini o'zizga ishonch bilan xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi</div></div>
+    <div class="cards">
+      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c1.webp" alt="01" loading="lazy">
+        <div class="rcard-body"><h3 class="rcard-title">Shifokor sifatida Peshona cho'ntagini <em>mustaqil va</em> xatosiz tahlil qilishni</h3><p class="rcard-desc">hamda Professor P. J. Wormaldni “Building block” konsepsiyasini qo'llashni o'rganasiz</p></div></article>
+      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c2.webp" alt="02" loading="lazy">
+        <div class="rcard-body"><h3 class="rcard-title">Peshona operatsiyalarida kutilgan natijaga erisish uchun,</h3><p class="rcard-desc">Peshona bo’shlig’i endoskopik operatsiya turlari hamda tabiiy teshigi anatomiyasi bilib olasiz</p></div></article>
+      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c3.webp" alt="03" loading="lazy">
+        <div class="rcard-body"><h3 class="rcard-title">Sinus frontalisning 5 ta asosiy drenaj yo'li <em>(UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT)</em></h3><p class="rcard-desc">bo'yicha eng ishonchli kirishni o'zlashtirasiz</p></div></article>
+      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c4.webp" alt="04" loading="lazy">
+        <div class="rcard-body"><h3 class="rcard-title">Vittorio Rampanelli qoidasiga tayanib <em>("kam va kerakli ish qil")</em>,</h3><p class="rcard-desc">miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz</p></div></article>
+      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c5.webp" alt="05" loading="lazy">
+        <div class="rcard-body"><h3 class="rcard-title">Murakkab peshona operatsiyalarini o'zizga ishonch bilan</h3><p class="rcard-desc">xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi</p></div></article>
+    </div>
   </div>
 </section>
 
