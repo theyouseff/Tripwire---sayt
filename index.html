@@ -301,7 +301,11 @@
   .path p { position: relative; font-size: 16.5px; line-height: 1.55; max-width: 460px; }
 
   .path-1 {
-    background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    background:
+      linear-gradient(90deg, rgba(5,14,21,.96) 0%, rgba(5,14,21,.78) 48%, rgba(5,14,21,.2) 100%),
+      linear-gradient(0deg, rgba(5,14,21,.55), transparent 45%),
+      url(images/path-1.webp) right center / cover no-repeat,
+      #07131b;
     border: 1.5px solid var(--white-20);
     color: var(--white-60);
   }
@@ -315,7 +319,11 @@
   .path-list li span { font-size: 22px; line-height: 1; }
   .path-end { color: var(--white); font-weight: 600; }
   .path-2 {
-    background: linear-gradient(160deg, rgba(15,92,110,.75), rgba(11,42,60,.9) 70%);
+    background:
+      linear-gradient(90deg, rgba(6,24,36,.97) 0%, rgba(8,34,50,.82) 50%, rgba(10,50,70,.2) 100%),
+      linear-gradient(0deg, rgba(6,24,36,.6), transparent 45%),
+      url(images/path-2.webp) right center / cover no-repeat,
+      #08202e;
     border: 1.5px solid rgba(79,195,232,.7);
     color: var(--white);
     box-shadow: 0 0 36px -10px var(--cyan), inset 0 0 28px -14px var(--cyan);
