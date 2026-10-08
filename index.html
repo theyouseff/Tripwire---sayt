@@ -264,7 +264,7 @@
   }
 
   /* ---------- 3. KRUJOKLAR ---------- */
-  .students { background: var(--teal-06); }
+  .students { background: var(--teal-06); padding-bottom: 92px; }
   .students .container { max-width: 1440px; }
   .circles {
     display: flex;
@@ -346,7 +346,7 @@
       radial-gradient(70% 40% at 50% 0%, var(--teal-40), transparent 70%),
       var(--night);
     color: var(--white);
-    border-radius: var(--radius) var(--radius) 0 0;
+    border-radius: var(--radius);
   }
   .stack h2 { color: var(--white); }
   .stack h2::after { background: var(--white); }
@@ -429,7 +429,8 @@
     padding: 20px 24px;
     box-shadow: 0 0 0 1px var(--white-20), 0 18px 44px -18px var(--teal);
   }
-  .center { text-align: center; margin-top: 40px; }
+  .center { text-align: center; }
+  .final { background: var(--night); border-radius: var(--radius) var(--radius) 0 0; padding: 56px 0 72px; margin-top: -28px; position: relative; }
 
   /* ---------- Mobil sticky CTA ---------- */
   .sticky {
@@ -532,22 +533,6 @@
   </div>
 </section>
 
-<!-- ============ 3. O'QUVCHILARIM NATIJALARI ============ -->
-<!-- Videolarni videos/ papkasiga 1.mp4, 2.mp4 ... nomi bilan qo'ying -->
-<section class="students">
-  <div class="container">
-    <h2 class="reveal">Kurslarim o'quvchilari nima deydi?</h2>
-    <div class="circles reveal">
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ 4. VALUE STACK ============ -->
 <section class="stack" id="stack">
   <div class="container">
@@ -582,6 +567,27 @@
       <p>Xali xam ikkilanvotgan bolsez pastda oquvchilarimni fikirlarini qoldriaman bemalol tanishib chiqishiz mumkin</p>
     </div>
 
+  </div>
+</section>
+
+<!-- ============ 3. O'QUVCHILARIM NATIJALARI ============ -->
+<!-- Videolarni videos/ papkasiga 1.mp4, 2.mp4 ... nomi bilan qo'ying -->
+<section class="students">
+  <div class="container">
+    <h2 class="reveal">Kurslarim o'quvchilari nima deydi?</h2>
+    <div class="circles reveal">
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container">
     <div class="center">
       <a class="cta" href="#dars">
       <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
@@ -682,7 +688,7 @@
     new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); })
       .observe(document.querySelector('.hero .cta'));
     new IntersectionObserver(function (e) { darsVisible = e[0].isIntersecting; update(); })
-      .observe(document.querySelector('#stack .center'));
+      .observe(document.querySelector('.final .center'));
   } else {
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
