@@ -257,10 +257,12 @@
   .students { background: var(--teal-06); }
   .students .container { max-width: 1440px; }
   .circles {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    align-items: center;
     gap: 16px;
   }
+  .circle { flex: 1 1 0; min-width: 0; transition: flex-grow .5s cubic-bezier(.2,.8,.2,1), flex-basis .5s cubic-bezier(.2,.8,.2,1), transform .25s; }
+  .circle.expanded { flex-grow: 2.4; z-index: 3; }
   @media (max-width: 1240px) {
     .circles {
       display: flex;
@@ -273,6 +275,7 @@
       -webkit-overflow-scrolling: touch;
     }
     .circle { flex: 0 0 210px; scroll-snap-align: start; }
+    .circle.expanded { flex-basis: 420px; }
   }
   .circle {
     position: relative;
@@ -302,34 +305,18 @@
     background: radial-gradient(circle, transparent 55%, rgba(11,42,60,.25));
   }
 
-  /* Kattalashgan krujok (Telegram uslubi) */
-  .zoom {
-    position: fixed; inset: 0; z-index: 100;
-    display: grid; place-items: center;
-    background: rgba(11, 42, 60, 0);
-    backdrop-filter: blur(0);
-    transition: background .35s, backdrop-filter .35s;
+  /* Kattalashgan krujok: o'z joyida boshqalardan katta bo'ladi */
+  .circle.expanded { cursor: default; box-shadow: 0 24px 60px -18px var(--teal), 0 0 0 1px var(--teal-20); }
+  .circle.expanded::after, .circle.expanded .circle-inner::after { display: none; }
+  .circle-x {
+    position: absolute; top: 7%; right: 7%; z-index: 4;
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--white-60);
+    background: rgba(11,42,60,.7);
+    display: none; place-items: center;
+    cursor: pointer;
   }
-  .zoom.open { background: rgba(11, 42, 60, .82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-  .zoom .circle.big {
-    width: min(88vw, 76vh, 560px);
-    flex: none;
-    cursor: default;
-    transform-origin: center;
-    box-shadow: 0 30px 80px -20px #000, 0 0 60px -10px var(--teal);
-  }
-  .zoom .circle.big:hover { transform-origin: center; }
-  .zoom-close {
-    position: absolute; top: 16px; right: 16px;
-    width: 44px; height: 44px; border-radius: 50%;
-    border: 1px solid var(--white-20);
-    background: var(--white-10);
-    color: var(--white);
-    display: grid; place-items: center;
-    cursor: pointer; opacity: 0; transition: opacity .3s;
-  }
-  .zoom.open .zoom-close { opacity: 1; }
-  body.zoom-lock { overflow: hidden; }
+  .circle.expanded .circle-x { display: grid; }
   .circle .play {
     position: absolute; inset: 0;
     display: grid; place-items: center;
@@ -499,6 +486,7 @@
   @media (max-width: 560px) {
     section { padding: 48px 0; }
     .circle { flex-basis: 170px; }
+    .circle.expanded { flex-basis: 310px; }
     .cta { min-width: 0; width: 100%; max-width: 340px; padding-right: 84px; gap: 12px; }
     .cta-icon { flex-basis: 48px; width: 48px; height: 48px; }
     .cta-text { font-size: 16px; }
@@ -562,12 +550,12 @@
   <div class="container">
     <h2 class="reveal">O'quvchilarim nima deydi?</h2>
     <div class="circles reveal">
-      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/qfQKvrNSEzueTaLCAGHpQj" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
-      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/tDmW8p3ozuyESu1R64hZ9t" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
-      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/tQ7PT96D2N1s6RtQjGoCCU" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
-      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/dgNbTb2EfUgeAtgNMee12n" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
-      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/2TLfJW3uGGcU2RogDJcpF1" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
-      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/2UBbS1P8L4J9akqmCBUE2z" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/qfQKvrNSEzueTaLCAGHpQj" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div><button class="circle-x" aria-label="Kichraytirish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/tDmW8p3ozuyESu1R64hZ9t" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div><button class="circle-x" aria-label="Kichraytirish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/tQ7PT96D2N1s6RtQjGoCCU" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div><button class="circle-x" aria-label="Kichraytirish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/dgNbTb2EfUgeAtgNMee12n" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div><button class="circle-x" aria-label="Kichraytirish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/2TLfJW3uGGcU2RogDJcpF1" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div><button class="circle-x" aria-label="Kichraytirish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="circle embed"><div class="circle-inner"><iframe src="https://kinescope.io/embed/2UBbS1P8L4J9akqmCBUE2z" title="O'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen loading="lazy"></iframe></div><button class="circle-x" aria-label="Kichraytirish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     </div>
   </div>
 </section>
@@ -649,60 +637,38 @@
     v.addEventListener('ended', function () { c.classList.remove('playing'); });
   });
 
-  // Kinescope krujoklar: bosilganda ekran o'rtasida katta krujok bo'lib ochiladi (butun ekran emas)
+  // Kinescope krujoklar: bosilganda o'z joyida kattalashadi va o'ynaydi
   (function () {
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var overlay, big, src, from, closing = false;
+    var circles = Array.prototype.slice.call(document.querySelectorAll('.circle.embed'));
+    var current = null;
+    circles.forEach(function (c) { var f = c.querySelector('iframe'); c.base = f.getAttribute('src'); });
 
-    function flip(el, fromRect, toRect, opts) {
-      var dx = (fromRect.left + fromRect.width / 2) - (toRect.left + toRect.width / 2);
-      var dy = (fromRect.top + fromRect.height / 2) - (toRect.top + toRect.height / 2);
-      var sc = fromRect.width / toRect.width;
-      return el.animate(
-        [{ transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sc + ')' }, { transform: 'none' }],
-        opts
-      );
+    function shrink(c) {
+      if (!c) return;
+      c.classList.remove('expanded');
+      var f = c.querySelector('iframe');
+      f.src = c.base; // pleyerni qayta yuklab, to'xtatadi
+      if (current === c) current = null;
+    }
+    function grow(c) {
+      if (current && current !== c) shrink(current);
+      current = c;
+      c.classList.add('expanded');
+      c.querySelector('iframe').src = c.base + (c.base.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
+      setTimeout(function () { c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 120);
     }
 
-    function open(c) {
-      if (overlay) return;
-      from = c;
-      var url = c.querySelector('iframe').src;
-      url += (url.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
-      overlay = document.createElement('div');
-      overlay.className = 'zoom';
-      overlay.innerHTML =
-        '<button class="zoom-close" aria-label="Yopish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
-        '<div class="circle embed big"><div class="circle-inner"><iframe src="' + url + '" title="O\'quvchi fikri" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen></iframe></div></div>';
-      document.body.appendChild(overlay);
-      document.body.classList.add('zoom-lock');
-      big = overlay.querySelector('.circle');
-      requestAnimationFrame(function () {
-        overlay.classList.add('open');
-        if (!reduce) flip(big, from.getBoundingClientRect(), big.getBoundingClientRect(),
-          { duration: 450, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    circles.forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        if (c.classList.contains('expanded')) return;
+        grow(c);
       });
-      overlay.addEventListener('click', function (e) { if (!big.contains(e.target)) close(); });
-    }
-
-    function close() {
-      if (!overlay || closing) return;
-      closing = true;
-      overlay.classList.remove('open');
-      var done = function () {
-        overlay.remove(); overlay = null; closing = false;
-        document.body.classList.remove('zoom-lock');
-      };
-      if (reduce) return done();
-      flip(big, from.getBoundingClientRect(), big.getBoundingClientRect(),
-        { duration: 320, easing: 'ease-in', direction: 'reverse', fill: 'forwards' }).onfinish = done;
-    }
-
-    document.querySelectorAll('.circle.embed').forEach(function (c) {
-      c.addEventListener('click', function () { open(c); });
+      c.querySelector('.circle-x').addEventListener('click', function (e) { e.stopPropagation(); shrink(c); });
     });
-    document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('.zoom-close')) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    document.addEventListener('click', function (e) {
+      if (current && !e.target.closest('.circle.expanded') && !e.target.closest('.circle.embed')) shrink(current);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shrink(current); });
   })();
 
   // Bo'limlar ko'rinishga kirganda yumshoq paydo bo'lishi
