@@ -267,6 +267,79 @@
     .rcard-desc { font-size: 14.5px; }
   }
 
+  /* ---------- Ikki yo'l ---------- */
+  .paths { background: var(--night); color: var(--white); padding: 0 0 72px; }
+  .paths .container { max-width: 1200px; }
+  .paths-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 28px; align-items: center; }
+  .path {
+    --cyan: #4fc3e8;
+    position: relative; overflow: hidden;
+    border-radius: 28px; padding: 30px 30px 32px;
+    min-height: 100%;
+  }
+  .path-no {
+    position: absolute; top: 4px; left: 20px;
+    font-size: 96px; font-weight: 800; line-height: 1; letter-spacing: -.04em;
+    pointer-events: none; user-select: none;
+  }
+  .path-badge {
+    position: relative; display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 38px; margin-bottom: 18px;
+    font-weight: 700; font-size: 15px; letter-spacing: .04em;
+  }
+  .path-badge > span:last-child { padding: 7px 18px; border-radius: 999px; }
+  .path h3 { position: relative; font-size: clamp(22px, 2.4vw, 28px); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+  .path p { position: relative; font-size: 16.5px; line-height: 1.55; max-width: 460px; }
+
+  .path-1 {
+    background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border: 1.5px solid var(--white-20);
+    color: var(--white-60);
+  }
+  .path-1 .path-no { color: rgba(255,255,255,.07); }
+  .path-1 .path-ico { color: rgba(255,255,255,.55); }
+  .path-1 .path-badge > span:last-child { background: var(--white-10); color: var(--white-60); }
+  .path-1 h3 { color: var(--white); opacity: .85; }
+
+  .path-2 {
+    background: linear-gradient(160deg, rgba(15,92,110,.75), rgba(11,42,60,.9) 70%);
+    border: 1.5px solid rgba(79,195,232,.7);
+    color: var(--white);
+    box-shadow: 0 0 36px -10px var(--cyan), inset 0 0 28px -14px var(--cyan);
+  }
+  .path-2 .path-no { color: rgba(79,195,232,.22); }
+  .path-2 .path-ico { color: var(--cyan); filter: drop-shadow(0 0 6px var(--cyan)); }
+  .path-2 .path-badge > span:last-child { background: rgba(79,195,232,.18); color: var(--white); }
+  .path-2 p { color: rgba(255,255,255,.82); }
+  .path-btn {
+    position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 26px; padding: 8px 8px 8px 28px;
+    border-radius: 999px; text-decoration: none; color: var(--white);
+    font-weight: 700; font-size: 18px;
+    background: linear-gradient(90deg, var(--teal), #1590ad);
+    border: 1px solid rgba(79,195,232,.8);
+    box-shadow: 0 10px 30px -10px var(--cyan);
+    transition: transform .2s, box-shadow .25s;
+  }
+  .path-btn b { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.2); transition: transform .25s; }
+  .path-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px -8px var(--cyan); }
+  .path-btn:hover b { transform: translateX(4px); }
+
+  .paths-or { display: flex; flex-direction: column; align-items: center; gap: 14px; align-self: stretch; justify-content: center; }
+  .paths-or span { font-size: 28px; font-weight: 700; color: var(--white); }
+  .paths-or i { flex: 1; width: 2px; max-height: 150px; background: linear-gradient(180deg, transparent, var(--cyan, #4fc3e8)); opacity: .8; }
+  .paths-or i:last-child { background: linear-gradient(0deg, transparent, #4fc3e8); }
+  @media (max-width: 860px) {
+    .paths-grid { grid-template-columns: 1fr; gap: 18px; }
+    .paths-or { flex-direction: row; }
+    .paths-or i { width: auto; height: 2px; max-height: none; flex: 1; background: linear-gradient(90deg, transparent, #4fc3e8); }
+    .paths-or i:last-child { background: linear-gradient(270deg, transparent, #4fc3e8); }
+    .paths-or span { font-size: 22px; }
+    .path { padding: 24px 22px 26px; }
+    .path-no { font-size: 80px; }
+    .path-btn { font-size: 16.5px; padding-left: 22px; }
+  }
+
   /* ---------- 3. KRUJOKLAR ---------- */
   .students { background: var(--teal-06); padding-bottom: 92px; }
   .students .container { max-width: 1440px; }
@@ -616,6 +689,29 @@
         <div class="rcard-body"><h3 class="rcard-title">Vittorio Rampanelli qoidasiga tayanib <em>("kam va kerakli ish qil")</em>,</h3><p class="rcard-desc">miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz</p></div></article>
       <article class="rcard reveal"><img class="rcard-img" src="images/cards/c5.webp" alt="05" loading="lazy">
         <div class="rcard-body"><h3 class="rcard-title">Murakkab peshona operatsiyalarini o'zizga ishonch bilan</h3><p class="rcard-desc">xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="paths">
+  <div class="container">
+    <div class="paths-grid">
+      <article class="path path-1 reveal">
+        <span class="path-no" aria-hidden="true">01</span>
+        <div class="path-badge"><span class="path-ico"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g transform="rotate(-40 20 20)"><rect x="4" y="13" width="32" height="14" rx="7" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width="2"/><path d="M20 13h9a7 7 0 0 1 0 14h-9z" fill="currentColor" opacity=".6"/></g></svg></span><span>1-YO'L</span></div>
+        <h3>Hech narsani o’zgartirmaslik</h3>
+        <p>Tashxoqlik, noqulay protez va takroran shamollash bilan yashashda davom etasiz. Vaqt o’tgan sari muammo yanada kuchayadi.</p>
+      </article>
+
+      <div class="paths-or reveal"><i></i><span>yoki</span><i></i></div>
+
+      <article class="path path-2 reveal">
+        <span class="path-no" aria-hidden="true">02</span>
+        <div class="path-badge"><span class="path-ico"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g transform="rotate(-40 20 20)"><rect x="4" y="13" width="32" height="14" rx="7" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width="2"/><path d="M20 13h9a7 7 0 0 1 0 14h-9z" fill="currentColor" opacity=".6"/></g></svg></span><span>2-YO'L</span></div>
+        <h3>Bugun birinchi qadamni tashlash</h3>
+        <p>Konsultatsiyaga yoziling, aniq holatingizdan kelib chiqib sizga to’g’ri davolash usulini taqdim qilaman.</p>
+        <a class="path-btn" href="#dars"><span>2-yo’lni tanlayman</span><b><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></b></a>
+      </article>
     </div>
   </div>
 </section>
