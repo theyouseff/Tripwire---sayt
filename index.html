@@ -139,6 +139,21 @@
     border: 1.5px solid rgba(79,195,232,.6);
     box-shadow: 0 0 16px -2px var(--cyan);
   }
+  .badge { animation: badge-glow 2s ease-in-out infinite; }
+  .badge-icon { position: relative; animation: icon-beat 2s ease-in-out infinite; }
+  .badge-icon::after {
+    content: "";
+    position: absolute; inset: -2px;
+    border-radius: 50%;
+    border: 2px solid var(--cyan);
+    animation: ring-pulse 2s ease-out infinite;
+  }
+  @keyframes badge-glow {
+    0%, 100% { box-shadow: 0 0 10px -6px var(--cyan), inset 0 0 10px -8px var(--cyan); }
+    50%      { box-shadow: 0 0 26px -2px var(--cyan), inset 0 0 14px -6px var(--cyan); }
+  }
+  @keyframes icon-beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @keyframes ring-pulse { 0% { transform: scale(1); opacity: .8; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
   .badge-sep { width: 1.5px; align-self: stretch; margin: 4px 0; background: var(--cyan); opacity: .7; }
   .badge-text { white-space: nowrap; }
   .badge-text em { font-style: normal; color: var(--cyan); }
@@ -386,7 +401,7 @@
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
-    .now::before, .circle.playing, .circle.playing .circle-inner { animation: none; }
+    .now::before, .circle.playing, .circle.playing .circle-inner, .badge, .badge-icon, .badge-icon::after { animation: none; }
     html { scroll-behavior: auto; }
   }
 
