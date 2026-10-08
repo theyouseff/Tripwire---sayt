@@ -255,13 +255,13 @@
 
   /* ---------- 3. KRUJOKLAR ---------- */
   .students { background: var(--teal-06); }
-  .students .container { max-width: 1200px; }
+  .students .container { max-width: 1440px; }
   .circles {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 22px;
+    gap: 16px;
   }
-  @media (max-width: 900px) {
+  @media (max-width: 1240px) {
     .circles {
       display: flex;
       overflow-x: auto;
@@ -272,7 +272,7 @@
       padding: 8px 16px 14px;
       -webkit-overflow-scrolling: touch;
     }
-    .circle { flex: 0 0 150px; scroll-snap-align: start; }
+    .circle { flex: 0 0 210px; scroll-snap-align: start; }
   }
   .circle {
     position: relative;
@@ -461,7 +461,7 @@
 
   @media (max-width: 560px) {
     section { padding: 48px 0; }
-    .circle { flex-basis: 132px; }
+    .circle { flex-basis: 170px; }
     .cta { min-width: 0; width: 100%; max-width: 340px; padding-right: 84px; gap: 12px; }
     .cta-icon { flex-basis: 48px; width: 48px; height: 48px; }
     .cta-text { font-size: 16px; }
