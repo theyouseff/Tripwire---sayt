@@ -92,17 +92,17 @@
     padding: 64px 0 72px;
     overflow: hidden;
   }
-  /* Rasm badge tepasidan tugma pastigacha bo'lgan balandlikni egallaydi */
+  /* Rasm badge tepasidan "…o'rganing!" oxirigacha bo'lgan balandlikni egallaydi */
   .hero-inner {
     max-width: 1120px;
     margin: 0 auto;
     padding: 0 16px;
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "badge img"
       "title img"
-      "cta   img";
+      "cta   .";
     column-gap: 40px;
   }
   .badge { grid-area: badge; justify-self: start; }
@@ -127,7 +127,7 @@
     margin-bottom: 26px;
   }
   .hero h1 {
-    font-size: clamp(28px, 4.6vw, 56px);
+    font-size: clamp(28px, 4vw, 54px);
     font-weight: 800;
     line-height: 1.18;
     letter-spacing: -.015em;
