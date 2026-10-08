@@ -504,18 +504,16 @@
   .phone .flag { font-size: 20px; line-height: 1; }
   .phone .code { font-weight: 600; }
   .up-label { margin-top: 6px; font-size: 16px; }
-  .upload { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; cursor: pointer; }
-  .upload-btn {
+  .tg-btn {
+    align-self: flex-start;
     display: inline-flex; align-items: center; gap: 10px;
-    background: var(--teal); color: var(--white);
+    background: var(--teal); color: var(--white); text-decoration: none;
     font-weight: 600; font-size: 15px;
     border: 1px solid var(--white-20);
-    border-radius: 999px; padding: 12px 22px;
+    border-radius: 999px; padding: 13px 24px;
     transition: transform .2s, box-shadow .2s;
   }
-  .upload:hover .upload-btn { transform: translateY(-2px); box-shadow: 0 10px 24px -10px var(--teal); }
-  .upload.invalid .upload-btn { box-shadow: 0 0 0 2px #ffcc4d; }
-  .upload-name { font-size: 14px; color: var(--white-60); word-break: break-all; }
+  .tg-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px var(--teal); }
   .form-note { min-height: 20px; font-size: 14px; color: #ffcc4d; }
   .form-note.ok { color: #4fc3e8; }
   .cta-submit { width: 100%; min-width: 0; font: inherit; text-align: left; cursor: pointer; margin-top: 4px; }
@@ -713,12 +711,11 @@
       <form class="reg-form reveal" id="reg-form" novalidate>
         <label class="field"><input type="text" id="f-name" name="name" placeholder="Ismingizni kiriting" autocomplete="name" required></label>
         <label class="field phone"><span class="flag">🇺🇿</span><span class="code">+998</span><input type="tel" id="f-phone" name="phone" inputmode="numeric" placeholder="00-000-0000" autocomplete="tel-national" required></label>
-        <p class="up-label">4) To'lov chekini pastdagi tugmani bosib yuklang:</p>
-        <label class="upload">
-          <input type="file" id="f-file" name="receipt" accept="image/*" hidden>
-          <span class="upload-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>Chekni yuklash</span>
-          <span class="upload-name" id="file-name"></span>
-        </label>
+        <p class="up-label">To'lovni amalga oshirganingizdan so'ng pastdagi tugma orqali telegram profilga o'tib to'lov chekini tashlang!</p>
+        <a class="tg-btn" id="tg-btn" href="https://t.me/" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.5 3.3 2.9 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.1.8.7.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.5.2 1.7-.8l3-14.3c.3-1.2-.4-1.7-1.3-1.3zM9 13.7l9.3-5.9c.4-.3.8-.1.5.2l-7.7 7-.3 3.2-1.8-4.5z"/></svg>
+          Telegramga o'tish
+        </a>
         <p class="form-note" id="form-note" role="status"></p>
         <button class="cta cta-submit" type="submit">
           <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
@@ -839,10 +836,6 @@
       ph.value = o;
     });
 
-    // Fayl nomi
-    var file = document.getElementById('f-file'), fname = document.getElementById('file-name');
-    file.addEventListener('change', function () { fname.textContent = file.files[0] ? file.files[0].name : ''; file.closest('.upload').classList.remove('invalid'); });
-
     // Yuborish
     var form = document.getElementById('reg-form'), note = document.getElementById('form-note');
     var nameI = document.getElementById('f-name');
@@ -853,14 +846,13 @@
       var bad = false;
       if (nameI.value.trim().length < 2) { nameI.closest('.field').classList.add('invalid'); bad = true; }
       if (ph.value.replace(/\D/g, '').length !== 9) { ph.closest('.field').classList.add('invalid'); bad = true; }
-      if (!file.files[0]) { file.closest('.upload').classList.add('invalid'); bad = true; }
-      if (bad) { note.textContent = '⚠️ Iltimos, ism, telefon raqam va to\'lov chekini kiriting.'; return; }
+      if (bad) { note.textContent = '⚠️ Iltimos, ism va telefon raqamni kiriting.'; return; }
       if (!SUBMIT_URL) { note.textContent = '⚠️ Forma hozircha serverga ulanmagan, ma\'lumotlar yuborilmadi.'; return; }
       var btn = form.querySelector('.cta-submit'); btn.disabled = true;
       var fd = new FormData(form); fd.set('phone', '+998' + ph.value.replace(/\D/g, ''));
       fetch(SUBMIT_URL, { method: 'POST', body: fd }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
-        note.className = 'form-note ok'; note.textContent = 'Rahmat! Arizangiz qabul qilindi.'; form.reset(); fname.textContent = '';
+        note.className = 'form-note ok'; note.textContent = 'Rahmat! Arizangiz qabul qilindi.'; form.reset();
       }).catch(function () {
         note.textContent = '⚠️ Yuborib bo\'lmadi. Qaytadan urinib ko\'ring.';
       }).then(function () { btn.disabled = false; });
