@@ -268,12 +268,14 @@
   }
 
   /* ---------- MacBook maketi ---------- */
-  .demo { background: var(--night); padding: 8px 0 24px; position: relative; }
+  .demo { background: var(--night); padding: 64px 0 32px; position: relative; }
   .demo::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(50% 70% at 26% 55%, rgba(15,92,110,.55), transparent 72%);
   }
   .demo .container { max-width: 1240px; position: relative; }
+  .demo h2 { color: var(--white); margin-bottom: 40px; }
+  .demo h2::after { background: var(--white); }
   .demo-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
   .macbook { width: 100%; max-width: 700px; justify-self: start; filter: drop-shadow(0 40px 50px rgba(0,0,0,.55)) drop-shadow(0 0 40px rgba(79,195,232,.14)); }
   .mb-lid {
@@ -730,6 +732,7 @@
 
 <section class="demo">
   <div class="container demo-wrap">
+    <h2 class="reveal">Bonus dars</h2>
     <div class="demo-grid">
       <div class="macbook reveal" role="img" aria-label="Endoskopik frontotomiyada asosiy orientirlar darsi">
         <div class="mb-lid">
