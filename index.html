@@ -267,6 +267,40 @@
     .rcard-desc { font-size: 14.5px; }
   }
 
+  /* ---------- MacBook maketi ---------- */
+  .demo { background: var(--night); padding: 8px 0 24px; position: relative; }
+  .demo::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(50% 70% at 26% 55%, rgba(15,92,110,.55), transparent 72%);
+  }
+  .demo .container { max-width: 1240px; position: relative; }
+  .demo-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+  .macbook { width: 100%; max-width: 700px; justify-self: start; filter: drop-shadow(0 40px 50px rgba(0,0,0,.55)) drop-shadow(0 0 40px rgba(79,195,232,.14)); }
+  .mb-lid {
+    position: relative;
+    background: #0a0e13;
+    border: 2px solid #323b47;
+    border-radius: 18px 18px 6px 6px;
+    padding: 3.4% 3.4% 4.2%;
+  }
+  .mb-cam { position: absolute; top: 1.5%; left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: radial-gradient(circle, #2c4a63, #0a0e13 70%); }
+  .mb-screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: #000; }
+  .mb-screen img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .mb-screen::after { content: ""; position: absolute; inset: 0; background: linear-gradient(125deg, rgba(255,255,255,.1), transparent 38%); pointer-events: none; }
+  .mb-base {
+    position: relative; height: 16px; width: 112%; margin-left: -6%;
+    background: linear-gradient(180deg, #c3cad3 0%, #8d96a1 55%, #5d6671 100%);
+    border-radius: 2px 2px 18px 18px / 2px 2px 14px 14px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  .mb-base::after { content: ""; position: absolute; top: 0; left: 50%; width: 16%; height: 6px; margin-left: -8%; background: linear-gradient(180deg, #6b747f, #8d96a1); border-radius: 0 0 10px 10px; }
+  @media (max-width: 900px) {
+    .demo-grid { grid-template-columns: 1fr; }
+    .demo-side { display: none; }
+    .macbook { max-width: 520px; justify-self: center; }
+    .mb-base { width: 108%; margin-left: -4%; }
+  }
+
   /* ---------- Uch variant (Kiyim / Ovqatlanish / Bizning dars) ---------- */
   .paths {
     position: relative;
@@ -690,6 +724,21 @@
         <div class="rcard-body"><h3 class="rcard-title">Vittorio Rampanelli qoidasiga tayanib <em>("kam va kerakli ish qil")</em>,</h3><p class="rcard-desc">miya asosi va g'alvirsimon plastinkani shikastlash kabi xavflar hamda qo'rquvlarni bartaraf etasiz</p></div></article>
       <article class="rcard reveal"><img class="rcard-img" src="images/cards/c5.webp" alt="05" loading="lazy">
         <div class="rcard-body"><h3 class="rcard-title">Murakkab peshona operatsiyalarini o'zizga ishonch bilan</h3><p class="rcard-desc">xatosiz bajarib, kutilgan ijobiy natijaga erishasiz va bu malakangizni oshiradi</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="demo">
+  <div class="container demo-wrap">
+    <div class="demo-grid">
+      <div class="macbook reveal" role="img" aria-label="Endoskopik frontotomiyada asosiy orientirlar darsi">
+        <div class="mb-lid">
+          <i class="mb-cam"></i>
+          <div class="mb-screen"><img src="images/lesson.webp" alt="Endoskopik frontotomiyada asosiy orientirlar"></div>
+        </div>
+        <div class="mb-base"></div>
+      </div>
+      <div class="demo-side" aria-hidden="true"></div>
     </div>
   </div>
 </section>
