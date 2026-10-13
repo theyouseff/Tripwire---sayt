@@ -296,9 +296,13 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
   }
   .mb-base::after { content: ""; position: absolute; top: 0; left: 50%; width: 16%; height: 6px; margin-left: -8%; background: linear-gradient(180deg, #6b747f, #8d96a1); border-radius: 0 0 10px 10px; }
+  .demo-side h3 { font-size: clamp(26px, 3vw, 36px); font-weight: 700; margin-bottom: 22px; }
+  .demo-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .demo-list li { display: flex; gap: 14px; align-items: flex-start; font-size: 17px; line-height: 1.5; color: rgba(255,255,255,.88); }
+  .demo-list .chk { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; margin-top: 1px; box-shadow: 0 0 0 1px var(--white-20); }
   @media (max-width: 900px) {
     .demo-grid { grid-template-columns: 1fr; }
-    .demo-side { display: none; }
+    .demo-side { max-width: 520px; margin: 8px auto 0; }
     .macbook { max-width: 520px; justify-self: center; }
     .mb-base { width: 108%; margin-left: -4%; }
   }
@@ -741,7 +745,15 @@
         </div>
         <div class="mb-base"></div>
       </div>
-      <div class="demo-side" aria-hidden="true"></div>
+      <div class="demo-side reveal">
+        <h3>Darsda:</h3>
+        <ul class="demo-list">
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Peshona bo‘shlig‘ini endoskopik operatsiya qilishda asosiy anatomik orientirlar</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Operatsiya vaqtida adashib qolmaslik uchun qaysi tuzilmalarga tayanish kerakligi</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>KT tasvirida muhim nuqtalarni operatsiyadan oldin aniqlash</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Xavfli zonalar (miya asosi, g‘alvirsimon plastinka) va ularda ehtiyot bo‘lish qoidalari</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
