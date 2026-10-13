@@ -352,6 +352,9 @@
     background: rgba(255,255,255,.1); border: 1.5px solid var(--white-20);
   }
   .tri-tag { padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .05em; background: rgba(255,255,255,.1); color: var(--white-60); }
+  .tri-feature { display: flex; align-items: flex-end; gap: 18px; margin: -4px 0 20px; }
+  .tri-big { font-size: clamp(34px, 3.4vw, 44px); font-weight: 800; letter-spacing: -.02em; line-height: 1; color: var(--white); }
+  .tri-shirt { width: 78px; height: auto; flex: none; filter: drop-shadow(0 8px 14px rgba(0,0,0,.5)); }
   .tri h3 { font-size: clamp(24px, 2.2vw, 30px); font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
   .tri h3 em { font-style: normal; color: var(--white-60); }
   .tri-list { list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15.5px; line-height: 1.4; color: rgba(255,255,255,.85); margin-bottom: 22px; }
@@ -764,6 +767,20 @@
     <div class="tri-grid">
       <article class="tri tri-1 reveal" style="--photo:url(images/card-kiyim.webp)">
         <div class="tri-head"><span class="tri-ico">👕</span><span class="tri-tag">KIYIM</span></div>
+        <div class="tri-feature">
+          <strong class="tri-big">Kiyim</strong>
+          <svg class="tri-shirt" viewBox="0 0 120 112" aria-hidden="true">
+            <defs>
+              <linearGradient id="shirtBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef3f8"/><stop offset="1" stop-color="#9fb0c2"/></linearGradient>
+              <linearGradient id="shirtSleeve" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe7ef"/><stop offset="1" stop-color="#8799ad"/></linearGradient>
+            </defs>
+            <path d="M32 9 49 3 71 3 88 9 116 34 102 51 90 43 90 104a3 3 0 0 1-3 3H33a3 3 0 0 1-3-3V43l-12 8L4 34z" fill="url(#shirtBody)"/>
+            <path d="M32 9 4 34l14 17 12-8zM88 9l28 25-14 17-12-8z" fill="url(#shirtSleeve)" opacity=".9"/>
+            <path d="M49 3 60 24 51 31 38 13zM71 3 60 24 69 31 82 13z" fill="#f7fafc" stroke="#8fa1b4" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M60 24v83" stroke="#8fa1b4" stroke-width="1.4"/>
+            <g fill="#5d7086"><circle cx="60" cy="42" r="2.2"/><circle cx="60" cy="60" r="2.2"/><circle cx="60" cy="78" r="2.2"/><circle cx="60" cy="96" r="2.2"/></g>
+          </svg>
+        </div>
         <h3>Tanani chiroyli <em>ko‘rsatish</em></h3>
         <ul class="tri-list">
           <li><span>👔</span>O’ziga ishonchni oshiradi</li>
