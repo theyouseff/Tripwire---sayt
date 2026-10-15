@@ -353,14 +353,14 @@
   }
   .tri-tag { padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .05em; background: rgba(255,255,255,.1); color: var(--white-60); }
   /* Fotosurat kartochkalar (Kinoga chiptalar / Ovqatlanish) */
-  .tri-photo {
+  .tri-plain.tri-photo {
     min-height: 460px;
     background:
       linear-gradient(180deg, rgba(5,14,21,.78) 0%, rgba(5,14,21,.35) 26%, transparent 46%),
       var(--bg) center / cover no-repeat,
       #07131b;
   }
-  .tri-photo::after { display: none; }
+  .tri-plain.tri-photo::after { display: none; }
   .tri-photo .tri-big { text-shadow: 0 2px 18px rgba(0,0,0,.55); }
   .tri-photo .tri-big::after { background: rgba(255,255,255,.7); }
   @media (max-width: 1000px) { .tri-photo { min-height: 400px; } }
