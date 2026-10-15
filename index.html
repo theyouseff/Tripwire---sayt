@@ -352,6 +352,12 @@
     background: rgba(255,255,255,.1); border: 1.5px solid var(--white-20);
   }
   .tri-tag { padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .05em; background: rgba(255,255,255,.1); color: var(--white-60); }
+  /* Shaffof fonli rasmli kartochkalar */
+  .tri-plain.tri-cut { padding: 28px 26px 30px; background: radial-gradient(80% 60% at 50% 38%, rgba(79,195,232,.22), transparent 70%), linear-gradient(160deg, #0c2231, #07131b); }
+  .tri-cut-img { flex: 1; display: grid; place-items: center; min-height: 280px; }
+  .tri-cut-img img { width: 100%; max-height: 360px; object-fit: contain; filter: drop-shadow(0 22px 28px rgba(0,0,0,.55)); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+  .tri-cut:hover .tri-cut-img img { transform: scale(1.05) rotate(-1.5deg); }
+  .tri-cap { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--white-10); font-size: clamp(18px, 1.7vw, 22px); font-weight: 700; line-height: 1.35; color: var(--white); text-align: center; }
   /* Fotosurat kartochkalar (Kinoga chiptalar / Ovqatlanish) */
   .tri-plain.tri-photo {
     min-height: 460px;
@@ -814,12 +820,14 @@
   <div class="container">
     <h2 class="reveal">97,000 evaziga nimalar olsa bo'ladi?</h2>
     <div class="tri-grid">
-      <article class="tri tri-1 tri-plain tri-photo reveal" style="--bg:url(images/card-kino.webp)">
-        <strong class="tri-big">Kinoga chiptalar</strong>
+      <article class="tri tri-1 tri-plain tri-cut reveal">
+        <div class="tri-cut-img"><img src="images/cutout-kino.webp" alt="Kino chiptalari" loading="lazy"></div>
+        <p class="tri-cap">Chelovek paukka 2 ta chipta</p>
       </article>
 
-      <article class="tri tri-2 tri-plain tri-photo reveal" style="--bg:url(images/card-kfc.webp)">
-        <strong class="tri-big">Ovqatlanish</strong>
+      <article class="tri tri-2 tri-plain tri-cut reveal">
+        <div class="tri-cut-img"><img src="images/cutout-kfc.webp" alt="Qovurilgan tovuq va kartoshka fri" loading="lazy"></div>
+        <p class="tri-cap">KFC dan 2 ta sanders box</p>
       </article>
 
       <article class="tri tri-3 reveal" style="--photo:url(images/card-dars.webp)">
