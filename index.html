@@ -364,8 +364,8 @@
   .tri-plain.tri-cut.tri-3, .tri-plain.tri-cut.tri-3:hover { box-shadow: none; background: none; border: 0; transform: none; }
   .tri-ipad { align-items: center; }
   .ipad {
-    position: relative; width: min(100%, 300px); margin: 0 auto;
-    background: #0a0e13; border: 2px solid #3a4452; border-radius: 28px; padding: 5% 5% 6%;
+    position: relative; width: 100%; margin: 0 auto;
+    background: #0a0e13; border: 2px solid #3a4452; border-radius: 26px; padding: 5.5% 4.5%;
     box-shadow: 0 30px 50px -18px rgba(0,0,0,.65), 0 0 40px -10px rgba(79,195,232,.25), inset 0 0 0 1px rgba(255,255,255,.05);
     transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .4s, border-color .4s;
   }
@@ -374,10 +374,10 @@
     border-color: #4fc3e8;
     box-shadow: 0 0 0 1px rgba(79,195,232,.55), 0 0 26px 2px rgba(79,195,232,.55), 0 30px 50px -18px rgba(0,0,0,.65);
   }
-  .ipad-cam { position: absolute; top: 2%; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: radial-gradient(circle, #2c4a63, #0a0e13 70%); }
-  .ipad-btn { position: absolute; top: 14%; right: -4px; width: 3px; height: 9%; border-radius: 3px; background: #3a4452; }
+  .ipad-cam { position: absolute; top: 50%; left: 2.2%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: radial-gradient(circle, #2c4a63, #0a0e13 70%); }
+  .ipad-btn { position: absolute; top: -4px; right: 14%; width: 9%; height: 3px; border-radius: 3px; background: #3a4452; }
   .ipad-screen { display: flex; flex-direction: column; gap: 6px; border-radius: 10px; overflow: hidden; background: #000; position: relative; }
-  .ipad-screen img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .ipad-screen img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 50%; }
   .ipad-screen::after { content: ""; position: absolute; inset: 0; background: linear-gradient(125deg, rgba(255,255,255,.12), transparent 35%); pointer-events: none; }
   .tri-cap-sm { font-size: clamp(15px, 1.3vw, 17px); font-weight: 600; line-height: 1.45; }
   .tri-cap-sm span { color: #4fc3e8; font-weight: 700; }
@@ -857,7 +857,6 @@
         <div class="ipad" role="img" aria-label="Darsliklar">
           <i class="ipad-cam"></i>
           <div class="ipad-screen">
-            <img src="images/lesson-peshona.webp" alt="Endoskopik Peshona Operatsiyalarida 5 ta Muhim Peshona Drenaj Sistemasi" loading="lazy">
             <img src="images/lesson.webp" alt="Endoskopik frontotomiyada asosiy orientirlar" loading="lazy">
           </div>
           <i class="ipad-btn"></i>
