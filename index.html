@@ -353,11 +353,12 @@
   }
   .tri-tag { padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: .05em; background: rgba(255,255,255,.1); color: var(--white-60); }
   /* Shaffof fonli rasmli kartochkalar */
-  .tri-plain.tri-cut { padding: 28px 26px 30px; background: radial-gradient(80% 60% at 50% 38%, rgba(79,195,232,.22), transparent 70%), linear-gradient(160deg, #0c2231, #07131b); }
+  .tri-plain.tri-cut { padding: 0; background: none; border: 0; box-shadow: none; border-radius: 0; overflow: visible; }
+  .tri-plain.tri-cut:hover { transform: none; }
   .tri-cut-img { flex: 1; display: grid; place-items: center; min-height: 280px; }
   .tri-cut-img img { width: 100%; max-height: 360px; object-fit: contain; filter: drop-shadow(0 22px 28px rgba(0,0,0,.55)); transition: transform .5s cubic-bezier(.22,1,.36,1); }
   .tri-cut:hover .tri-cut-img img { transform: scale(1.05) rotate(-1.5deg); }
-  .tri-cap { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--white-10); font-size: clamp(18px, 1.7vw, 22px); font-weight: 700; line-height: 1.35; color: var(--white); text-align: center; }
+  .tri-cap { margin-top: 16px; font-size: clamp(18px, 1.7vw, 22px); font-weight: 700; line-height: 1.35; color: var(--white); text-align: center; }
   /* Fotosurat kartochkalar (Kinoga chiptalar / Ovqatlanish) */
   .tri-plain.tri-photo {
     min-height: 460px;
