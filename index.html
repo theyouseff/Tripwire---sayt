@@ -700,6 +700,27 @@
     .cta-tg .cta-text { font-size: 16px; }
   }
 
+  /* ---------- FAQ ---------- */
+  .faq { background: var(--night); color: var(--white); border-radius: var(--radius) var(--radius) 0 0; margin-top: -28px; position: relative; padding: 80px 0 40px; }
+  .faq h2 { color: var(--white); }
+  .faq h2::after { background: var(--white); }
+  .faq .container { max-width: 820px; }
+  .faq-list { display: flex; flex-direction: column; gap: 14px; }
+  .faq-item { background: var(--white-10); border: 1px solid var(--white-10); border-radius: 22px; transition: border-color .3s, background .3s; }
+  .faq-item[open] { border-color: rgba(79,195,232,.55); background: rgba(79,195,232,.07); }
+  .faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 24px; font-size: 18px; font-weight: 600; line-height: 1.4; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-ico { position: relative; flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 1px var(--white-20); transition: transform .35s, background .3s; }
+  .faq-ico::before, .faq-ico::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; margin: -1px 0 0 -7px; background: #fff; border-radius: 2px; transition: transform .35s; }
+  .faq-ico::after { transform: rotate(90deg); }
+  .faq-item[open] .faq-ico { background: #4fc3e8; }
+  .faq-item[open] .faq-ico::after { transform: rotate(0deg); }
+  .faq-a { padding: 0 24px 24px; color: rgba(255,255,255,.85); font-size: 16.5px; line-height: 1.65; animation: faqIn .35s ease; }
+  @keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .faq + .final { margin-top: 0; border-radius: 0; padding-top: 32px; }
+  @media (max-width: 560px) { .faq { padding: 56px 0 24px; } .faq-item summary { font-size: 16.5px; padding: 18px; } .faq-a { padding: 0 18px 20px; font-size: 15.5px; } }
+  @media (prefers-reduced-motion: reduce) { .faq-a { animation: none; } }
+
   /* ---------- Mobil sticky CTA ---------- */
   .sticky {
     position: fixed;
@@ -883,6 +904,30 @@
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <h2 class="reveal">Ko‘p beriladigan savollar</h2>
+    <div class="faq-list">
+      <details class="faq-item reveal" name="faq" open>
+        <summary><span>Bu darslar kimlar uchun?</span><i class="faq-ico" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Darslar LOR shifokorlari, endoskopik peshona operatsiyalarini xavfsiz va asoratsiz o‘tkazishni o‘rganmoqchi bo‘lgan mutaxassislar uchun mo‘ljallangan. Ularda oddiy nazariya emas, amaliyotda kerak bo‘ladigan bilimlar berilgan.</p></div>
+      </details>
+      <details class="faq-item reveal" name="faq">
+        <summary><span>97 000 so‘mga aynan nimalar kiradi?</span><i class="faq-ico" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Siz 2 ta amaliy darsni olasiz: “Endoskopik frontotomiyada asosiy orientirlar” va “Endoskopik Peshona Operatsiyalarida 5 ta Muhim Peshona Drenaj Sistemasi”. Ular orqali MSKT asosida o‘roqsimon o‘siq birikishini aniqlashni, operatsiyaga tayyor reja bilan kirishni va ko‘z kosasi hamda miya asosi atrofida xavfsiz ishlashni o‘rganasiz.</p></div>
+      </details>
+      <details class="faq-item reveal" name="faq">
+        <summary><span>Nega narx 5 000 000 emas, 97 000 so‘m?</span><i class="faq-ico" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Bu 2 ta dars avval faqat narxi 5 000 000 so‘m bo‘lgan dasturim ichida, kurs ishtirokchilariga berilgan. Men bilim pul sababli to‘xtab qolishini xohlamayman, shuning uchun ularni siz uchun alohida, 97 000 so‘mga ochdim.</p></div>
+      </details>
+      <details class="faq-item reveal" name="faq">
+        <summary><span>To‘lovni qanday qilaman va darslarni qanday olaman?</span><i class="faq-ico" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Sahifadagi karta raqamiga 97 000 so‘m o‘tkazasiz, to‘lov chekini rasmga olasiz va “Telegramga o‘tish” tugmasi orqali menejerga yuborasiz. Dars bir marta to‘lanadi, keyin ularni xohlagan vaqtda qayta ko‘rib foydalanishingiz mumkin.</p></div>
+      </details>
     </div>
   </div>
 </section>
