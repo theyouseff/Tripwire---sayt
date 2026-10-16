@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>97,000 So'mlik darsni olish</title>
 <meta name="theme-color" content="#0B2A3C">
+<script>
+  // Egasi uchun: ishonchli qurilma bo'lsa avtomatik admin panelga o'tadi (?site=1 bilan o'tmaydi)
+  (function () {
+    try {
+      if (/[?&]site=1\b/.test(location.search)) { sessionStorage.setItem('skipAdmin', '1'); return; }
+      if (sessionStorage.getItem('skipAdmin') || localStorage.getItem('tw_owner') !== '1') return;
+      fetch('/api/admin/me', { credentials: 'same-origin', cache: 'no-store' })
+        .then(function (r) { if (r.ok) location.replace('/admin/'); }).catch(function () {});
+    } catch (e) {}
+  })();
+</script>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -1116,6 +1127,52 @@
   } else {
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
+</script>
+<script>
+  // Anonim statistika (admin panel uchun). Shaxsiy ma'lumot yig'ilmaydi.
+  (function () {
+    var KEY = 'tw_vid', id;
+    try { id = localStorage.getItem(KEY); if (!id) { id = (self.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 36); localStorage.setItem(KEY, id); } } catch (e) {}
+    if (!id) id = 'anon' + String(Math.random()).slice(2, 14);
+    function src() {
+      var q = new URLSearchParams(location.search), u = (q.get('utm_source') || '').toLowerCase(), r = '';
+      try { r = document.referrer ? new URL(document.referrer).hostname.toLowerCase() : ''; } catch (e) {}
+      var t = u || r;
+      if (!t) return 'direct';
+      if (/insta/.test(t)) return 'instagram';
+      if (/(^|\.)t\.me$|telegram/.test(t)) return 'telegram';
+      if (/youtu/.test(t)) return 'youtube';
+      if (/facebook|fb\./.test(t)) return 'facebook';
+      if (/google/.test(t)) return 'google';
+      return 'other';
+    }
+    function send(e, x, extra) {
+      var b = { e: e, i: id }; if (x !== undefined) b.x = x; if (extra) for (var k in extra) b[k] = extra[k];
+      var j = JSON.stringify(b);
+      try { if (navigator.sendBeacon && navigator.sendBeacon('/api/track', new Blob([j], { type: 'application/json' }))) return; } catch (er) {}
+      try { fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: j, keepalive: true }); } catch (er) {}
+    }
+    send('view', undefined, { s: src(), d: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || innerWidth < 768 ? 'm' : 'd' });
+
+    document.addEventListener('click', function (ev) {
+      var t = ev.target;
+      if (!t.closest) return;
+      var a = t.closest('a[href="#dars"]');
+      if (a) { send(a.closest('.hero') ? 'cta_hero' : a.closest('.sticky') ? 'cta_sticky' : 'cta_price'); return; }
+      if (t.closest('#tg-link')) { send('tg_click'); return; }
+      if (t.closest('#copy-btn')) { send('card_copy'); return; }
+      var c = t.closest('.circle.embed');
+      if (c && !c.classList.contains('expanded')) { var i = Array.prototype.indexOf.call(document.querySelectorAll('.circle.embed'), c); if (i > -1) send('video_play', i); return; }
+      var sm = t.closest('.faq-item summary');
+      if (sm) { var it = sm.parentNode; if (!it.classList.contains('is-open')) send('faq_open', Array.prototype.indexOf.call(document.querySelectorAll('.faq-item'), it)); }
+    }, true);
+
+    var pay = document.getElementById('dars');
+    if (pay && 'IntersectionObserver' in window) {
+      var seen = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { send('reach_pay'); seen.disconnect(); } }, { threshold: 0.25 });
+      seen.observe(pay);
+    }
+  })();
 </script>
 </body>
 </html>
