@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B2A3C">
+<title>Admin panel</title>
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0F5C6E; --night: #0B2A3C; --cyan: #4fc3e8;
+    --w: #fff; --w60: rgba(255,255,255,.62); --w20: rgba(255,255,255,.2); --w10: rgba(255,255,255,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Poppins", Arial, sans-serif; color: var(--w); min-height: 100vh;
+    background: radial-gradient(60% 40% at 8% 0%, rgba(15,92,110,.6), transparent 70%), #07131b;
+    -webkit-font-smoothing: antialiased;
+  }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  /* login */
+  .login { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+  .card { background: var(--w10); border: 1px solid var(--w20); border-radius: 24px; padding: 28px; }
+  .login .card { width: 100%; max-width: 380px; box-shadow: 0 30px 60px -30px #000; }
+  .login h1 { font-size: 22px; margin-bottom: 6px; }
+  .login p { color: var(--w60); font-size: 14px; margin-bottom: 20px; }
+  input[type=password] {
+    width: 100%; height: 52px; border-radius: 14px; border: 1.5px solid var(--w20); background: rgba(255,255,255,.07);
+    color: var(--w); font: inherit; font-size: 16px; padding: 0 16px; outline: 0; transition: border-color .2s, box-shadow .2s;
+  }
+  input[type=password]:focus { border-color: var(--cyan); box-shadow: 0 0 0 4px rgba(79,195,232,.18); }
+  .btn {
+    font: inherit; font-weight: 600; font-size: 15px; color: var(--w); cursor: pointer; text-decoration: none;
+    background: var(--teal); border: 1px solid var(--w20); border-radius: 999px; padding: 11px 20px;
+    transition: transform .2s, box-shadow .2s, background .2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -10px var(--cyan); }
+  .btn.ghost { background: transparent; }
+  .btn.block { width: 100%; justify-content: center; margin-top: 14px; height: 50px; }
+  .btn:disabled { opacity: .6; cursor: progress; }
+  .err { color: #ffcc4d; font-size: 14px; min-height: 20px; margin-top: 12px; }
+
+  /* header */
+  header { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  header h1 { font-size: 24px; letter-spacing: -.01em; }
+  header h1 small { display: block; font-size: 13px; font-weight: 400; color: var(--w60); letter-spacing: 0; }
+  .tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .seg { display: inline-flex; background: var(--w10); border: 1px solid var(--w20); border-radius: 999px; padding: 4px; }
+  .seg button { font: inherit; font-size: 14px; font-weight: 500; color: var(--w60); background: none; border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; transition: background .2s, color .2s; }
+  .seg button.on { background: var(--teal); color: var(--w); box-shadow: 0 0 0 1px var(--w20); }
+
+  /* kpi */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .kpi { padding: 18px 20px; }
+  .kpi span { display: block; color: var(--w60); font-size: 13px; }
+  .kpi b { display: block; font-size: 32px; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .kpi.hot { background: linear-gradient(135deg, var(--teal), #0a3a4d); border-color: rgba(79,195,232,.6); box-shadow: 0 0 28px -10px var(--cyan); }
+  .grid2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .grid2.eq { grid-template-columns: 1fr 1fr; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+  .card h2 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+  .card h2 small { color: var(--w60); font-weight: 400; margin-left: 6px; }
+
+  /* charts */
+  svg.line { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--w60); margin-top: 8px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .bars { display: flex; flex-direction: column; gap: 12px; }
+  .bar .top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; gap: 10px; }
+  .bar .top span:last-child { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bar .track { height: 10px; background: var(--w10); border-radius: 99px; overflow: hidden; }
+  .bar .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--teal), var(--cyan)); border-radius: 99px; transition: width .8s cubic-bezier(.22,1,.36,1); }
+  .empty { color: var(--w60); font-size: 14px; }
+  .foot { color: var(--w60); font-size: 13px; text-align: center; margin-top: 22px; }
+
+  @media (max-width: 860px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .grid2, .grid2.eq, .grid3 { grid-template-columns: 1fr; }
+    header h1 { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Kirish -->
+<div class="login" id="login" hidden>
+  <form class="card" id="login-form" autocomplete="on">
+    <h1>Admin panel</h1>
+    <p>Davom etish uchun parolni kiriting.</p>
+    <input type="password" id="pw" name="password" placeholder="Parol" autocomplete="current-password" required autofocus>
+    <button class="btn block" type="submit" id="login-btn">Kirish</button>
+    <div class="err" id="login-err" role="alert"></div>
+  </form>
+</div>
+
+<!-- Dashboard -->
+<div class="wrap" id="app" hidden>
+  <header>
+    <h1>Statistika <small>Endoskopik Peshona · 97.000 so'm sahifasi</small></h1>
+    <div class="tools">
+      <div class="seg" id="range">
+        <button data-d="1">Bugun</button><button data-d="7" class="on">7 kun</button><button data-d="30">30 kun</button>
+      </div>
+      <a class="btn" id="view-site" href="/?site=1">Saytni ko'rish</a>
+      <button class="btn ghost" id="logout">Chiqish</button>
+    </div>
+  </header>
+
+  <div class="kpis">
+    <div class="card kpi"><span>Noyob tashrifchilar</span><b id="k-uniq">—</b></div>
+    <div class="card kpi"><span>Tashriflar</span><b id="k-views">—</b></div>
+    <div class="card kpi hot"><span>Telegramga o'tdi</span><b id="k-tg">—</b></div>
+    <div class="card kpi"><span>Konversiya</span><b id="k-conv">—</b></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Kunlar bo'yicha <small id="chart-sub"></small></h2>
+      <svg class="line" id="chart" viewBox="0 0 600 230" role="img" aria-label="Kunlar bo'yicha tashriflar"></svg>
+      <div class="legend"><span><i style="background:#4fc3e8"></i>Tashriflar</span><span><i style="background:#fff"></i>Noyob tashrifchilar</span></div>
+    </div>
+    <div class="card">
+      <h2>Yo'l <small>(noyob tashrifchilar)</small></h2>
+      <div class="bars" id="funnel"></div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h2>Tugma bosishlari</h2><div class="bars" id="buttons"></div></div>
+    <div class="card"><h2>Manbalar</h2><div class="bars" id="sources"></div></div>
+    <div class="card"><h2>Qurilma</h2><div class="bars" id="devices"></div></div>
+  </div>
+
+  <div class="grid2 eq">
+    <div class="card"><h2>Krujok videolar <small>(ochilgan)</small></h2><div class="bars" id="videos"></div></div>
+    <div class="card"><h2>Savollar <small>(ochilgan)</small></h2><div class="bars" id="faq"></div></div>
+  </div>
+
+  <div class="foot">
+    <span id="last-login"></span>
+    <div style="margin-top:12px"><button class="btn ghost" id="logout-all">Barcha qurilmalardan chiqish</button></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var days = 7;
+  var LABEL = {
+    cta_hero: 'Darslikni olish (tepada)', cta_sticky: 'Pastki panel (telefon)', cta_price: 'Narx kartochkasi',
+    card_copy: 'Karta raqami nusxalandi', tg_click: 'Telegramga o\'tish'
+  };
+  var SRC = { instagram: 'Instagram', telegram: 'Telegram', youtube: 'YouTube', facebook: 'Facebook', google: 'Google', direct: 'To\'g\'ridan-to\'g\'ri', other: 'Boshqa' };
+  var VID = ['1-krujok', '2-krujok', '3-krujok', '4-krujok', '5-krujok', '6-krujok'];
+  var FAQ = ['Bu darslar kimlar uchun?', '97 000 so\'mga nimalar kiradi?', 'Nega 5 000 000 emas?', 'To\'lovni qanday qilaman?'];
+
+  function show(login) { $('login').hidden = !login; $('app').hidden = login; }
+  function api(path, opt) { opt = opt || {}; opt.credentials = 'same-origin'; opt.cache = 'no-store'; return fetch(path, opt); }
+  function fmt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
+
+  function bars(el, rows, total) {
+    var max = Math.max.apply(null, rows.map(function (r) { return r[1]; }).concat([1]));
+    el.innerHTML = rows.length ? rows.map(function (r) {
+      var pct = total ? ' <span style="color:var(--w60);font-weight:400">· ' + Math.round(r[1] / total * 100) + '%</span>' : '';
+      return '<div class="bar"><div class="top"><span>' + r[0] + '</span><span>' + fmt(r[1]) + pct + '</span></div><div class="track"><div class="fill" data-w="' + (r[1] / max * 100) + '"></div></div></div>';
+    }).join('') : '<div class="empty">Hozircha ma\'lumot yo\'q</div>';
+    requestAnimationFrame(function () { requestAnimationFrame(function () { el.querySelectorAll('.fill').forEach(function (f) { f.style.width = f.dataset.w + '%'; }); }); });
+  }
+
+  function line(svg, labels, a, b) {
+    var W = 600, H = 230, L = 34, R = 22, T = 14, B = 28, n = labels.length;
+    var max = Math.max.apply(null, a.concat(b).concat([1]));
+    var step = max <= 4 ? 1 : Math.ceil(max / 4);
+    max = Math.ceil(max / step) * step;
+    var x = function (i) { return n === 1 ? (L + (W - L - R) / 2) : L + i * (W - L - R) / (n - 1); };
+    var y = function (v) { return T + (H - T - B) * (1 - v / max); };
+    var grid = '';
+    for (var g = 0; g <= max; g += step) grid += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="rgba(255,255,255,.1)"/><text x="' + (L - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end" font-size="11" fill="rgba(255,255,255,.55)">' + g + '</text>';
+    var path = function (arr) { return arr.map(function (v, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1); }).join(' '); };
+    var area = path(a) + ' L' + x(n - 1).toFixed(1) + ' ' + y(0) + ' L' + x(0).toFixed(1) + ' ' + y(0) + ' Z';
+    var xl = '';
+    var every = n > 14 ? 5 : (n > 7 ? 2 : 1);
+    labels.forEach(function (d, i) { if (i % every === 0 || i === n - 1) xl += '<text x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.55)">' + d.slice(8) + '.' + d.slice(5, 7) + '</text>'; });
+    var dots = function (arr, c) { return n > 20 ? '' : arr.map(function (v, i) { return '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="3.5" fill="' + c + '"/>'; }).join(''); };
+    svg.innerHTML = '<defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4fc3e8" stop-opacity=".35"/><stop offset="1" stop-color="#4fc3e8" stop-opacity="0"/></linearGradient></defs>' +
+      grid + '<path d="' + area + '" fill="url(#ga)"/>' +
+      '<path d="' + path(a) + '" fill="none" stroke="#4fc3e8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+      '<path d="' + path(b) + '" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1 0"/>' +
+      dots(a, '#4fc3e8') + dots(b, '#fff') + xl;
+  }
+
+  function render(d) {
+    var uniq = sum(d.uniques.view), views = sum(d.views), tg = sum(d.uniques.tg_click);
+    $('k-uniq').textContent = fmt(uniq);
+    $('k-views').textContent = fmt(views);
+    $('k-tg').textContent = fmt(d.buttons.tg_click);
+    $('k-conv').textContent = uniq ? (tg / uniq * 100).toFixed(1).replace('.0', '') + '%' : '—';
+    $('chart-sub').textContent = d.days[0].slice(5).replace('-', '.') + ' – ' + d.days[d.days.length - 1].slice(5).replace('-', '.');
+    line($('chart'), d.days, d.views, d.uniques.view);
+
+    var u = { view: uniq, reach: sum(d.uniques.reach_pay), copy: sum(d.uniques.card_copy), tg: tg };
+    bars($('funnel'), [['Saytga kirdi', u.view], ['To\'lov blokigacha yetdi', u.reach], ['Karta raqamini nusxaladi', u.copy], ['Telegramga o\'tdi', u.tg]], u.view);
+
+    bars($('buttons'), Object.keys(LABEL).map(function (k) { return [LABEL[k], d.buttons[k] || 0]; }));
+    var sTotal = sum(Object.keys(d.sources).map(function (k) { return d.sources[k]; }));
+    bars($('sources'), Object.keys(d.sources).filter(function (k) { return d.sources[k] > 0; }).sort(function (a, b) { return d.sources[b] - d.sources[a]; }).map(function (k) { return [SRC[k] || k, d.sources[k]]; }), sTotal);
+    bars($('devices'), [['Telefon', d.devices.m], ['Kompyuter', d.devices.d]].filter(function (r) { return r[1] > 0; }), d.devices.m + d.devices.d);
+    bars($('videos'), d.videos.map(function (v, i) { return [VID[i], v]; }));
+    bars($('faq'), d.faq.map(function (v, i) { return [FAQ[i], v]; }));
+
+    if (d.lastLogin && d.lastLogin.at) {
+      var t = new Date(d.lastLogin.at);
+      $('last-login').textContent = 'Oxirgi kirish: ' + t.toLocaleString('uz-UZ') + ' · IP ' + (d.lastLogin.ip || '—');
+    }
+  }
+
+  function load() {
+    api('/api/admin/stats?days=' + days).then(function (r) {
+      if (r.status === 401) { show(true); return null; }
+      return r.json();
+    }).then(function (d) { if (d) render(d); }).catch(function () { $('last-login').textContent = 'Ma\'lumotni yuklab bo\'lmadi.'; });
+  }
+
+  function enter() { try { localStorage.setItem('tw_owner', '1'); } catch (e) {} show(false); load(); }
+
+  api('/api/admin/me').then(function (r) { if (r.ok) enter(); else show(true); }).catch(function () { show(true); });
+
+  $('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = $('login-btn'); btn.disabled = true; $('login-err').textContent = '';
+    api('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: $('pw').value }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) { if (res.ok) { $('pw').value = ''; enter(); } else { $('login-err').textContent = (res.j && res.j.error) || 'Xatolik.'; } })
+      .catch(function () { $('login-err').textContent = 'Server bilan aloqa yo\'q.'; })
+      .then(function () { btn.disabled = false; });
+  });
+
+  $('range').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    days = Number(b.dataset.d);
+    this.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    load();
+  });
+
+  $('view-site').addEventListener('click', function () { try { sessionStorage.setItem('skipAdmin', '1'); } catch (e) {} });
+
+  function logout(all) {
+    api('/api/admin/logout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ all: !!all }) })
+      .then(function () { try { localStorage.removeItem('tw_owner'); } catch (e) {} show(true); });
+  }
+  $('logout').addEventListener('click', function () { logout(false); });
+  $('logout-all').addEventListener('click', function () { if (confirm('Barcha qurilmalardan chiqilsinmi?')) logout(true); });
+})();
+</script>
+</body>
+</html>
