@@ -542,7 +542,8 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ---------- Garantiya ---------- */
-  .stack .g-card { max-width: 880px; margin: 8px auto 64px; }
+  .stack { padding-top: 8px; margin-top: -1px; } /* margin collapse oq chiziq hosil qilmasligi uchun */
+  .stack .g-card { max-width: 880px; margin: 0 auto 64px; }
   .g-card {
     --cyan: #4fc3e8;
     display: flex; align-items: center; gap: 28px;
