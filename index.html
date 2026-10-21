@@ -3,8 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>97,000 So'mlik darsni olish</title>
+<title>2 ta amaliy darsni 97 000 so‘mga olish</title>
+<meta name="description" content="LOR shifokorlari uchun: endoskopik peshona operatsiyalarini xavfsiz va asoratsiz o‘tkazish bo‘yicha 2 ta amaliy dars — bor-yo‘g‘i 97 000 so‘m.">
 <meta name="theme-color" content="#0B2A3C">
+<!-- Telegram / Instagram / Facebook'da havola ulashilganda chiqadigan ko'rinish -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tripwire-sayt.vercel.app/">
+<meta property="og:title" content="Endoskopik peshona operatsiyalari: 2 ta amaliy dars — 97 000 so‘m">
+<meta property="og:description" content="LOR shifokorlari uchun: operatsiyani xavfsiz va asoratsiz o‘tkazishni 5 qadam orqali o‘rganing.">
+<meta property="og:image" content="https://tripwire-sayt.vercel.app/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="uz_UZ">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -28,7 +39,7 @@
     --radius: 28px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; background: var(--night); }
   body {
     font-family: "Poppins", Arial, sans-serif;
     color: var(--night);
@@ -122,11 +133,11 @@
   }
   /* Rasm badge tepasidan "…o'rganing!" oxirigacha bo'lgan balandlikni egallaydi */
   .hero-inner {
-    max-width: 1120px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 0 16px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.25fr .75fr;
     grid-template-areas:
       "badge badge"
       "title img"
@@ -136,7 +147,8 @@
   .badge { grid-area: badge; justify-self: center; margin-bottom: 32px; }
   .hero h1 { grid-area: title; }
   .hero .cta { grid-area: cta; justify-self: start; margin-top: 36px; }
-  .hero-visual { grid-area: img; position: relative; min-height: 260px; }
+  .hero-visual { grid-area: img; position: relative; min-height: 420px; }
+  .hero h1 { align-self: center; }
   .hero-img {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
@@ -511,7 +523,10 @@
     backdrop-filter: blur(4px);
     display: grid; place-items: center;
   }
-  .circle.playing .play { opacity: 0; }
+  .circle .play { z-index: 1; }
+  .circle .play span { width: 52px; height: 52px; background: rgba(11,42,60,.45); box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
+  .circle .play svg { margin-left: 3px; }
+  .circle.playing .play, .circle.expanded .play { opacity: 0; }
   .circle.playing { animation: spin 3s linear infinite; }
   .circle.playing .circle-inner { animation: spin 3s linear infinite reverse; }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -771,7 +786,6 @@
     .story { font-size: 16.5px; }
     .story .hl { font-size: 18px; padding: 18px 20px; }
     .sticky { display: flex; }
-    body { padding-bottom: 84px; }
   }
   @media (max-width: 380px) {
     .badge { font-size: 11.5px; gap: 8px; }
@@ -789,7 +803,7 @@
       <span class="badge-sep"></span>
       <span class="badge-text">⚠️ LOR shifokorlari <em>diqqatiga!</em> ⚠️</span>
     </div>
-    <h1>Endoskopik Peshona Operatsiyalarini xavfsiz va asoratsiz o'tkazishni bu 5 qadam orqali o'rganing!</h1>
+    <h1>Endoskopik Peshona Operatsiyalarini xavfsiz va asoratsiz o‘tkazishni bu 5 qadam orqali o‘rganing!</h1>
     <div class="hero-visual"><img class="hero-img" src="images/doctor-skull.webp" alt="Mirkamol Nosirjonov"></div>
     <a class="cta" href="#dars">
       <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
@@ -804,16 +818,16 @@
 <!-- ============ 2. NATIJALAR ============ -->
 <section class="results">
   <div class="container">
-    <h2 class="reveal">Bu darsni ko'rganingizdan keyin qanday natija olasiz:</h2>
+    <h2 class="reveal">Bu darsni ko‘rganingizdan keyin qanday natija olasiz:</h2>
     <div class="cards">
       <article class="rcard reveal"><img class="rcard-img" src="images/cards/c1.webp" alt="01" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">MSKT orqali <em>o'roqsimon o'siq</em> birikishini aniqlaysiz</h3></div></article>
+        <div class="rcard-body"><h3 class="rcard-title">MSKT orqali <em>o‘roqsimon o‘siq</em> birikishini aniqlaysiz</h3></div></article>
       <article class="rcard reveal"><img class="rcard-img" src="images/cards/c2.webp" alt="02" loading="lazy">
         <div class="rcard-body"><h3 class="rcard-title">Operatsiyaga tayyor <em>reja</em> bilan kirasiz</h3></div></article>
       <article class="rcard reveal"><img class="rcard-img" src="images/cards/c3.webp" alt="03" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">Sinus frontalisning 5 ta asosiy drenaj yo'li <em>(UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT)</em></h3></div></article>
+        <div class="rcard-body"><h3 class="rcard-title">Sinus frontalisning 5 ta asosiy drenaj yo‘li <em>(UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT)</em></h3></div></article>
       <article class="rcard reveal"><img class="rcard-img" src="images/cards/c5.webp" alt="05" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">Ko'z kosasi va <em>miya asosi</em> atrofida xavfsiz ishlaysiz</h3></div></article>
+        <div class="rcard-body"><h3 class="rcard-title">Ko‘z kosasi va <em>miya asosi</em> atrofida xavfsiz ishlaysiz</h3></div></article>
     </div>
   </div>
 </section>
@@ -844,20 +858,20 @@
     <div class="story story-big reveal">
       <p>Men ilm olish pul sababli to‘xtab qolishini xohlamayman.</p>
       <p>Bu bilimlarni o‘zlashtirish uchun 5 dan ortiq davlatda malaka oshirdim. Yillar davomida vaqtimni va bir necha ming dollar pulimni sarflashga majbur bo‘ldim.</p>
-      <p>Qolaversa, bu 2 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5.000.000 so‘mlik dasturim tarkibida berilgan.</p>
+      <p>Qolaversa, bu 2 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5 000 000 so‘mlik dasturim tarkibida berilgan.</p>
       <p class="hl">Lekin, siz hoziroq shu 2 ta darsni qo‘lga kiritishingiz mumkin</p>
     </div>
 
     <a class="now now-link reveal" href="#dars">
       <div class="now-label">bor-yo‘g‘i</div>
-      <span class="now-price">97.000 so‘m</span>
+      <span class="now-price">97 000 so‘m</span>
     </a>
   </div>
 </section>
 
 <section class="paths">
   <div class="container">
-    <h2 class="reveal">97,000 evaziga nimalar olsa bo'ladi?</h2>
+    <h2 class="reveal">97 000 so‘m evaziga nimalar olsa bo‘ladi?</h2>
     <div class="tri-grid">
       <article class="tri tri-1 tri-plain tri-cut reveal">
         <div class="tri-cut-img"><img src="images/cutout-kino.webp" alt="Kino chiptalari" loading="lazy"></div>
@@ -884,7 +898,7 @@
       <p>Berayotgan darslarim sizga haqiqatan ham foyda berishiga va amaliyotda natija berishiga ishonaman.</p>
       <p>Chunki maqsadim shunchaki dars o‘tish emas, balki sizga real ish jarayonida kerak bo‘ladigan bilimlarni berish.</p>
       <p>Agar hali ham ikkilanayotgan bo‘lsangiz, quyida katta dasturimda o‘qigan hamkasblarimning fikrlarini qoldiraman.</p>
-      <p>O‘zingiz ko’rib chiqib, qaror qiling 👇</p>
+      <p>O‘zingiz ko‘rib chiqib, qaror qiling 👇</p>
     </div>
 
   </div>
@@ -894,14 +908,14 @@
 <!-- Videolarni videos/ papkasiga 1.mp4, 2.mp4 ... nomi bilan qo'ying -->
 <section class="students">
   <div class="container">
-    <h2 class="reveal">Kurslarim o'quvchilari nima deydi?</h2>
+    <h2 class="reveal">Kurslarim o‘quvchilari nima deydi?</h2>
     <div class="circles reveal">
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
     </div>
   </div>
 </section>
@@ -915,16 +929,16 @@
         <div class="faq-a"><p>Darslar LOR shifokorlari, endoskopik peshona operatsiyalarini xavfsiz va asoratsiz o‘tkazishni o‘rganmoqchi bo‘lgan mutaxassislar uchun mo‘ljallangan. Ularda oddiy nazariya emas, amaliyotda kerak bo‘ladigan bilimlar berilgan.</p></div>
       </details>
       <details class="faq-item reveal" name="faq">
-        <summary><span>97 000 so‘mga aynan nimalar kiradi?</span><i class="faq-ico" aria-hidden="true"></i></summary>
+        <summary><span>97 000 so‘mga aynan nimalar kiradi?</span><i class="faq-ico" aria-hidden="true"></i></summary>
         <div class="faq-a"><p>Siz 2 ta amaliy darsni olasiz: “Endoskopik frontotomiyada asosiy orientirlar” va “Endoskopik Peshona Operatsiyalarida 5 ta Muhim Peshona Drenaj Sistemasi”. Ular orqali MSKT asosida o‘roqsimon o‘siq birikishini aniqlashni, operatsiyaga tayyor reja bilan kirishni va ko‘z kosasi hamda miya asosi atrofida xavfsiz ishlashni o‘rganasiz.</p></div>
       </details>
       <details class="faq-item reveal" name="faq">
-        <summary><span>Nega narx 5 000 000 emas, 97 000 so‘m?</span><i class="faq-ico" aria-hidden="true"></i></summary>
-        <div class="faq-a"><p>Bu 2 ta dars avval faqat narxi 5 000 000 so‘m bo‘lgan dasturim ichida, kurs ishtirokchilariga berilgan. Men bilim pul sababli to‘xtab qolishini xohlamayman, shuning uchun ularni siz uchun alohida, 97 000 so‘mga ochdim.</p></div>
+        <summary><span>Nega narx 5 000 000 emas, 97 000 so‘m?</span><i class="faq-ico" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Bu 2 ta dars avval faqat narxi 5 000 000 so‘m bo‘lgan dasturim ichida, kurs ishtirokchilariga berilgan. Men bilim pul sababli to‘xtab qolishini xohlamayman, shuning uchun ularni siz uchun alohida, 97 000 so‘mga ochdim.</p></div>
       </details>
       <details class="faq-item reveal" name="faq">
         <summary><span>To‘lovni qanday qilaman va darslarni qanday olaman?</span><i class="faq-ico" aria-hidden="true"></i></summary>
-        <div class="faq-a"><p>Sahifadagi karta raqamiga 97 000 so‘m o‘tkazasiz, to‘lov chekini rasmga olasiz va “Telegramga o‘tish” tugmasi orqali menejerga yuborasiz. Dars bir marta to‘lanadi, keyin ularni xohlagan vaqtda qayta ko‘rib foydalanishingiz mumkin.</p></div>
+        <div class="faq-a"><p>Sahifadagi karta raqamiga 97 000 so‘m o‘tkazasiz, to‘lov chekini rasmga olasiz va “Telegramga o‘tish” tugmasi orqali menejerga yuborasiz. Dars bir marta to‘lanadi, keyin ularni xohlagan vaqtda qayta ko‘rib foydalanishingiz mumkin.</p></div>
       </details>
     </div>
   </div>
@@ -933,14 +947,14 @@
 <section class="final" id="dars">
   <div class="container reg-wrap">
     <div class="reg-head reveal">
-      <h2 class="reg-title">Ro’yxatdan o’tish tartibi:</h2>
-      <div class="timer"><span>Ro'yxatdan o'tish uchun qolgan vaqt:</span><b id="timer" aria-live="off">15:00</b></div>
+      <h2 class="reg-title">Ro‘yxatdan o‘tish tartibi:</h2>
+      <div class="timer"><span>Ro‘yxatdan o‘tish uchun qolgan vaqt:</span><b id="timer" aria-live="off">15:00</b></div>
     </div>
 
     <div class="reg-grid">
       <div class="reg-steps reveal">
         <div class="step">
-          <p>1) Quyidagi karta raqamiga ushbu to’lovni amalga oshirasiz: <em>97,000 so'm</em></p>
+          <p>1) Quyidagi karta raqamiga ushbu to‘lovni amalga oshirasiz: <em>97 000 so‘m</em></p>
           <div class="pay">
             <div class="pay-row">
               <div class="pay-num" id="card-num">9860 2701 0289 3236</div>
@@ -949,14 +963,14 @@
             <div class="pay-name">Mirkamol Nosirjonov</div>
           </div>
         </div>
-        <div class="step"><p>2) To’lovingiz chekini rasmga olasiz</p></div>
+        <div class="step"><p>2) To‘lovingiz chekini rasmga olasiz</p></div>
       </div>
 
       <div class="reg-form reveal">
-        <p class="up-label">3) To'lov chekini pastdagi tugmani bosib, bizga yuborasiz.</p>
-        <a class="cta cta-submit cta-tg" id="tg-link" href="https://t.me/mirkamol_menejer?text=Assalamu%20alaykum%21%0A%0AEndoskopik%20Peshona%20%7C%20Darslar%20uchun%20tolov%20chekini%20xozir%20tashlayman." target="_blank" rel="noopener">
+        <p class="up-label">3) To‘lov chekini pastdagi tugmani bosib, bizga yuborasiz.</p>
+        <a class="cta cta-submit cta-tg" id="tg-link" href="https://t.me/mirkamol_menejer?text=Assalamu%20alaykum%21%0A%0AEndoskopik%20Peshona%20%7C%20Darslar%20uchun%20to%E2%80%98lov%20chekini%20hozir%20tashlayman." target="_blank" rel="noopener">
           <span class="tg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.5 3.3 2.9 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.1.8.7.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.5.2 1.7-.8l3-14.3c.3-1.2-.4-1.7-1.3-1.3zM9 13.7l9.3-5.9c.4-.3.8-.1.5.2l-7.7 7-.3 3.2-1.8-4.5z"/></svg></span>
-          <span class="cta-text">Telegramga <em>o'tish</em></span>
+          <span class="cta-text">Telegramga <em>o‘tish</em></span>
           <span class="tg-arrow"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M14 5l7 7-7 7"/></svg></span>
         </a>
       </div>
@@ -968,7 +982,7 @@
 
 <!-- Mobil sticky CTA -->
 <div class="sticky" aria-hidden="true">
-  <span class="sticky-price">97.000 so'm</span>
+  <span class="sticky-price">97 000 so‘m</span>
   <a href="#dars" tabindex="-1">Darslikni olish</a>
 </div>
 
@@ -1040,11 +1054,14 @@
   // ---- Ro'yxatdan o'tish bloki ----
   (function () {
 
-    // Taymer: 15:00 dan teskari sanaydi, sahifa qayta ochilganda ham davom etadi
+    // Taymer: 15:00 dan teskari sanaydi, sahifa qayta ochilganda ham davom etadi.
+    // 00:00 ga yetgach, 00:00 da qotib qolmasdan yangi 15 daqiqa boshlanadi
     var t = document.getElementById('timer'), KEY = 'tw_end', end;
+    function restart() { end = Date.now() + 15 * 60 * 1000; try { localStorage.setItem(KEY, end); } catch (e) {} }
     try { end = parseInt(localStorage.getItem(KEY), 10); } catch (e) {}
-    if (!end || end < Date.now() - 60000) { end = Date.now() + 15 * 60 * 1000; try { localStorage.setItem(KEY, end); } catch (e) {} }
+    if (!end || end < Date.now()) restart();
     function tick() {
+      if (end - Date.now() < -1000) restart();
       var left = Math.max(0, Math.round((end - Date.now()) / 1000));
       var m = String(Math.floor(left / 60)).padStart(2, '0'), s = String(left % 60).padStart(2, '0');
       t.textContent = m + ':' + s;
