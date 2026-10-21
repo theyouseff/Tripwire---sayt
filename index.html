@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2 ta amaliy darsni 97 000 so‘mga olish</title>
-<meta name="description" content="LOR shifokorlari uchun: endoskopik peshona operatsiyalarini xavfsiz va asoratsiz o‘tkazish bo‘yicha 2 ta amaliy dars — bor-yo‘g‘i 97 000 so‘m.">
+<title>3 ta amaliy darsni 97 000 so‘mga olish</title>
+<meta name="description" content="LOR shifokorlari uchun: endoskopik peshona operatsiyalarini xavfsiz va asoratsiz o‘tkazish bo‘yicha 3 ta amaliy dars — bor-yo‘g‘i 97 000 so‘m.">
 <meta name="theme-color" content="#0B2A3C">
 <!-- Telegram / Instagram / Facebook'da havola ulashilganda chiqadigan ko'rinish -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tripwire-sayt.vercel.app/">
-<meta property="og:title" content="Endoskopik peshona operatsiyalari: 2 ta amaliy dars — 97 000 so‘m">
+<meta property="og:title" content="Endoskopik peshona operatsiyalari: 3 ta amaliy dars — 97 000 so‘m">
 <meta property="og:description" content="LOR shifokorlari uchun: operatsiyani xavfsiz va asoratsiz o‘tkazishni 5 qadam orqali o‘rganing.">
 <meta property="og:image" content="https://tripwire-sayt.vercel.app/images/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -309,7 +309,17 @@
   .demo-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
   .demo-list li { display: flex; gap: 14px; align-items: flex-start; font-size: 17px; line-height: 1.5; color: rgba(255,255,255,.88); }
   .demo-list .chk { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; margin-top: 1px; box-shadow: 0 0 0 1px var(--white-20); }
+  .lessons { display: flex; flex-direction: column; gap: 72px; }
+  .lesson.rev .macbook { order: 2; justify-self: end; }
+  .lesson-tag { display: inline-block; margin-bottom: 14px; padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #4fc3e8; background: rgba(79,195,232,.12); border: 1px solid rgba(79,195,232,.4); }
+  .lesson .demo-side h3 { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.25; margin-bottom: 18px; }
+  .lesson .demo-side h3:last-child { margin-bottom: 0; }
+  .mb-soon { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; color: var(--white); background: radial-gradient(circle at 30% 25%, var(--teal), var(--night) 80%); }
+  .mb-soon b { font-size: clamp(26px, 4vw, 44px); font-weight: 800; }
+  .mb-soon span { font-size: 14px; color: var(--white-60); }
   @media (max-width: 900px) {
+    .lessons { gap: 56px; }
+    .lesson.rev .macbook { order: 0; justify-self: center; }
     .demo-grid { grid-template-columns: 1fr; }
     .demo-side { max-width: 520px; margin: 8px auto 0; }
     .macbook { max-width: 520px; justify-self: center; }
@@ -834,17 +844,48 @@
 
 <section class="demo">
   <div class="container demo-wrap">
-    <h2 class="reveal">Bonus dars</h2>
-    <div class="demo-grid">
-      <div class="macbook reveal" role="img" aria-label="Endoskopik frontotomiyada asosiy orientirlar darsi">
+    <h2 class="reveal">Siz oladigan 3 ta dars</h2>
+
+    <div class="lessons">
+    <div class="demo-grid lesson">
+      <div class="macbook reveal" role="img" aria-label="Peshona bo‘shlig‘i drenajiga oid 3 ta anatomik tuzilma va peshona cho‘ntagini “Building Block” usulida KT’da to‘g‘ri tahlil qilish">
         <div class="mb-lid">
           <i class="mb-cam"></i>
-          <div class="mb-screen"><img src="images/lesson.webp" alt="Endoskopik frontotomiyada asosiy orientirlar"></div>
+          <div class="mb-screen"><div class="mb-soon"><b>1-dars</b><span>Muqova tez orada</span></div></div>
         </div>
         <div class="mb-base"></div>
       </div>
       <div class="demo-side reveal">
-        <h3>Darsda:</h3>
+        <span class="lesson-tag">1-dars</span>
+        <h3>Peshona bo‘shlig‘i drenajiga oid 3 ta anatomik tuzilma va peshona cho‘ntagini “Building Block” usulida KT’da to‘g‘ri tahlil qilish</h3>
+      </div>
+    </div>
+
+    <div class="demo-grid lesson rev">
+      <div class="macbook reveal" role="img" aria-label="Endoskopik Peshona Operatsiyalaridagi Peshona bo‘shlig‘iga kirishning o‘zgarmas 5 ta yo‘li">
+        <div class="mb-lid">
+          <i class="mb-cam"></i>
+          <div class="mb-screen"><img src="images/lesson-5yol.jpg" alt="Peshona bo‘shlig‘iga kirishning 5 ta yo‘li" loading="lazy"></div>
+        </div>
+        <div class="mb-base"></div>
+      </div>
+      <div class="demo-side reveal">
+        <span class="lesson-tag">2-dars</span>
+        <h3>Endoskopik Peshona Operatsiyalaridagi Peshona bo‘shlig‘iga kirishning o‘zgarmas 5 ta yo‘li</h3>
+      </div>
+    </div>
+
+    <div class="demo-grid lesson">
+      <div class="macbook reveal" role="img" aria-label="Endoskopik frontotomiyada asosiy orientirlar">
+        <div class="mb-lid">
+          <i class="mb-cam"></i>
+          <div class="mb-screen"><img src="images/lesson.webp" alt="Endoskopik frontotomiyada asosiy orientirlar" loading="lazy"></div>
+        </div>
+        <div class="mb-base"></div>
+      </div>
+      <div class="demo-side reveal">
+        <span class="lesson-tag">3-dars</span>
+        <h3>Endoskopik frontotomiyada asosiy orientirlar</h3>
         <ul class="demo-list">
         <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Peshona bo‘shlig‘ini endoskopik operatsiya qilishda asosiy anatomik orientirlar</span></li>
         <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Operatsiya vaqtida adashib qolmaslik uchun qaysi tuzilmalarga tayanish kerakligi</span></li>
@@ -853,13 +894,14 @@
         </ul>
       </div>
     </div>
+    </div>
 
     <h2 class="story-title reveal">Nimaga bunaqa narx?</h2>
     <div class="story story-big reveal">
       <p>Men ilm olish pul sababli to‘xtab qolishini xohlamayman.</p>
       <p>Bu bilimlarni o‘zlashtirish uchun 5 dan ortiq davlatda malaka oshirdim. Yillar davomida vaqtimni va bir necha ming dollar pulimni sarflashga majbur bo‘ldim.</p>
-      <p>Qolaversa, bu 2 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5 000 000 so‘mlik dasturim tarkibida berilgan.</p>
-      <p class="hl">Lekin, siz hoziroq shu 2 ta darsni qo‘lga kiritishingiz mumkin</p>
+      <p>Qolaversa, bu 3 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5 000 000 so‘mlik dasturim tarkibida berilgan.</p>
+      <p class="hl">Lekin, siz hoziroq shu 3 ta darsni qo‘lga kiritishingiz mumkin</p>
     </div>
 
     <a class="now now-link reveal" href="#dars">
@@ -884,8 +926,8 @@
       </article>
 
       <article class="tri tri-3 tri-plain tri-cut reveal">
-        <div class="tri-cut-img"><img class="tri-mac" src="images/macbook-lessons-v2.webp" alt="Kursdagi 2 ta foydali darslik" loading="lazy"></div>
-        <p class="tri-cap">Kursimdagi 2 ta foydali darslik</p>
+        <div class="tri-cut-img"><img class="tri-mac" src="images/macbook-lessons-v2.webp" alt="Kursdagi 3 ta foydali darslik" loading="lazy"></div>
+        <p class="tri-cap">Kursimdagi 3 ta foydali darslik</p>
       </article>
     </div>
   </div>
@@ -930,11 +972,11 @@
       </details>
       <details class="faq-item reveal" name="faq">
         <summary><span>97 000 so‘mga aynan nimalar kiradi?</span><i class="faq-ico" aria-hidden="true"></i></summary>
-        <div class="faq-a"><p>Siz 2 ta amaliy darsni olasiz: “Endoskopik frontotomiyada asosiy orientirlar” va “Endoskopik Peshona Operatsiyalarida 5 ta Muhim Peshona Drenaj Sistemasi”. Ular orqali MSKT asosida o‘roqsimon o‘siq birikishini aniqlashni, operatsiyaga tayyor reja bilan kirishni va ko‘z kosasi hamda miya asosi atrofida xavfsiz ishlashni o‘rganasiz.</p></div>
+        <div class="faq-a"><p>Siz 3 ta amaliy darsni olasiz: 1) “Peshona bo‘shlig‘i drenajiga oid 3 ta anatomik tuzilma va peshona cho‘ntagini “Building Block” usulida KT’da to‘g‘ri tahlil qilish”, 2) “Endoskopik Peshona Operatsiyalaridagi Peshona bo‘shlig‘iga kirishning o‘zgarmas 5 ta yo‘li” va 3) “Endoskopik frontotomiyada asosiy orientirlar”. Ular orqali MSKT asosida o‘roqsimon o‘siq birikishini aniqlashni, operatsiyaga tayyor reja bilan kirishni va ko‘z kosasi hamda miya asosi atrofida xavfsiz ishlashni o‘rganasiz.</p></div>
       </details>
       <details class="faq-item reveal" name="faq">
         <summary><span>Nega narx 5 000 000 emas, 97 000 so‘m?</span><i class="faq-ico" aria-hidden="true"></i></summary>
-        <div class="faq-a"><p>Bu 2 ta dars avval faqat narxi 5 000 000 so‘m bo‘lgan dasturim ichida, kurs ishtirokchilariga berilgan. Men bilim pul sababli to‘xtab qolishini xohlamayman, shuning uchun ularni siz uchun alohida, 97 000 so‘mga ochdim.</p></div>
+        <div class="faq-a"><p>Bu 3 ta dars avval faqat narxi 5 000 000 so‘m bo‘lgan dasturim ichida, kurs ishtirokchilariga berilgan. Men bilim pul sababli to‘xtab qolishini xohlamayman, shuning uchun ularni siz uchun alohida, 97 000 so‘mga ochdim.</p></div>
       </details>
       <details class="faq-item reveal" name="faq">
         <summary><span>To‘lovni qanday qilaman va darslarni qanday olaman?</span><i class="faq-ico" aria-hidden="true"></i></summary>
