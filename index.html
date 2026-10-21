@@ -541,6 +541,33 @@
   .circle.playing .circle-inner { animation: spin 3s linear infinite reverse; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* ---------- Garantiya ---------- */
+  .stack .g-card { max-width: 880px; margin: 8px auto 64px; }
+  .g-card {
+    --cyan: #4fc3e8;
+    display: flex; align-items: center; gap: 28px;
+    padding: 30px 32px;
+    border-radius: 28px;
+    background: linear-gradient(160deg, rgba(15,92,110,.55), #07202c 70%);
+    border: 1.5px solid rgba(79,195,232,.7);
+    box-shadow: 0 0 36px -10px var(--cyan), inset 0 0 28px -14px var(--cyan);
+  }
+  .g-ico {
+    flex: 0 0 84px; width: 84px; height: 84px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: radial-gradient(circle, rgba(79,195,232,.3), rgba(79,195,232,.06) 70%);
+    border: 1.5px solid rgba(79,195,232,.6);
+    box-shadow: 0 0 22px -4px var(--cyan);
+  }
+  .g-ico svg { stroke: var(--cyan); filter: drop-shadow(0 0 4px var(--cyan)); }
+  .g-title { font-size: clamp(22px, 3vw, 30px); font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+  .g-title em { font-style: normal; color: var(--cyan); }
+  .g-text { font-size: clamp(16px, 1.6vw, 18px); line-height: 1.55; color: rgba(255,255,255,.85); }
+  @media (max-width: 560px) {
+    .stack .g-card { margin-bottom: 44px; }
+    .g-card { flex-direction: column; text-align: center; gap: 18px; padding: 26px 20px; }
+  }
+
   /* ---------- 4. VALUE STACK ---------- */
   .stack {
     position: relative; z-index: 1;
@@ -936,6 +963,15 @@
 <!-- ============ 4. VALUE STACK ============ -->
 <section class="stack" id="stack">
   <div class="container">
+    <!-- Garantiya -->
+    <div class="g-card reveal">
+      <span class="g-ico"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6l-8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+      <div>
+        <h3 class="g-title"><em>4 kunlik</em> garantiya</h3>
+        <p class="g-text">Darslarni ko‘rib chiqing. 4 kun ichida ular sizga foyda bermadi deb hisoblasangiz, to‘lagan 97 000 so‘mingiz qaytariladi.</p>
+      </div>
+    </div>
+
     <div class="story story-end story-big reveal">
       <p>Berayotgan darslarim sizga haqiqatan ham foyda berishiga va amaliyotda natija berishiga ishonaman.</p>
       <p>Chunki maqsadim shunchaki dars o‘tish emas, balki sizga real ish jarayonida kerak bo‘ladigan bilimlarni berish.</p>
