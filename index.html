@@ -138,17 +138,22 @@
     padding: 0 16px;
     display: grid;
     grid-template-columns: 1.25fr .75fr;
+    grid-template-rows: auto auto auto 1fr;
     grid-template-areas:
       "badge badge"
       "title img"
-      "cta   .";
+      "offer img"
+      "cta   img";
     column-gap: 40px;
   }
   .badge { grid-area: badge; justify-self: center; margin-bottom: 32px; }
   .hero h1 { grid-area: title; }
+  .hero-offer { grid-area: offer; margin-top: 22px; font-size: clamp(17px, 1.7vw, 22px); font-weight: 500; line-height: 1.45; color: var(--white-60); }
+  .hero-offer b { color: var(--white); font-weight: 700; }
+  .hero-offer em { font-style: normal; font-weight: 800; color: #4fc3e8; white-space: nowrap; }
   .hero .cta { grid-area: cta; justify-self: start; margin-top: 36px; }
   .hero-visual { grid-area: img; position: relative; min-height: 420px; }
-  .hero h1 { align-self: center; }
+  .hero h1 { align-self: start; }
   .hero-img {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
@@ -214,11 +219,31 @@
     .hero::before { background-image: radial-gradient(circle 340px at 50% 62px, rgba(15, 92, 110, .85), transparent); }
     .hero-inner {
       grid-template-columns: 1fr;
-      grid-template-areas: "badge" "title" "cta" "img";
+      grid-template-rows: none;
+      grid-template-areas: "badge" "title" "offer" "cta" "img";
     }
     .hero-visual { min-height: 0; margin-top: 28px; }
     .hero-img { position: static; display: block; height: auto; max-width: 420px; margin: 0 auto; }
   }
+
+  /* ---------- KIMLAR UCHUN ---------- */
+  .who { background: radial-gradient(60% 70% at 15% 0%, rgba(15,92,110,.45), transparent 70%), linear-gradient(180deg, var(--night), #07202c); color: var(--white); padding: 72px 0 72px; }
+  .who h2 { color: var(--white); }
+  .who h2::after { background: var(--white); }
+  .who .container { max-width: 1200px; }
+  .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+  .who-card { --cyan: #4fc3e8; padding: 26px 24px 28px; border-radius: 24px; background: linear-gradient(160deg, #0c2231, #07131b); border: 1.5px solid rgba(79,195,232,.45); box-shadow: 0 0 26px -12px var(--cyan), inset 0 0 18px -14px var(--cyan); }
+  .who-card h3 { font-size: 19px; font-weight: 700; line-height: 1.3; margin-bottom: 18px; color: var(--cyan); }
+  .who-card ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .who-card li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.5; color: rgba(255,255,255,.88); }
+  .who-card .chk { flex: 0 0 26px; height: 26px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; margin-top: 1px; box-shadow: 0 0 0 1px var(--white-20); }
+  .who-card .chk.pain { background: #7a2e3a; font-weight: 800; font-size: 14px; color: #fff; }
+  .who-card.who-pain { border-color: rgba(230,110,130,.45); box-shadow: 0 0 26px -12px #e66e82, inset 0 0 18px -14px #e66e82; }
+  .who-card.who-pain h3 { color: #ff9aa9; }
+  .who-note { max-width: 760px; margin: 32px auto 0; text-align: center; font-size: 15px; line-height: 1.55; color: var(--white-60); }
+  @media (max-width: 1000px) { .who-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; } }
+  @media (max-width: 560px) { .who { padding: 52px 0 52px; } }
+  .why h2.story-title { margin-top: 0; }
 
   /* ---------- 2. NATIJALAR ---------- */
   .results { background: var(--night); color: var(--white); }
@@ -843,6 +868,7 @@
       <span class="badge-text">⚠️ LOR shifokorlari <em>diqqatiga!</em> ⚠️</span>
     </div>
     <h1>Endoskopik Peshona Operatsiyalarini xavfsiz va asoratsiz o‘tkazishni bu 5 qadam orqali o‘rganing!</h1>
+    <p class="hero-offer"><b>3 ta amaliy dars</b> — bor-yo‘g‘i <em>97 000 so‘m</em></p>
     <div class="hero-visual"><img class="hero-img" src="images/doctor-skull.webp" alt="Mirkamol Nosirjonov"></div>
     <a class="cta" href="#dars">
       <span class="cta-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></svg></span>
@@ -854,7 +880,55 @@
   </div>
 </section>
 
-<!-- ============ 2. NATIJALAR ============ -->
+<!-- ============ KIMLAR UCHUN ============ -->
+<section class="who">
+  <div class="container">
+    <h2 class="reveal">Bu darslar kimlar uchun?</h2>
+    <div class="who-grid">
+      <article class="who-card reveal">
+        <h3>Siz shunday shifokorsiz:</h3>
+        <ul>
+          <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>LOR shifokori yoki endoskopik operatsiyani o‘rganayotgan mutaxassis</span></li>
+          <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Peshona bo‘shlig‘iga oid operatsiyalarni qilasiz yoki yaqin orada boshlamoqchisiz</span></li>
+        </ul>
+      </article>
+      <article class="who-card who-pain reveal">
+        <h3>Sizni qiynayotgan holatlar:</h3>
+        <ul>
+          <li><span class="chk pain">!</span><span>Operatsiya vaqtida adashib qolish va qaysi tuzilmalarga tayanishni aniq bilmaslik</span></li>
+          <li><span class="chk pain">!</span><span>KT tasvirida o‘roqsimon o‘siq va drenaj yo‘llarini aniqlashdagi qiyinchilik</span></li>
+          <li><span class="chk pain">!</span><span>Miya asosi va ko‘z kosasi yaqinida ishlashdagi xavotir</span></li>
+        </ul>
+      </article>
+      <article class="who-card reveal">
+        <h3>Siz xohlaysiz:</h3>
+        <ul>
+          <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Operatsiyaga tayyor reja bilan kirish</span></li>
+          <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Operatsiyani xavfsiz va asoratsiz o‘tkazish</span></li>
+          <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Orientirlar va drenaj yo‘llarini ishonch bilan bilish</span></li>
+        </ul>
+      </article>
+    </div>
+    <p class="who-note reveal">Agar siz LOR sohasida ishlamasangiz va endoskopik operatsiyalar bilan umuman shug‘ullanmasangiz, bu darslar sizga mos kelmaydi.</p>
+  </div>
+</section>
+
+<!-- ============ HAMKASBLAR FIKRLARI (1) ============ -->
+<section class="students">
+  <div class="container">
+    <h2 class="reveal">Dasturimda o‘qigan Hamkasblarim fikrlari</h2>
+    <div class="circles reveal">
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NATIJALAR (darsdan keyin) ============ -->
 <section class="results">
   <div class="container">
     <h2 class="reveal">Bu darsni ko‘rganingizdan keyin qanday natija olasiz:</h2>
@@ -924,22 +998,10 @@
       </div>
     </div>
     </div>
-
-    <h2 class="story-title reveal">Nimaga bunaqa narx?</h2>
-    <div class="story story-big reveal">
-      <p>Men ilm olish pul sababli to‘xtab qolishini xohlamayman.</p>
-      <p>Bu bilimlarni o‘zlashtirish uchun 5 dan ortiq davlatda malaka oshirdim. Yillar davomida vaqtimni va bir necha ming dollar pulimni sarflashga majbur bo‘ldim.</p>
-      <p>Qolaversa, bu 3 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5 000 000 so‘mlik dasturim tarkibida berilgan.</p>
-      <p class="hl">Lekin, siz hoziroq shu 3 ta darsni qo‘lga kiritishingiz mumkin</p>
-    </div>
-
-    <a class="now now-link reveal" href="#dars">
-      <div class="now-label">bor-yo‘g‘i</div>
-      <span class="now-price">97 000 so‘m</span>
-    </a>
   </div>
 </section>
 
+<!-- ============ VALUE STACK ============ -->
 <section class="paths">
   <div class="container">
     <h2 class="reveal">97 000 so‘m evaziga nimalar olsa bo‘ladi?</h2>
@@ -962,7 +1024,25 @@
   </div>
 </section>
 
-<!-- ============ 4. VALUE STACK ============ -->
+<!-- ============ NIMAGA BUNAQA NARX ============ -->
+<section class="demo why">
+  <div class="container demo-wrap">
+    <h2 class="story-title reveal">Nimaga bunaqa narx?</h2>
+    <div class="story story-big reveal">
+      <p>Men ilm olish pul sababli to‘xtab qolishini xohlamayman.</p>
+      <p>Bu bilimlarni o‘zlashtirish uchun 5 dan ortiq davlatda malaka oshirdim. Yillar davomida vaqtimni va bir necha ming dollar pulimni sarflashga majbur bo‘ldim.</p>
+      <p>Qolaversa, bu 3 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5 000 000 so‘mlik dasturim tarkibida berilgan.</p>
+      <p class="hl">Lekin, siz hoziroq shu 3 ta darsni qo‘lga kiritishingiz mumkin</p>
+    </div>
+
+    <a class="now now-link reveal" href="#dars">
+      <div class="now-label">bor-yo‘g‘i</div>
+      <span class="now-price">97 000 so‘m</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ GARANTIYA + ISHONCH MATNI ============ -->
 <section class="stack" id="stack">
   <div class="container">
     <!-- Garantiya -->
@@ -984,18 +1064,17 @@
   </div>
 </section>
 
-<!-- ============ 3. O'QUVCHILARIM NATIJALARI ============ -->
-<!-- Videolarni videos/ papkasiga 1.mp4, 2.mp4 ... nomi bilan qo'ying -->
-<section class="students">
+<!-- ============ HAMKASBLAR FIKRLARI (2) ============ -->
+<section class="students" id="fikrlar-2">
   <div class="container">
     <h2 class="reveal">Dasturimda o‘qigan Hamkasblarim fikrlari</h2>
     <div class="circles reveal">
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
-      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp7" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp8" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp9" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp10" data-vid="dgNbTb2EfUgeAtgNMee12n"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp11" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp12" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
     </div>
   </div>
 </section>
@@ -1089,25 +1168,38 @@
     var circles = Array.prototype.slice.call(document.querySelectorAll('.circle.embed'));
     var current = null;
 
+    // Krujoklar ikki joyda (12 ta): pleyer faqat ekranga yaqinlashganda yaratiladi
     circles.forEach(function (c) {
       var box = c.querySelector('.kp');
       c.player = null;
-      c.ready = (typeof Kinescope === 'undefined') ? Promise.resolve(null) :
-        Kinescope.IframePlayer.create(box.id, {
-          url: 'https://kinescope.io/' + box.dataset.vid,
-          size: { width: '100%', height: '100%' },
-          behaviour: { autoPlay: false, playsInline: true }
-        }).then(function (pl) {
-          c.player = pl;
-          var back = function () { if (c.classList.contains('expanded')) shrink(c); };
-          pl.on(pl.Events.Pause, function () {
-            // sekin yurgizilganda (seek) emas, haqiqiy to'xtatilganda qaytadi
-            setTimeout(function () { pl.isPaused().then(function (p) { if (p) back(); }); }, 300);
-          });
-          pl.on(pl.Events.Ended, back);
-          return pl;
-        }).catch(function () { return null; });
+      c.init = function () {
+        if (c._ready) return c._ready;
+        c._ready = (typeof Kinescope === 'undefined') ? Promise.resolve(null) :
+          Kinescope.IframePlayer.create(box.id, {
+            url: 'https://kinescope.io/' + box.dataset.vid,
+            size: { width: '100%', height: '100%' },
+            behaviour: { autoPlay: false, playsInline: true }
+          }).then(function (pl) {
+            c.player = pl;
+            var back = function () { if (c.classList.contains('expanded')) shrink(c); };
+            pl.on(pl.Events.Pause, function () {
+              // sekin yurgizilganda (seek) emas, haqiqiy to'xtatilganda qaytadi
+              setTimeout(function () { pl.isPaused().then(function (p) { if (p) back(); }); }, 300);
+            });
+            pl.on(pl.Events.Ended, back);
+            return pl;
+          }).catch(function () { return null; });
+        return c._ready;
+      };
     });
+    if ('IntersectionObserver' in window) {
+      var lazy = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.init(); lazy.unobserve(e.target); } });
+      }, { rootMargin: '600px 0px' });
+      circles.forEach(function (c) { lazy.observe(c); });
+    } else {
+      circles.forEach(function (c) { c.init(); });
+    }
 
     function shrink(c) {
       c.classList.remove('expanded');
@@ -1118,7 +1210,7 @@
       if (current && current !== c) shrink(current);
       current = c;
       c.classList.add('expanded');
-      c.ready.then(function (pl) { if (pl) pl.play(); });
+      c.init().then(function (pl) { if (pl) pl.play(); });
       setTimeout(function () { c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 650);
     }
 
