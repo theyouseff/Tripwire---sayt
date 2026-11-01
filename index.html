@@ -336,6 +336,7 @@
   .demo-list .chk { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; margin-top: 1px; box-shadow: 0 0 0 1px var(--white-20); }
   .lessons { display: flex; flex-direction: column; gap: 72px; }
   .lesson.rev .macbook { order: 2; justify-self: end; }
+  .lesson-sub { font-size: 15px; font-weight: 700; color: var(--white-60); margin: 0 0 12px; }
   .lesson-tag { display: inline-block; margin-bottom: 14px; padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #4fc3e8; background: rgba(79,195,232,.12); border: 1px solid rgba(79,195,232,.4); }
   .lesson .demo-side h3 { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.25; margin-bottom: 18px; }
   .lesson .demo-side h3:last-child { margin-bottom: 0; }
@@ -928,23 +929,6 @@
   </div>
 </section>
 
-<!-- ============ NATIJALAR (darsdan keyin) ============ -->
-<section class="results">
-  <div class="container">
-    <h2 class="reveal">Bu darsni ko‘rganingizdan keyin qanday natija olasiz:</h2>
-    <div class="cards">
-      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c1.webp" alt="01" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">MSKT orqali <em>o‘roqsimon o‘siq</em> birikishini aniqlaysiz</h3></div></article>
-      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c2.webp" alt="02" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">Operatsiyaga tayyor <em>reja</em> bilan kirasiz</h3></div></article>
-      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c3.webp" alt="03" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">Sinus frontalisning 5 ta asosiy drenaj yo‘li <em>(UP-MT, UP-LP, UP-UPa, UP-BLEB, BLEB-BLMT)</em></h3></div></article>
-      <article class="rcard reveal"><img class="rcard-img" src="images/cards/c5.webp" alt="05" loading="lazy">
-        <div class="rcard-body"><h3 class="rcard-title">Ko‘z kosasi va <em>miya asosi</em> atrofida xavfsiz ishlaysiz</h3></div></article>
-    </div>
-  </div>
-</section>
-
 <section class="demo">
   <div class="container demo-wrap">
     <h2 class="reveal">Siz oladigan 3 ta dars</h2>
@@ -961,6 +945,12 @@
       <div class="demo-side reveal">
         <span class="lesson-tag">1-dars</span>
         <h3>Peshona bo‘shlig‘i drenajiga oid 3 ta anatomik tuzilma va peshona cho‘ntagini “Building Block” usulida KT’da to‘g‘ri tahlil qilish</h3>
+        <p class="lesson-sub">Natijada o‘rganasiz:</p>
+        <ul class="demo-list">
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Peshona cho‘ntagi, voronkasi va tabiiy teshigini farqlashni</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Peshona cho‘ntagining anatomik chegaralarini</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>KT’ni “Building block” usulida o‘qishni</span></li>
+        </ul>
       </div>
     </div>
 
@@ -975,6 +965,13 @@
       <div class="demo-side reveal">
         <span class="lesson-tag">2-dars</span>
         <h3>Endoskopik Peshona Operatsiyalaridagi Peshona bo‘shlig‘iga kirishning o‘zgarmas 5 ta yo‘li</h3>
+        <p class="lesson-sub">Bu darslikdan keyin:</p>
+        <ul class="demo-list">
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>MSKT orqali o‘roqsimon o‘siq birikishini aniqlaysiz</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Operatsiyaga tayyor reja bilan kirasiz</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Katakchani to‘g‘ri ajratib, tabiiy teshikka chiqasiz</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Ko‘z kosasi va miya asosi atrofida xavfsiz ishlaysiz</span></li>
+        </ul>
       </div>
     </div>
 
@@ -989,6 +986,7 @@
       <div class="demo-side reveal">
         <span class="lesson-tag">3-dars</span>
         <h3>Endoskopik frontotomiyada asosiy orientirlar</h3>
+        <p class="lesson-sub">Darsda:</p>
         <ul class="demo-list">
         <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Peshona bo‘shlig‘ini endoskopik operatsiya qilishda asosiy anatomik orientirlar</span></li>
         <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Operatsiya vaqtida adashib qolmaslik uchun qaysi tuzilmalarga tayanish kerakligi</span></li>
