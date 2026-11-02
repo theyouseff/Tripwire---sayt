@@ -596,6 +596,23 @@
     .g-card { flex-direction: column; text-align: center; gap: 18px; padding: 26px 20px; }
   }
 
+  /* ---------- VALUE STACK ---------- */
+  .vs { background: radial-gradient(60% 60% at 85% 10%, rgba(15,92,110,.4), transparent 70%), linear-gradient(180deg, var(--night), #07131b 40%, var(--night)); color: var(--white); padding: 72px 0 40px; }
+  .vs .container { max-width: 900px; }
+  .vs h2 { color: var(--white); }
+  .vs h2::after { background: var(--white); }
+  .vs-card { --cyan: #4fc3e8; padding: 30px 32px; border-radius: 26px; background: linear-gradient(160deg, #0c2231, #07131b); border: 1.5px solid rgba(79,195,232,.55); box-shadow: 0 0 30px -12px var(--cyan), inset 0 0 22px -16px var(--cyan); }
+  .vs-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+  .vs-list li { display: flex; gap: 16px; align-items: flex-start; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.5; color: rgba(255,255,255,.9); }
+  .vs-n { flex: 0 0 30px; height: 30px; border-radius: 50%; background: #fff; color: var(--night); font-size: 14px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+  .vs-p { color: #4fc3e8; font-weight: 700; }
+  .vs-total { margin-top: 26px; padding: 18px 22px; text-align: center; font-size: clamp(17px, 1.8vw, 21px); font-weight: 600; line-height: 1.45; color: var(--white-60); border: 1px dashed var(--white-20); border-radius: 22px; }
+  .vs-total b { color: var(--white); font-weight: 800; white-space: nowrap; }
+  .story .hl s { text-decoration-thickness: 2px; opacity: .75; white-space: nowrap; }
+  .story .hl b { white-space: nowrap; }
+  .now-note { max-width: 880px; margin: 18px auto 0; text-align: center; font-size: 16px; color: var(--white-60); }
+  @media (max-width: 560px) { .vs { padding: 52px 0 24px; } .vs-card { padding: 24px 18px; } .vs-list { gap: 18px; } }
+
   /* ---------- 4. VALUE STACK ---------- */
   .stack {
     position: relative; z-index: 1;
@@ -999,25 +1016,22 @@
 </section>
 
 <!-- ============ VALUE STACK ============ -->
-<section class="paths">
+<section class="vs">
   <div class="container">
-    <h2 class="reveal">97 000 so‘m evaziga nimalar olsa bo‘ladi?</h2>
-    <div class="tri-grid">
-      <article class="tri tri-1 tri-plain tri-cut reveal">
-        <div class="tri-cut-img"><img src="images/cutout-kino.webp" alt="Kino chiptalari" loading="lazy"></div>
-        <p class="tri-cap">Kinoga 1 ta VIP chipta</p>
-      </article>
-
-      <article class="tri tri-2 tri-plain tri-cut reveal">
-        <div class="tri-cut-img"><img src="images/cutout-kfc.webp" alt="Qovurilgan tovuq va kartoshka fri" loading="lazy"></div>
-        <p class="tri-cap">KFC dan 2 ta sanders box</p>
-      </article>
-
-      <article class="tri tri-3 tri-plain tri-cut reveal">
-        <div class="tri-cut-img"><img class="tri-mac" src="images/macbook-lessons-v2.webp" alt="Kursdagi 3 ta foydali darslik" loading="lazy"></div>
-        <p class="tri-cap">Kursimdagi 3 ta foydali darslik</p>
-      </article>
+    <h2 class="reveal">Agar bu darslar ichidagi bilimlarni alohida o‘zlashtirganingizda:</h2>
+    <div class="vs-card reveal">
+      <ol class="vs-list">
+        <li><span class="vs-n">1</span><span class="vs-t">Peshona cho‘ntagining anatomik chegaralarini o‘rganish <span class="vs-p">— (360 000 so‘m)</span></span></li>
+        <li><span class="vs-n">2</span><span class="vs-t">KT’ni “Building block” usulida o‘qishni o‘rganish <span class="vs-p">— (720 000 so‘m)</span></span></li>
+        <li><span class="vs-n">3</span><span class="vs-t">MSKT orqali o‘roqsimon o‘siq birikishini aniqlash <span class="vs-p">— (420 000 so‘m)</span></span></li>
+        <li><span class="vs-n">4</span><span class="vs-t">Katakchani to‘g‘ri ajratib, tabiiy teshikka chiqishni o‘rganish <span class="vs-p">— (490 000 so‘m)</span></span></li>
+        <li><span class="vs-n">5</span><span class="vs-t">Ko‘z kosasi va miya asosi atrofida xavfsiz ishlashni o‘rganish <span class="vs-p">— (Bemorning ko‘rish qobiliyati va hayotini asrash yo‘lida bebaho)</span></span></li>
+        <li><span class="vs-n">6</span><span class="vs-t">Operatsiya vaqtida adashib qolmaslik uchun qaysi tuzilmalarga tayanish kerakligini bilib olish <span class="vs-p">— (570 000 so‘m)</span></span></li>
+        <li><span class="vs-n">7</span><span class="vs-t">KT tasvirida muhim nuqtalarni operatsiyadan oldin aniqlash <span class="vs-p">— (490 000 so‘m)</span></span></li>
+        <li><span class="vs-n">8</span><span class="vs-t">Xavfli zonalar (miya asosi, g‘alvirsimon plastinka) va ularda ehtiyot bo‘lish qoidalarini bilib olish <span class="vs-p">— (Bebaho)</span></span></li>
+      </ol>
     </div>
+    <p class="vs-total reveal">Ushbu 3 ta dars orqali oladigan bilimlaringizning umumiy qiymati: <b>3 050 000 so‘m</b></p>
   </div>
 </section>
 
@@ -1027,15 +1041,17 @@
     <h2 class="story-title reveal">Nimaga bunaqa narx?</h2>
     <div class="story story-big reveal">
       <p>Men ilm olish pul sababli to‘xtab qolishini xohlamayman.</p>
-      <p>Bu bilimlarni o‘zlashtirish uchun 5 dan ortiq davlatda malaka oshirdim. Yillar davomida vaqtimni va bir necha ming dollar pulimni sarflashga majbur bo‘ldim.</p>
-      <p>Qolaversa, bu 3 ta darsni hech kimga alohida sotmaganman. Ular faqatgina 5 000 000 so‘mlik dasturim tarkibida berilgan.</p>
-      <p class="hl">Lekin, siz hoziroq shu 3 ta darsni qo‘lga kiritishingiz mumkin</p>
+      <p>Bu bilimlarni egallash uchun 5 dan ortiq davlatda malaka oshirdim, yillar davomida vaqtimni va bir necha ming dollar mablag‘imni sarfladim.</p>
+      <p>Qolaversa, bu 3 ta darsni hech kimga alohida sotmaganman.</p>
+      <p class="hl">Shuning uchun siz uchun — <s>3 050 000 so‘m</s> o‘rniga <b>237 000 so‘m</b>!</p>
+      <p>Lekin keyingi 10 daqiqa ichida atigi 97 000 so‘mga xarid qilishingiz mumkin!</p>
     </div>
 
     <a class="now now-link reveal" href="#dars">
       <div class="now-label">bor-yo‘g‘i</div>
       <span class="now-price">97 000 so‘m</span>
     </a>
+    <p class="now-note reveal">⏳ Taymer tugashi bilan narx yana 237 000 so‘mga qaytadi.</p>
   </div>
 </section>
 
@@ -1104,7 +1120,7 @@
   <div class="container reg-wrap">
     <div class="reg-head reveal">
       <h2 class="reg-title">Ro‘yxatdan o‘tish tartibi:</h2>
-      <div class="timer"><span>Ro‘yxatdan o‘tish uchun qolgan vaqt:</span><b id="timer" aria-live="off">15:00</b></div>
+      <div class="timer"><span>Ro‘yxatdan o‘tish uchun qolgan vaqt:</span><b id="timer" aria-live="off">10:00</b></div>
     </div>
 
     <div class="reg-grid">
@@ -1223,10 +1239,10 @@
   // ---- Ro'yxatdan o'tish bloki ----
   (function () {
 
-    // Taymer: 15:00 dan teskari sanaydi, sahifa qayta ochilganda ham davom etadi.
-    // 00:00 ga yetgach, 00:00 da qotib qolmasdan yangi 15 daqiqa boshlanadi
+    // Taymer: 10:00 dan teskari sanaydi, sahifa qayta ochilganda ham davom etadi.
+    // 00:00 ga yetgach, 00:00 da qotib qolmasdan yangi 10 daqiqa boshlanadi
     var t = document.getElementById('timer'), KEY = 'tw_end', end;
-    function restart() { end = Date.now() + 15 * 60 * 1000; try { localStorage.setItem(KEY, end); } catch (e) {} }
+    function restart() { end = Date.now() + 10 * 60 * 1000; try { localStorage.setItem(KEY, end); } catch (e) {} }
     try { end = parseInt(localStorage.getItem(KEY), 10); } catch (e) {}
     if (!end || end < Date.now()) restart();
     function tick() {
