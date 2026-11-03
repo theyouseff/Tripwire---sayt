@@ -243,7 +243,7 @@
   .who-note { max-width: 760px; margin: 32px auto 0; text-align: center; font-size: 15px; line-height: 1.55; color: var(--white-60); }
   @media (max-width: 1000px) { .who-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; } }
   @media (max-width: 560px) { .who { padding: 52px 0 52px; } }
-  .why h2.story-title { margin-top: 0; }
+
 
   /* ---------- 2. NATIJALAR ---------- */
   .results { background: var(--night); color: var(--white); }
@@ -612,8 +612,13 @@
   .vs-total b { font-weight: 800; color: #4fc3e8; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; white-space: nowrap; }
   .story .hl s { text-decoration-thickness: 2px; opacity: .75; white-space: nowrap; }
   .story .hl b { white-space: nowrap; }
+  /* "Lekin siz uchun..." bo'limi umumiy qiymat qatoriga yaqin turadi */
+  .vs { padding-bottom: 0; }
+  .demo.why { padding-top: 44px; margin-top: -1px; }
+  .demo.why::before { display: none; }
+  .demo.why h2.story-title { margin-top: 0; }
   .now-note { max-width: 880px; margin: 18px auto 0; text-align: center; font-size: 16px; color: var(--white-60); }
-  @media (max-width: 560px) { .vs { padding: 52px 0 24px; } .vs-card { padding: 24px 18px; } .vs-list { gap: 18px; } .vs-total { padding: 18px 14px; } }
+  @media (max-width: 560px) { .vs { padding: 52px 0 0; } .vs-card { padding: 24px 18px; } .vs-list { gap: 18px; } .vs-total { padding: 18px 14px; } }
 
   /* ---------- 4. VALUE STACK ---------- */
   .stack {
@@ -1040,7 +1045,7 @@
 <!-- ============ NIMAGA BUNAQA NARX ============ -->
 <section class="demo why">
   <div class="container demo-wrap">
-    <h2 class="story-title reveal">Nimaga bunaqa narx?</h2>
+    <h2 class="story-title reveal">Lekin siz uchun...</h2>
     <div class="story story-big reveal">
       <p>Men ilm olish pul sababli to‘xtab qolishini xohlamayman.</p>
       <p>Bu bilimlarni egallash uchun 5 dan ortiq davlatda malaka oshirdim, yillar davomida vaqtimni va bir necha ming dollar mablag‘imni sarfladim.</p>
