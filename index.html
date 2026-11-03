@@ -770,11 +770,11 @@
   .reg-title::after { display: none; }
   .timer { display: flex; align-items: center; gap: 14px; color: var(--white-60); font-size: 15px; }
   .timer b {
-    min-width: 92px; text-align: center;
+    flex: none; width: 124px; text-align: center; /* eni qotirilgan: raqam o'zgarganda taymer sakramaydi */
     font-size: 26px; font-weight: 800; letter-spacing: .02em; font-variant-numeric: tabular-nums;
     color: var(--white);
     background: var(--teal);
-    border-radius: 14px; padding: 8px 16px;
+    border-radius: 14px; padding: 8px 0;
     box-shadow: 0 0 0 1px var(--white-20), 0 10px 28px -12px var(--teal);
   }
   .reg-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
@@ -839,7 +839,8 @@
     .final { padding: 56px 0 80px; }
     .reg-form { padding: 22px 18px; }
     .step { padding: 18px 18px; font-size: 16px; }
-    .timer { flex-wrap: wrap; }
+    .timer { align-self: stretch; justify-content: space-between; }
+    .timer span { flex: 1; min-width: 0; }
     .cta-submit { max-width: none; }
     .cta-tg { padding-right: 20px; gap: 12px; }
     .tg-ico { flex-basis: 50px; width: 50px; height: 50px; }
