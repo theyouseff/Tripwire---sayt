@@ -885,6 +885,23 @@
     .cta-text { font-size: 15px; }
   }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1406085868176574');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -1322,6 +1339,35 @@
   } else {
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
+</script>
+<script>
+  // Meta Pixel + Conversions API: Telegram tugmasi bosilganda "Lead" hodisasi
+  (function () {
+    var btn = document.getElementById('tg-link');
+    if (!btn) return;
+    function cookie(n) {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : undefined;
+    }
+    btn.addEventListener('click', function () {
+      var id = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+      try { if (window.fbq) fbq('track', 'Lead', {}, { eventID: id }); } catch (e) {}
+      try {
+        fetch('/api/capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          keepalive: true,
+          body: JSON.stringify({
+            event_name: 'Lead',
+            event_id: id,
+            event_source_url: location.href,
+            fbp: cookie('_fbp'),
+            fbc: cookie('_fbc')
+          })
+        });
+      } catch (e) {}
+    });
+  })();
 </script>
 </body>
 </html>
