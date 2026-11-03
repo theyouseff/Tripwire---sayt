@@ -39,7 +39,7 @@
     --radius: 28px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; background: var(--night); }
+  html { scroll-behavior: smooth; background: var(--night); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
     font-family: "Poppins", Arial, sans-serif;
     color: var(--night);
@@ -605,6 +605,7 @@
   .vs-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
   .vs-list li { display: flex; gap: 16px; align-items: flex-start; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.5; color: rgba(255,255,255,.9); }
   .vs-n { flex: 0 0 30px; height: 30px; border-radius: 50%; background: #fff; color: var(--night); font-size: 14px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+  .vs-t { min-width: 0; overflow-wrap: anywhere; }
   .vs-p { color: #4fc3e8; font-weight: 700; }
   .vs-total { margin-top: 26px; padding: 22px 12px; text-align: center; font-family: "Poppins", Arial, sans-serif; font-weight: 800; font-size: clamp(17px, 2.5vw, 32px); line-height: 1.35; letter-spacing: -.01em; color: var(--white); }
   @media (min-width: 720px) { .vs-total { white-space: nowrap; } }
@@ -1073,7 +1074,7 @@
         <li><span class="vs-n">2</span><span class="vs-t">KT’ni “Building block” usulida o‘qishni o‘rganish <span class="vs-p">— (720 000 so‘m)</span></span></li>
         <li><span class="vs-n">3</span><span class="vs-t">MSKT orqali o‘roqsimon o‘siq birikishini aniqlash <span class="vs-p">— (420 000 so‘m)</span></span></li>
         <li><span class="vs-n">4</span><span class="vs-t">Katakchani to‘g‘ri ajratib, tabiiy teshikka chiqishni o‘rganish <span class="vs-p">— (490 000 so‘m)</span></span></li>
-        <li><span class="vs-n">5</span><span class="vs-t">Ko‘z kosasi va miya asosi atrofida xavfsiz ishlashni o‘rganish <span class="vs-p">— (Bemorning ko‘rish qobiliyati va hayotini asrash yo‘lida bebaho)</span></span></li>
+        <li><span class="vs-n">5</span><span class="vs-t">Ko‘z kosasi va miya asosi atrofida xavfsiz ishlashni o‘rganish <span class="vs-p">— (Bemorning ko‘rish qobiliyati va hayotini asrash yo‘lida bebaho)</span></span></li>
         <li><span class="vs-n">6</span><span class="vs-t">Operatsiya vaqtida adashib qolmaslik uchun qaysi tuzilmalarga tayanish kerakligini bilib olish <span class="vs-p">— (570 000 so‘m)</span></span></li>
         <li><span class="vs-n">7</span><span class="vs-t">KT tasvirida muhim nuqtalarni operatsiyadan oldin aniqlash <span class="vs-p">— (490 000 so‘m)</span></span></li>
         <li><span class="vs-n">8</span><span class="vs-t">Xavfli zonalar (miya asosi, g‘alvirsimon plastinka) va ularda ehtiyot bo‘lish qoidalarini bilib olish <span class="vs-p">— (Bebaho)</span></span></li>
