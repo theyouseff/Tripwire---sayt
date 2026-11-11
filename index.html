@@ -1370,7 +1370,12 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
       var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)'));
       return m ? decodeURIComponent(m[1]) : undefined;
     }
+    var lastSent = 0;
     btn.addEventListener('click', function () {
+      // tez-tez/qo'sh bosishda takror yuborilmasin
+      var now = Date.now();
+      if (now - lastSent < 3000) return;
+      lastSent = now;
       var id = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
       try { if (window.fbq) fbq('track', 'Lead', {}, { eventID: id }); } catch (e) {}
       try {
