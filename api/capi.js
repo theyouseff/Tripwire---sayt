@@ -6,6 +6,11 @@
 //   META_TEST_EVENT_CODE  = (ixtiyoriy) faqat test vaqtida
 //   META_API_VERSION      = (ixtiyoriy) masalan v23.0
 
+import { createHash } from "node:crypto";
+
+const sha256 = (v) =>
+  createHash("sha256").update(String(v).trim().toLowerCase()).digest("hex");
+
 export async function POST(req) {
   const pixelId = process.env.META_PIXEL_ID;
   const token = process.env.META_CAPI_TOKEN;
@@ -15,7 +20,7 @@ export async function POST(req) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const { event_name = "Lead", event_id, event_source_url, fbp, fbc } = body;
+  const { event_name = "Lead", event_id, event_source_url, fbp, fbc, external_id } = body;
 
   const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim();
 
@@ -32,6 +37,8 @@ export async function POST(req) {
           client_user_agent: req.headers.get("user-agent") || undefined,
           fbp: fbp || undefined,
           fbc: fbc || undefined,
+          external_id: external_id ? sha256(external_id) : undefined,
+          country: sha256("uz"),
         },
       },
     ],

@@ -902,7 +902,21 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1406085868176574');
+// Event Match Quality: external_id (localStorage) va fbc (_fbc cookie / fbclid)
+var extId;
+try {
+  extId = localStorage.getItem('ext_id');
+  if (!extId) { extId = crypto.randomUUID(); localStorage.setItem('ext_id', extId); }
+} catch (e) {}
+try {
+  var fbcM = document.cookie.match(/(?:^|; )_fbc=([^;]*)/);
+  var fbclid = new URLSearchParams(location.search).get('fbclid');
+  if (!fbcM && fbclid) {
+    document.cookie = '_fbc=' + encodeURIComponent('fb.1.' + Date.now() + '.' + fbclid) +
+      '; max-age=' + 90 * 24 * 60 * 60 + '; path=/; SameSite=Lax';
+  }
+} catch (e) {}
+fbq('init', '1406085868176574', extId ? { external_id: extId } : {});
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -1369,7 +1383,8 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
             event_id: id,
             event_source_url: location.href,
             fbp: cookie('_fbp'),
-            fbc: cookie('_fbc')
+            fbc: cookie('_fbc'),
+            external_id: (function () { try { return localStorage.getItem('ext_id') || undefined; } catch (e) { return undefined; } })()
           })
         });
       } catch (e) {}
