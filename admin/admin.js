@@ -213,13 +213,13 @@ function renderChart() {
   const line = V.map((v, i) => `${i ? "L" : "M"}${x(i)},${y(v)}`).join("");
   const area = `${line}L${x(V.length - 1)},${H - P.b}L${x(0)},${H - P.b}Z`;
   const bw = Math.max(3, Math.min(18, (W - P.l - P.r) / keys.length * 0.35));
-  const grid = [0, .25, .5, .75, 1].map((g) => { const yy = P.t + g * (H - P.t - P.b); return `<line x1="${P.l}" x2="${W - P.r}" y1="${yy}" y2="${yy}" stroke="#16223f"/><text x="${P.l - 8}" y="${yy + 4}" fill="#6f7ea6" font-size="10" text-anchor="end">${Math.round(max * (1 - g))}</text>`; }).join("");
+  const grid = [0, .25, .5, .75, 1].map((g) => { const yy = P.t + g * (H - P.t - P.b); return `<line x1="${P.l}" x2="${W - P.r}" y1="${yy}" y2="${yy}" stroke="#163d52"/><text x="${P.l - 8}" y="${yy + 4}" fill="#6f94a7" font-size="10" text-anchor="end">${Math.round(max * (1 - g))}</text>`; }).join("");
   const step = Math.ceil(keys.length / 8);
-  const labels = keys.map((k, i) => i % step ? "" : `<text x="${x(i)}" y="${H - 6}" fill="#6f7ea6" font-size="10" text-anchor="middle">${DATA.range.unit === "hour" ? k.slice(11, 16) : k.slice(8, 10) + "." + k.slice(5, 7)}</text>`).join("");
-  const lb = L.map((v, i) => v ? `<rect x="${x(i) - bw / 2}" y="${yl(v)}" width="${bw}" height="${H - P.b - yl(v)}" rx="3" fill="#22d3ee" opacity=".85"/>` : "").join("");
+  const labels = keys.map((k, i) => i % step ? "" : `<text x="${x(i)}" y="${H - 6}" fill="#6f94a7" font-size="10" text-anchor="middle">${DATA.range.unit === "hour" ? k.slice(11, 16) : k.slice(8, 10) + "." + k.slice(5, 7)}</text>`).join("");
+  const lb = L.map((v, i) => v ? `<rect x="${x(i) - bw / 2}" y="${yl(v)}" width="${bw}" height="${H - P.b - yl(v)}" rx="3" fill="#ffffff" opacity=".85"/>` : "").join("");
   el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
-    <defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3b82f6" stop-opacity=".35"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></linearGradient></defs>
-    ${grid}${lb}<path d="${area}" fill="url(#ga)"/><path d="${line}" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linejoin="round"/>
+    <defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4fc3e8" stop-opacity=".35"/><stop offset="1" stop-color="#4fc3e8" stop-opacity="0"/></linearGradient></defs>
+    ${grid}${lb}<path d="${area}" fill="url(#ga)"/><path d="${line}" fill="none" stroke="#4fc3e8" stroke-width="2.2" stroke-linejoin="round"/>
     ${labels}<rect id="hov" x="${P.l}" y="0" width="${W - P.l - P.r}" height="${H}" fill="transparent"/></svg><div class="tip"></div>`;
   const tip = $(".tip", el);
   $("#hov", el).addEventListener("mousemove", (e) => {
