@@ -24,7 +24,7 @@ const UTM_SOURCES = [
 ];
 const TITLES = { overview: "Umumiy", funnel: "Voronka", sources: "Manbalar", behavior: "Xatti-harakat", utm: "UTM havolalar", settings: "Sozlamalar" };
 
-let ME = null, DATA = null, RANGE = "7", TAB = "overview", TIMER = null;
+let ME = null, DATA = null, RANGE = "7", TAB = "overview", TIMER = null, SRC = "";
 
 async function api(a, opts = {}) {
   const { params, body } = opts;
@@ -46,7 +46,7 @@ function rangeDates() {
   if (RANGE === "all") return { from: new Date("2024-01-01"), to: now };
   return { from: new Date(dayStart(now) - (Number(RANGE) - 1) * 864e5), to: now };
 }
-const rangeParams = () => { const { from, to } = rangeDates(); return { from: from.toISOString(), to: to.toISOString() }; };
+const rangeParams = () => { const { from, to } = rangeDates(); return { from: from.toISOString(), to: to.toISOString(), ...(SRC ? { src: SRC } : {}) }; };
 
 // ---------- kirish ----------
 function showLogin() { $("#app").hidden = true; $("#login").hidden = false; }
@@ -93,10 +93,23 @@ $("#tabs").addEventListener("click", (e) => {
   TAB = b.dataset.tab;
   $$("#tabs button").forEach((x) => x.classList.toggle("is-active", x === b));
   $$(".view").forEach((v) => v.classList.toggle("is-active", v.dataset.view === TAB));
-  $("#title").textContent = TITLES[TAB];
+  $("#title").textContent = TITLES[TAB] + (SRC ? ` · ${SRC}` : "");
   if (TAB === "settings" && ME?.role === "owner") loadUsers();
   if (TAB === "overview" && DATA) renderChart();
 });
+// ---------- manba filtri ----------
+const BASE_SOURCES = ["Instagram storis", "Instagram direct", "Telegram kanal", "YouTube video", "YouTube bio", "To'g'ridan-to'g'ri"];
+function renderSrcSel() {
+  const counts = Object.fromEntries((DATA.srcList || []).map((x) => [x.src, x.v]));
+  const names = [...BASE_SOURCES, ...Object.keys(counts).filter((k) => !BASE_SOURCES.includes(k))];
+  if (SRC && !names.includes(SRC)) names.push(SRC);
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  $("#srcSel").innerHTML = `<option value="">Barcha manbalar · ${fmt(total)}</option>` + names.map((n) => `<option value="${esc(n)}"${n === SRC ? " selected" : ""}>${esc(n)} · ${fmt(counts[n] || 0)}</option>`).join("");
+  $("#srcSel").value = SRC;
+  $("#srcWrap").classList.toggle("is-active", Boolean(SRC));
+  $("#title").textContent = TITLES[TAB] + (SRC ? ` · ${SRC}` : "");
+}
+$("#srcSel").addEventListener("change", (e) => { SRC = e.target.value; load(); });
 $("#range").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-r]"); if (!b) return;
   RANGE = b.dataset.r;
@@ -118,6 +131,7 @@ async function load(silent) {
 
 function renderAll() {
   const d = DATA, k = d.kpi, f = d.funnel;
+  renderSrcSel();
   $("#live").textContent = k.live;
 
   $("#kpis").innerHTML = [

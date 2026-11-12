@@ -20,8 +20,12 @@ async function stats(q) {
   const unit = hours <= 48 ? "hour" : "day";
   const fmt = unit === "hour" ? "YYYY-MM-DD HH24:00" : "YYYY-MM-DD";
   const R = [from.toISOString(), to.toISOString()];
+  // Manba filtri: bitta manba tanlansa, hamma raqamlar faqat shu manba bo'yicha hisoblanadi
+  const only = q.src ? String(q.src).slice(0, 100) : "";
+  const F = only ? " AND src = $3" : "";
+  const P = only ? [...R, only] : R;
 
-  const [kpi, sess, series, funnel, sections, scroll, sources, campaigns, clicks, videos, devices, browsers, cities, refs, live] = await Promise.all([
+  const [kpi, sess, series, funnel, sections, scroll, sources, campaigns, clicks, videos, devices, browsers, cities, refs, live, srcList] = await Promise.all([
     sql(`SELECT count(DISTINCT vid) FILTER (WHERE type='pageview') visitors,
                 count(DISTINCT sid) FILTER (WHERE type='pageview') sessions,
                 count(*) FILTER (WHERE type='pageview') pageviews,
@@ -29,48 +33,49 @@ async function stats(q) {
                 count(*) FILTER (WHERE type='telegram') tg_clicks,
                 count(DISTINCT sid) FILTER (WHERE type='telegram') tg_sessions,
                 count(DISTINCT vid) FILTER (WHERE type='telegram') tg_visitors
-         FROM events WHERE ts >= $1 AND ts < $2`, R),
+         FROM events WHERE ts >= $1 AND ts < $2${F}`, P),
     sql(`WITH s AS (
            SELECT sid, max(num) FILTER (WHERE type='leave') secs,
                   count(*) FILTER (WHERE type IN ('cta','click','telegram','faq','video')) acts
-           FROM events WHERE ts >= $1 AND ts < $2 GROUP BY sid HAVING count(*) FILTER (WHERE type='pageview') > 0)
+           FROM events WHERE ts >= $1 AND ts < $2${F} GROUP BY sid HAVING count(*) FILTER (WHERE type='pageview') > 0)
          SELECT avg(secs) avg_secs, percentile_cont(0.5) WITHIN GROUP (ORDER BY secs) med_secs,
                 count(*) FILTER (WHERE coalesce(secs,0) < 10 AND acts = 0)::float / nullif(count(*),0) bounce
-         FROM s`, R),
+         FROM s`, P),
     sql(`SELECT to_char(date_trunc('${unit}', ts AT TIME ZONE '${TZ}'), '${fmt}') k,
                 count(DISTINCT vid) FILTER (WHERE type='pageview') v,
                 count(DISTINCT vid) FILTER (WHERE type='telegram') t
-         FROM events WHERE type IN ('pageview','telegram') AND ts >= $1 AND ts < $2 GROUP BY 1 ORDER BY 1`, R),
+         FROM events WHERE type IN ('pageview','telegram') AND ts >= $1 AND ts < $2${F} GROUP BY 1 ORDER BY 1`, P),
     sql(`SELECT count(DISTINCT sid) FILTER (WHERE type='pageview') visit,
                 ${reached("kimlar")} kimlar, ${reached("fikrlar-1")} fikrlar, ${reached("darslar")} darslar,
                 ${reached("qiymat")} qiymat, ${reached("narx")} narx, ${reached("stack")} kafolat, ${reached("dars")} dars,
                 count(DISTINCT sid) FILTER (WHERE type='cta') cta,
                 count(DISTINCT sid) FILTER (WHERE type='telegram') tg
-         FROM events WHERE ts >= $1 AND ts < $2`, R),
-    sql(`SELECT name, count(DISTINCT sid) c FROM events WHERE type='section' AND ts >= $1 AND ts < $2 GROUP BY name`, R),
-    sql(`SELECT name, count(DISTINCT sid) c FROM events WHERE type='scroll' AND ts >= $1 AND ts < $2 GROUP BY name`, R),
+         FROM events WHERE ts >= $1 AND ts < $2${F}`, P),
+    sql(`SELECT name, count(DISTINCT sid) c FROM events WHERE type='section' AND ts >= $1 AND ts < $2${F} GROUP BY name`, P),
+    sql(`SELECT name, count(DISTINCT sid) c FROM events WHERE type='scroll' AND ts >= $1 AND ts < $2${F} GROUP BY name`, P),
     sql(`SELECT src, count(DISTINCT vid) FILTER (WHERE type='pageview') visitors,
                 count(DISTINCT sid) FILTER (WHERE type='pageview') sessions,
                 ${reached("narx")} narx, ${reached("dars")} dars,
                 count(DISTINCT sid) FILTER (WHERE type='telegram') tg_sessions,
                 count(DISTINCT vid) FILTER (WHERE type='telegram') tg_visitors,
                 avg(num) FILTER (WHERE type='leave') avg_secs
-         FROM events WHERE ts >= $1 AND ts < $2 GROUP BY src ORDER BY visitors DESC`, R),
+         FROM events WHERE ts >= $1 AND ts < $2${F} GROUP BY src ORDER BY visitors DESC`, P),
     sql(`SELECT src, coalesce(utm_campaign,'—') camp, coalesce(utm_content,'—') cont,
                 count(DISTINCT vid) FILTER (WHERE type='pageview') visitors,
                 count(DISTINCT vid) FILTER (WHERE type='telegram') tg
-         FROM events WHERE ts >= $1 AND ts < $2 AND (utm_campaign IS NOT NULL OR utm_content IS NOT NULL)
-         GROUP BY 1,2,3 ORDER BY visitors DESC LIMIT 50`, R),
+         FROM events WHERE ts >= $1 AND ts < $2${F} AND (utm_campaign IS NOT NULL OR utm_content IS NOT NULL)
+         GROUP BY 1,2,3 ORDER BY visitors DESC LIMIT 50`, P),
     sql(`SELECT type, name, coalesce(section,'') section, count(*) clicks, count(DISTINCT sid) sessions
-         FROM events WHERE type IN ('cta','click','telegram','faq') AND ts >= $1 AND ts < $2
-         GROUP BY 1,2,3 ORDER BY clicks DESC LIMIT 60`, R),
+         FROM events WHERE type IN ('cta','click','telegram','faq') AND ts >= $1 AND ts < $2${F}
+         GROUP BY 1,2,3 ORDER BY clicks DESC LIMIT 60`, P),
     sql(`SELECT coalesce(section,'') section, min(num) idx, name, count(*) plays, count(DISTINCT sid) sessions
-         FROM events WHERE type='video' AND ts >= $1 AND ts < $2 GROUP BY 1,3 ORDER BY 1, 2`, R),
-    sql(`SELECT device k, count(DISTINCT vid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2 GROUP BY 1 ORDER BY 2 DESC`, R),
-    sql(`SELECT browser k, count(DISTINCT vid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2 GROUP BY 1 ORDER BY 2 DESC LIMIT 8`, R),
-    sql(`SELECT coalesce(nullif(city,''),'Noma''lum') k, count(DISTINCT vid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2 GROUP BY 1 ORDER BY 2 DESC LIMIT 10`, R),
-    sql(`SELECT coalesce(nullif(ref_host,''),'(to''g''ridan-to''g''ri)') k, count(DISTINCT sid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2 GROUP BY 1 ORDER BY 2 DESC LIMIT 10`, R),
-    sql(`SELECT count(DISTINCT sid) c FROM events WHERE ts > now() - interval '5 minutes'`),
+         FROM events WHERE type='video' AND ts >= $1 AND ts < $2${F} GROUP BY 1,3 ORDER BY 1, 2`, P),
+    sql(`SELECT device k, count(DISTINCT vid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2${F} GROUP BY 1 ORDER BY 2 DESC`, P),
+    sql(`SELECT browser k, count(DISTINCT vid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2${F} GROUP BY 1 ORDER BY 2 DESC LIMIT 8`, P),
+    sql(`SELECT coalesce(nullif(city,''),'Noma''lum') k, count(DISTINCT vid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2${F} GROUP BY 1 ORDER BY 2 DESC LIMIT 10`, P),
+    sql(`SELECT coalesce(nullif(ref_host,''),'(to''g''ridan-to''g''ri)') k, count(DISTINCT sid) c FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2${F} GROUP BY 1 ORDER BY 2 DESC LIMIT 10`, P),
+    sql(`SELECT count(DISTINCT sid) c FROM events WHERE ts > now() - interval '5 minutes'${only ? " AND src = $1" : ""}`, only ? [only] : []),
+    sql(`SELECT src, count(DISTINCT vid) v FROM events WHERE type='pageview' AND ts >= $1 AND ts < $2 GROUP BY 1 ORDER BY 2 DESC`, R),
   ]);
 
   const k = kpi[0] || {};
@@ -88,6 +93,7 @@ async function stats(q) {
     funnel: Object.fromEntries(Object.entries(funnel[0] || {}).map(([a, b]) => [a, n(b)])),
     sections: Object.fromEntries(sections.map((r) => [r.name, n(r.c)])),
     scroll: Object.fromEntries(scroll.map((r) => [r.name, n(r.c)])),
+    srcList: srcList.map((r) => ({ src: r.src || "—", v: n(r.v) })),
     sources: sources.map((r) => ({ src: r.src || "—", visitors: n(r.visitors), sessions: n(r.sessions), narx: n(r.narx), dars: n(r.dars),
       tg_sessions: n(r.tg_sessions), tg_visitors: n(r.tg_visitors), avg_secs: Math.round(n(r.avg_secs)) })),
     campaigns: campaigns.map((r) => ({ src: r.src, camp: r.camp, cont: r.cont, visitors: n(r.visitors), tg: n(r.tg) })),
