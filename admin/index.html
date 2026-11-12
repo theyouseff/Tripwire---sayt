@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LOR darslar · Analitika</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+<!-- Kirish -->
+<section class="login" id="login" hidden>
+  <form class="login__box" id="loginForm">
+    <div class="brand"><span class="brand__mark">L</span><div><b>LOR darslar</b><small>Sayt analitikasi</small></div></div>
+    <label class="fld"><span>Login</span><input name="login" autocomplete="username" required></label>
+    <label class="fld"><span>Parol</span><input name="password" type="password" autocomplete="current-password" required></label>
+    <p class="err" id="loginErr"></p>
+    <button class="btn btn--primary btn--block" type="submit">Kirish</button>
+  </form>
+</section>
+
+<!-- Panel -->
+<div class="app" id="app" hidden>
+  <aside class="side">
+    <div class="brand"><span class="brand__mark">L</span><div><b>LOR darslar</b><small>Sayt analitikasi</small></div></div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="overview" class="is-active">Umumiy</button>
+      <button data-tab="funnel">Voronka</button>
+      <button data-tab="sources">Manbalar</button>
+      <button data-tab="behavior">Xatti-harakat</button>
+      <button data-tab="utm">UTM havolalar</button>
+      <button data-tab="settings">Sozlamalar</button>
+    </nav>
+    <div class="side__foot">
+      <div class="me" id="me"></div>
+      <button class="link" id="logout">Chiqish</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1 id="title">Umumiy</h1>
+      <div class="top__right">
+        <span class="live"><i></i><span id="live">0</span> hozir saytda</span>
+        <div class="range" id="range">
+          <button data-r="today">Bugun</button>
+          <button data-r="yesterday">Kecha</button>
+          <button data-r="7" class="is-active">7 kun</button>
+          <button data-r="30">30 kun</button>
+          <button data-r="90">90 kun</button>
+          <button data-r="all">Hammasi</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice" id="notice" hidden></div>
+
+    <!-- UMUMIY -->
+    <section class="view is-active" data-view="overview">
+      <div class="kpis" id="kpis"></div>
+      <div class="card">
+        <div class="card__head"><h2>Tashriflar va Telegram'ga o'tishlar</h2><div class="legend"><span class="lg lg--v">Tashrif buyuruvchilar</span><span class="lg lg--l">"Darsga to'lov qilish" bosganlar</span></div></div>
+        <div class="chart" id="chart"></div>
+      </div>
+      <div class="grid2">
+        <div class="card"><div class="card__head"><h2>Asosiy voronka</h2></div><div id="miniFunnel"></div></div>
+        <div class="card"><div class="card__head"><h2>Top manbalar</h2></div><div id="miniSources"></div></div>
+      </div>
+    </section>
+
+    <!-- VORONKA -->
+    <section class="view" data-view="funnel">
+      <div class="card"><div class="card__head"><h2>Saytdagi voronka</h2><p class="hint">Har bir bosqichga yetib kelgan sessiyalar soni</p></div><div id="funnel"></div></div>
+      <div class="grid2">
+        <div class="card"><div class="card__head"><h2>To'lov tugmasigacha</h2><p class="hint">To'lov bo'limini ko'rganlar va tugmani bosganlar</p></div><div id="payFunnel"></div></div>
+        <div class="card"><div class="card__head"><h2>Scroll chuqurligi</h2></div><div id="scroll"></div></div>
+      </div>
+      <div class="card"><div class="card__head"><h2>Telegram'dagi xabar</h2></div>
+        <p class="note-box">Panel <b>tugmani bosib Telegram'ga o'tganlarni</b> aniq sanaydi. Ular Telegram'da avtomatik yozilgan xabarni menejerga yuborganini sayt ko'ra olmaydi — buning uchun menejer akkauntida Telegram Premium (Business) va bot kerak bo'ladi. Hozircha yuborilgan xabarlar sonini menejer chatidagi yozishmalardan solishtiring.</p>
+      </div>
+    </section>
+
+    <!-- MANBALAR -->
+    <section class="view" data-view="sources">
+      <div class="card"><div class="card__head"><h2>Manbalar bo'yicha natija</h2><p class="hint">Konversiya = tugmani bosgan kishilar / tashrif buyuruvchilar</p></div><div class="table-wrap" id="sourcesTable"></div></div>
+      <div class="grid2">
+        <div class="card"><div class="card__head"><h2>Kampaniyalar (utm_campaign / utm_content)</h2></div><div class="table-wrap" id="campaigns"></div></div>
+        <div class="card"><div class="card__head"><h2>Qaysi saytdan o'tishgan</h2></div><div id="refs"></div></div>
+      </div>
+    </section>
+
+    <!-- XATTI-HARAKAT -->
+    <section class="view" data-view="behavior">
+      <div class="grid2">
+        <div class="card"><div class="card__head"><h2>Bo'limlarga yetib borish</h2><p class="hint">Sessiyalarning necha foizi shu bo'limni ko'rdi</p></div><div id="sections"></div></div>
+        <div class="card"><div class="card__head"><h2>Video sharhlar</h2><p class="hint">Krujok bosilib, ovoz bilan ochilgan</p></div><div id="videos"></div></div>
+      </div>
+      <div class="card"><div class="card__head"><h2>Tugma bosishlar</h2></div><div class="table-wrap" id="clicks"></div></div>
+      <div class="grid3">
+        <div class="card"><div class="card__head"><h2>Qurilma</h2></div><div id="devices"></div></div>
+        <div class="card"><div class="card__head"><h2>Brauzer</h2></div><div id="browsers"></div></div>
+        <div class="card"><div class="card__head"><h2>Shahar</h2></div><div id="cities"></div></div>
+      </div>
+    </section>
+
+    <!-- UTM -->
+    <section class="view" data-view="utm">
+      <div class="card">
+        <div class="card__head"><h2>Reklama havolalari</h2><p class="hint">Har bir joyga o'z havolasini qo'ying — manbalar shu orqali ajratiladi</p></div>
+        <div class="utm-form">
+          <label class="fld"><span>Kampaniya (ixtiyoriy)</span><input id="utmCamp" placeholder="masalan: noyabr_chegirma"></label>
+          <label class="fld"><span>Kontent / bloger / post (ixtiyoriy)</span><input id="utmCont" placeholder="masalan: storis_1"></label>
+        </div>
+        <div id="utmList"></div>
+      </div>
+    </section>
+
+    <!-- SOZLAMALAR -->
+    <section class="view" data-view="settings">
+      <div class="grid2">
+        <div class="card" id="usersCard">
+          <div class="card__head"><h2>Yordamchilar</h2><p class="hint">Panelga kira oladigan odamlar</p></div>
+          <div id="users"></div>
+          <form class="user-add" id="userAdd">
+            <input name="name" placeholder="Ismi">
+            <input name="login" placeholder="Login (lotin harflari)" required>
+            <input name="password" type="password" placeholder="Parol (kamida 8 belgi)" required minlength="8" autocomplete="new-password">
+            <button class="btn btn--primary" type="submit">Qo'shish</button>
+          </form>
+          <p class="err" id="userErr"></p>
+        </div>
+        <div class="card">
+          <div class="card__head"><h2>Bu qurilma</h2></div>
+          <p class="muted">Panelga kirgan qurilmadan saytga kirishlar statistikaga qo'shilmaydi — o'zingiz va yordamchingiz saytni ko'rganda raqamlar buzilmaydi.</p>
+          <label class="switch"><input type="checkbox" id="trkOff"><span></span>Bu qurilmani hisoblamaslik</label>
+          <div id="purgeBox" hidden>
+            <p class="muted" style="margin-top:16px">Agar bu qurilmadan oldin sinov uchun kirilgan bo'lsa, o'sha tashriflarni statistikadan o'chirish mumkin.</p>
+            <button class="btn btn--ghost" id="purgeMe" style="margin-top:10px">Bu qurilmaning tashriflarini o'chirish</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="/admin/admin.js"></script>
+</body>
+</html>
