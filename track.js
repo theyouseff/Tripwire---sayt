@@ -5,6 +5,9 @@
    window.TRK = { track(type, name, extra), ctx() }
    ========================================================= */
 (() => {
+  // Sahifa fonda/oldindan yuklangan bo'lsa (havola ko'rinishi, prerender) odam hali ko'rmagan — hisoblamaymiz,
+  // faqat sahifa haqiqatan ko'rinadigan bo'lganda boshlaymiz.
+  function boot() {
   const ENDPOINT = "/api/track";
   const SESSION_IDLE = 30 * 60 * 1000;
   const off = { track() {}, ctx: () => ({}) };
@@ -17,7 +20,7 @@
 
   // Robotlar, Vercel skrinshotlari va panel egasining qurilmasi hisoblanmaydi
   const UA = navigator.userAgent || "";
-  if (navigator.webdriver || /bot|crawl|spider|preview|lighthouse|headless|vercel|screenshot|pagespeed|gtmetrix|pingdom|uptime|facebookexternalhit|telegrambot|whatsapp|python|curl|wget/i.test(UA)) {
+  if (navigator.webdriver || /bot|crawl|spider|preview|lighthouse|headless|vercel|screenshot|pagespeed|gtmetrix|pingdom|uptime|facebookexternalhit|facebot|meta-external|bytespider|monitor|checker|validator|inspect|adsbot|telegrambot|whatsapp|python|curl|wget/i.test(UA)) {
     window.TRK = off; return;
   }
   const params = new URLSearchParams(location.search);
@@ -137,4 +140,10 @@
     else since = Date.now();
   });
   addEventListener("pagehide", () => { if (since) leave(); });
+  }
+  if (document.visibilityState === "visible") boot();
+  else {
+    const h = () => { if (document.visibilityState === "visible") { document.removeEventListener("visibilitychange", h); boot(); } };
+    document.addEventListener("visibilitychange", h);
+  }
 })();

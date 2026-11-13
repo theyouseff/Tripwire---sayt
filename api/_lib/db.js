@@ -32,6 +32,9 @@ export function ensureSchema() {
       await sql`CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, ts TIMESTAMPTZ NOT NULL DEFAULT now())`;
       const first = await sql`INSERT INTO meta (k) VALUES ('reset_launch_2026_11') ON CONFLICT DO NOTHING RETURNING k`;
       if (first.length) await sql`DELETE FROM events`;
+      // 2026-11-13: sinov va soxta tashriflar tozalandi — real statistika noldan boshlanadi (faqat bir marta)
+      const real = await sql`INSERT INTO meta (k) VALUES ('reset_real_start_2026_11_13') ON CONFLICT DO NOTHING RETURNING k`;
+      if (real.length) await sql`DELETE FROM events`;
     })().catch((e) => { ready = null; throw e; });
   }
   return ready;

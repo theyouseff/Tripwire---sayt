@@ -8,7 +8,7 @@ export const SOURCE_NAMES = {
   youtube_bio: "YouTube bio",
 };
 
-export const BOT_RE = /bot|crawl|spider|preview|lighthouse|headless|vercel|screenshot|pagespeed|gtmetrix|pingdom|uptime|facebookexternalhit|telegrambot|whatsapp|python|curl|wget|node-fetch|axios|go-http|java\//i;
+export const BOT_RE = /bot|crawl|spider|preview|lighthouse|headless|vercel|screenshot|pagespeed|gtmetrix|pingdom|uptime|facebookexternalhit|facebot|meta-external|bytespider|slurp|scrapy|monitor|checker|validator|inspect|adsbot|mediapartners|telegrambot|whatsapp|python|curl|wget|node-fetch|axios|go-http|okhttp\/[0-9.]+$|java\//i;
 
 export function refHost(ref) {
   try { return ref ? new URL(ref).hostname.replace(/^www\./, "") : ""; } catch { return ""; }
