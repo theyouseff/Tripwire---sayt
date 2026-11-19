@@ -41,6 +41,9 @@ export function ensureSchema() {
       // 2026-11-13: sinov va soxta tashriflar tozalandi — real statistika noldan boshlanadi (faqat bir marta)
       const real = await sql`INSERT INTO meta (k) VALUES ('reset_real_start_2026_11_13') ON CONFLICT DO NOTHING RETURNING k`;
       if (real.length) await sql`DELETE FROM events`;
+      // 2026-11-19: faqat haqiqiy odam harakatidan keyin hisoblash yoqildi — statistika yana noldan (faqat bir marta)
+      const humanOnly = await sql`INSERT INTO meta (k) VALUES ('reset_human_only_2026_11_19') ON CONFLICT DO NOTHING RETURNING k`;
+      if (humanOnly.length) await sql`DELETE FROM events`;
     })().catch((e) => { ready = null; throw e; });
   }
   return ready;

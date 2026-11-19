@@ -51,13 +51,29 @@
 
   const queue = [];
   let timer = null;
+
+  // Faqat haqiqiy odam hisoblanadi: sichqoncha harakati, ekranga tegish, g'ildirak yoki klaviatura bo'lmaguncha
+  // hech narsa yuborilmaydi. Botlar, skrinshot oluvchilar va havola ko'rinishini tayyorlovchilar sahifani
+  // ochadi, lekin bunday harakat qilmaydi — ular statistikaga umuman tushmaydi.
+  let human = false;
+  const HUMAN_EVENTS = ["pointermove", "pointerdown", "touchstart", "wheel", "keydown"];
+  function onHuman(e) {
+    if (human || (e && e.isTrusted === false)) return;
+    human = true;
+    HUMAN_EVENTS.forEach((t) => removeEventListener(t, onHuman, true));
+    flush(false);
+  }
+  HUMAN_EVENTS.forEach((t) => addEventListener(t, onHuman, { capture: true, passive: true }));
+
   function flush(useBeacon) {
-    if (!queue.length) return;
-    const body = JSON.stringify({ vid, sid, utm: src.utm, ref: src.ref, q: src.q || "", path: location.pathname, events: queue.splice(0, 50) });
-    if (useBeacon && navigator.sendBeacon) {
-      navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "text/plain" }));
-    } else {
-      fetch(ENDPOINT, { method: "POST", body, keepalive: true, headers: { "Content-Type": "text/plain" } }).catch(() => {});
+    if (!human) return;
+    while (queue.length) {
+      const body = JSON.stringify({ vid, sid, utm: src.utm, ref: src.ref, q: src.q || "", path: location.pathname, events: queue.splice(0, 50) });
+      if (useBeacon && navigator.sendBeacon) {
+        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "text/plain" }));
+      } else {
+        fetch(ENDPOINT, { method: "POST", body, keepalive: true, headers: { "Content-Type": "text/plain" } }).catch(() => {});
+      }
     }
   }
   function track(type, name, extra) {
