@@ -42,17 +42,18 @@
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((k) => {
       if (params.get(k)) utm[k] = params.get(k).slice(0, 100);
     });
-    set(ss, "trk_src", JSON.stringify({ utm, ref: document.referrer.slice(0, 300) }));
+    // q — kirilgan havolaning ?… qismi (manbani aniqlash uchun: sof havola yoki parametrli havola)
+    set(ss, "trk_src", JSON.stringify({ utm, ref: document.referrer.slice(0, 300), q: location.search.slice(0, 300) }));
   }
   set(ss, "trk_last", String(now));
-  let src = { utm: {}, ref: "" };
+  let src = { utm: {}, ref: "", q: "" };
   try { src = JSON.parse(get(ss, "trk_src") || "") || src; } catch {}
 
   const queue = [];
   let timer = null;
   function flush(useBeacon) {
     if (!queue.length) return;
-    const body = JSON.stringify({ vid, sid, utm: src.utm, ref: src.ref, path: location.pathname, events: queue.splice(0, 50) });
+    const body = JSON.stringify({ vid, sid, utm: src.utm, ref: src.ref, q: src.q || "", path: location.pathname, events: queue.splice(0, 50) });
     if (useBeacon && navigator.sendBeacon) {
       navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "text/plain" }));
     } else {
@@ -67,7 +68,7 @@
     if (type === "telegram") flush(true);
     else timer = setTimeout(() => flush(false), type === "pageview" ? 0 : 1500);
   }
-  window.TRK = { track, ctx: () => ({ vid, sid, utm: src.utm, ref: src.ref }) };
+  window.TRK = { track, ctx: () => ({ vid, sid, utm: src.utm, ref: src.ref, q: src.q || "" }) };
 
   track("pageview", location.pathname, { screen: `${screen.width}x${screen.height}`, lang: navigator.language });
 

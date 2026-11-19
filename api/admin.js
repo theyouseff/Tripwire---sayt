@@ -1,7 +1,7 @@
 // Analitika paneli API: kirish, statistika, foydalanuvchilar. Marshrut: /api/admin?a=...
-import { sql, ensureSchema } from "./_lib/db.js";
+import { sql, ensureSchema, resetLinkCache } from "./_lib/db.js";
 import * as auth from "./_lib/auth.js";
-import { body, clip } from "./_lib/util.js";
+import { body, clip, BUILTIN_LINKS } from "./_lib/util.js";
 
 const TZ = "Asia/Tashkent";
 
@@ -106,6 +106,33 @@ async function stats(q) {
   };
 }
 
+// Oxirgi 300 ta sessiya (Tashriflar bo'limi). Davr va manba filtriga bo'ysunadi.
+async function visits(q) {
+  const [from, to] = range(q);
+  const only = q.src ? String(q.src).slice(0, 100) : "";
+  const F = only ? " AND src = $3" : "";
+  const P = only ? [from.toISOString(), to.toISOString(), only] : [from.toISOString(), to.toISOString()];
+  const rows = await sql(`SELECT sid, min(ts) started, max(src) src, max(ref_host) ref_host, max(utm_campaign) camp, max(utm_content) cont,
+      max(device) device, max(os) os, max(browser) browser, max(city) city, max(country) country,
+      max(num) FILTER (WHERE type='leave') secs,
+      max(CASE WHEN type='scroll' AND name ~ '^[0-9]{1,3}$' THEN name::int WHEN type='leave' AND meta ? 'scroll' THEN (meta->>'scroll')::int END) scroll,
+      array_agg(DISTINCT name) FILTER (WHERE type='section') sections,
+      count(*) FILTER (WHERE type IN ('cta','click','faq','video','telegram')) clicks,
+      bool_or(type='telegram') tg, bool_or(type='section' AND name='dars') dars
+    FROM events WHERE ts >= $1 AND ts < $2${F}
+    GROUP BY sid HAVING count(*) FILTER (WHERE type='pageview') > 0
+    ORDER BY started DESC LIMIT 300`, P);
+  return rows.map((r) => ({ ...r, secs: n(r.secs), scroll: Math.min(100, n(r.scroll)), clicks: n(r.clicks), sections: r.sections || [] }));
+}
+
+// Havolalar ro'yxati: tayyor 5 ta + men qo'shganlar
+async function linksList() {
+  const own = await sql`SELECT id, code, name, created_by, created_at FROM utm_links ORDER BY created_at DESC`;
+  const builtin = Object.entries(BUILTIN_LINKS).map(([short, [code, , name]]) => ({ short, code, name, builtin: true }));
+  return [...builtin, ...own.map((l) => ({ id: l.id, short: l.code, code: l.code, name: l.name, created_by: l.created_by, created_at: l.created_at, builtin: false }))];
+}
+const RESERVED = new Set([...Object.keys(BUILTIN_LINKS), ...Object.values(BUILTIN_LINKS).map(([src]) => src)]);
+
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
@@ -135,6 +162,31 @@ export default async function handler(req, res) {
     if (!sql) return send(503, { error: "no_database" });
 
     if (a === "stats") return send(200, await stats(req.query));
+
+    if (a === "visits") return send(200, { visits: await visits(req.query) });
+
+    // ---- UTM havolalar (Link +): ko'rish va qo'shish — hamma; o'chirish — faqat egasi ----
+    if (a === "links") return send(200, { links: await linksList() });
+    if (a === "link_add" && req.method === "POST") {
+      const b = body(req) || {};
+      const name = String(b.name || "").trim().slice(0, 60);
+      const code = String(b.code || "").toLowerCase().trim();
+      if (!name) return send(400, { error: "empty_name" });
+      if (!/^[a-z0-9_-]{2,40}$/.test(code)) return send(400, { error: "bad_code" });
+      if (RESERVED.has(code)) return send(400, { error: "reserved" });
+      const exists = await sql`SELECT 1 FROM utm_links WHERE code = ${code}`;
+      if (exists.length) return send(409, { error: "exists" });
+      await sql`INSERT INTO utm_links (code, name, created_by) VALUES (${code}, ${name}, ${me.login})`;
+      resetLinkCache();
+      return send(200, { ok: true, links: await linksList() });
+    }
+    if (a === "link_del" && req.method === "POST") {
+      if (me.role !== "owner") return send(403, { error: "owner_only" });
+      const b = body(req) || {};
+      await sql`DELETE FROM utm_links WHERE id = ${Number(b.id)}`;
+      resetLinkCache();
+      return send(200, { ok: true, links: await linksList() });
+    }
 
     // ---- Bitta qurilmaning tashriflarini o'chirish (faqat egasi): sinov / o'z tashriflari ----
     if (a === "purge_visitor" && req.method === "POST") {

@@ -15,16 +15,9 @@ const SECTION_NAMES = {
   qiymat: "5. Qiymati (value stack)", narx: "6. Narx (97 000)", stack: "7. Kafolat", "fikrlar-2": "8. Fikrlar (yana)",
   faq: "9. Savollar (FAQ)", dars: "10. To'lov bo'limi", sticky: "Pastki tugma (telefon)", boshqa: "Boshqa",
 };
-const UTM_SOURCES = [
-  ["instagram_stories", "Instagram storis", "stories"],
-  ["instagram_direct", "Instagram direct", "direct"],
-  ["telegram_channel", "Telegram kanal", "channel"],
-  ["youtube_video", "YouTube video", "video"],
-  ["youtube_bio", "YouTube bio", "bio"],
-];
-const TITLES = { overview: "Umumiy", funnel: "Voronka", sources: "Manbalar", behavior: "Xatti-harakat", utm: "UTM havolalar", settings: "Sozlamalar" };
+const TITLES = { overview: "Umumiy", funnel: "Voronka", sources: "Manbalar", behavior: "Xatti-harakat", visits: "Tashriflar", utm: "UTM havolalar", settings: "Sozlamalar" };
 
-let ME = null, DATA = null, RANGE = "7", TAB = "overview", TIMER = null, SRC = "";
+let ME = null, LINKS = [], DATA = null, RANGE = "7", TAB = "overview", TIMER = null, SRC = "";
 
 async function api(a, opts = {}) {
   const { params, body } = opts;
@@ -77,7 +70,7 @@ async function boot() {
     $("#purgeBox").hidden = !(ME.role === "owner" && vid);
     syncTrk();
     if (!r.database) notice("Ma'lumotlar bazasi hali ulanmagan — statistika baza ulangandan keyin ishlaydi.");
-    renderUtm();
+    loadLinks();
     load();
     clearInterval(TIMER);
     TIMER = setInterval(() => { if (document.visibilityState === "visible") load(true); }, 60000);
@@ -95,13 +88,15 @@ $("#tabs").addEventListener("click", (e) => {
   $$(".view").forEach((v) => v.classList.toggle("is-active", v.dataset.view === TAB));
   $("#title").textContent = TITLES[TAB] + (SRC ? ` · ${SRC}` : "");
   if (TAB === "settings" && ME?.role === "owner") loadUsers();
+  if (TAB === "visits") loadVisits();
   if (TAB === "overview" && DATA) renderChart();
 });
 // ---------- manba filtri ----------
 const BASE_SOURCES = ["Instagram storis", "Instagram direct", "Telegram kanal", "YouTube video", "YouTube bio", "To'g'ridan-to'g'ri"];
 function renderSrcSel() {
   const counts = Object.fromEntries((DATA.srcList || []).map((x) => [x.src, x.v]));
-  const names = [...BASE_SOURCES, ...Object.keys(counts).filter((k) => !BASE_SOURCES.includes(k))];
+  const own = LINKS.filter((l) => !l.builtin).map((l) => l.name);
+  const names = [...new Set([...BASE_SOURCES, ...own, ...Object.keys(counts)])];
   if (SRC && !names.includes(SRC)) names.push(SRC);
   const total = Object.values(counts).reduce((a, b) => a + b, 0);
   $("#srcSel").innerHTML = `<option value="">Barcha manbalar · ${fmt(total)}</option>` + names.map((n) => `<option value="${esc(n)}"${n === SRC ? " selected" : ""}>${esc(n)} · ${fmt(counts[n] || 0)}</option>`).join("");
@@ -121,6 +116,7 @@ async function load(silent) {
   if (!silent) document.body.classList.add("loading");
   try {
     DATA = await api("stats", { params: rangeParams() });
+    if (TAB === "visits") loadVisits();
     notice("");
     renderAll();
   } catch (err) {
@@ -261,21 +257,82 @@ function fillKeys(ks) {
 addEventListener("resize", () => DATA && renderChart());
 
 // ---------- UTM ----------
+async function loadLinks() {
+  try { LINKS = (await api("links")).links; } catch { LINKS = []; }
+  renderUtm();
+}
 function renderUtm() {
   const camp = $("#utmCamp").value.trim().replace(/\s+/g, "_"), cont = $("#utmCont").value.trim().replace(/\s+/g, "_");
-  $("#utmList").innerHTML = UTM_SOURCES.map(([src, name, medium]) => {
-    const p = new URLSearchParams({ utm_source: src, utm_medium: medium, ...(camp ? { utm_campaign: camp } : {}), ...(cont ? { utm_content: cont } : {}) });
-    const url = `${SITE}?${p}`;
-    return `<div class="utm-row"><b>${name}</b><code>${esc(url)}</code><button class="btn btn--ghost" data-copy="${esc(url)}">Nusxalash</button></div>`;
+  const qs = new URLSearchParams({ ...(camp ? { c: camp } : {}), ...(cont ? { k: cont } : {}) }).toString();
+  if (!LINKS.length) { $("#utmList").innerHTML = empty(); return; }
+  $("#utmList").innerHTML = LINKS.map((l) => {
+    const url = `${location.origin}/go/${l.short}${qs ? "?" + qs : ""}`;
+    const sub = l.builtin ? `utm_source=${l.code}` : `utm_source=${l.code}${l.created_by ? " · qo'shgan: " + l.created_by : ""}`;
+    const del = !l.builtin && ME?.role === "owner" ? `<button class="x-btn" data-del-link="${l.id}" title="O'chirish" aria-label="O'chirish">×</button>` : "";
+    return `<div class="utm-row"><span class="utm-row__name"><b>${esc(l.name)}${l.builtin ? "" : '<span class="own">o\'zim</span>'}</b><small>${esc(sub)}</small></span>
+      <code>${esc(url)}</code><span class="utm-row__btns"><button class="btn btn--ghost" data-copy="${esc(url)}">Nusxalash</button>${del}</span></div>`;
   }).join("");
 }
 $("#utmCamp").addEventListener("input", renderUtm);
 $("#utmCont").addEventListener("input", renderUtm);
 $("#utmList").addEventListener("click", async (e) => {
+  const d = e.target.closest("[data-del-link]");
+  if (d) {
+    const l = LINKS.find((x) => String(x.id) === d.dataset.delLink);
+    if (!l || !confirm(`"${l.name}" havolasi o'chiriladi. Undan kelgan eski statistika o'zgarmaydi, lekin /go/${l.short} endi bosh sahifaga ochiladi. O'chiraymi?`)) return;
+    LINKS = (await api("link_del", { body: { id: l.id } })).links; renderUtm(); return;
+  }
   const b = e.target.closest("[data-copy]"); if (!b) return;
   try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Nusxalandi ✓"; } catch { b.textContent = "Qo'lda nusxalang"; }
   setTimeout(() => (b.textContent = "Nusxalash"), 1500);
 });
+
+// ---------- Link + ----------
+const slug = (v) => String(v || "").toLowerCase().replace(/[‘’ʻʼ'`]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 40);
+const lf = $("#linkForm");
+let codeTouched = false;
+$("#linkAddBtn").addEventListener("click", () => { lf.hidden = !lf.hidden; if (!lf.hidden) { lf.reset(); codeTouched = false; $("#linkErr").textContent = ""; lf.name.focus(); } });
+$("#linkCancel").addEventListener("click", () => { lf.hidden = true; });
+lf.name.addEventListener("input", () => { if (!codeTouched) lf.code.value = slug(lf.name.value); });
+lf.code.addEventListener("input", () => { codeTouched = true; lf.code.value = lf.code.value.toLowerCase().replace(/[^a-z0-9_-]/g, ""); });
+lf.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("#linkErr").textContent = "";
+  const name = lf.name.value.trim(), code = lf.code.value.trim();
+  if (!name) { $("#linkErr").textContent = "Link nomini yozing."; return; }
+  if (!/^[a-z0-9_-]{2,40}$/.test(code)) { $("#linkErr").textContent = "UTM kodi 2–40 belgi: faqat lotin harflari, raqamlar, _ va -."; return; }
+  try {
+    LINKS = (await api("link_add", { body: { name, code } })).links;
+    lf.hidden = true; renderUtm(); if (DATA) renderSrcSel();
+  } catch (err) {
+    $("#linkErr").textContent = {
+      empty_name: "Link nomini yozing.",
+      bad_code: "UTM kodi 2–40 belgi: faqat lotin harflari, raqamlar, _ va -.",
+      reserved: "Bu kod tayyor havolalardan biriga tegishli — boshqa kod tanlang.",
+      exists: "Bunday kodli havola allaqachon bor.",
+    }[err.code] || "Saqlab bo'lmadi. Qayta urinib ko'ring.";
+  }
+});
+
+// ---------- Tashriflar ----------
+const dtm = (v) => new Date(v).toLocaleString("ru-RU", { timeZone: "Asia/Tashkent", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+async function loadVisits() {
+  try {
+    const { visits } = await api("visits", { params: rangeParams() });
+    $("#visits").innerHTML = table(
+      ["Vaqt", "Manba", "Qayerdan", "Kampaniya / kontent", "Qurilma", "Brauzer", "Shahar", "Faol vaqt", "Scroll", "Bo'limlar", "Bosishlar", "Natija"],
+      visits.map((v) => {
+        const secsTitle = v.sections.map((x) => SECTION_NAMES[x] || x).join(", ");
+        const res = v.tg ? '<span class="res res--tg">Telegram\'ga o\'tdi</span>' : v.dars ? '<span class="res res--dars">To\'lov bo\'limini ko\'rdi</span>' : '<span class="muted">—</span>';
+        return [dtm(v.started), esc(v.src || "—"), esc(v.ref_host && !v.ref_host.includes(location.hostname) && !/tripwire-sayt/.test(v.ref_host) ? v.ref_host : "—"),
+          v.camp || v.cont ? `${esc(v.camp || "—")}<span class="v-sub">${esc(v.cont || "")}</span>` : "—",
+          `${esc(v.device || "—")}<span class="v-sub">${esc(v.os || "")}</span>`, esc(v.browser || "—"), esc(v.city || "—"),
+          secs(v.secs), `${v.scroll}%`, `<span title="${esc(secsTitle)}">${v.sections.length} / 10</span>`, fmt(v.clicks), res];
+      }),
+      [7, 8, 9, 10],
+    );
+  } catch (err) { if (err.message !== "auth") $("#visits").innerHTML = empty(); }
+}
 
 // ---------- sozlamalar ----------
 async function loadUsers() {

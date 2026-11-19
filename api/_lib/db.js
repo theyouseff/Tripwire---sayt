@@ -23,6 +23,12 @@ export function ensureSchema() {
       await sql`CREATE INDEX IF NOT EXISTS events_type_ts ON events (type, ts)`;
       await sql`CREATE INDEX IF NOT EXISTS events_sid ON events (sid)`;
       await sql`CREATE INDEX IF NOT EXISTS events_vid ON events (vid)`;
+      await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS q TEXT`;
+      // Men panelda qo'shgan UTM havolalar (Link +)
+      await sql`CREATE TABLE IF NOT EXISTS utm_links (
+        id BIGSERIAL PRIMARY KEY, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL,
+        created_by TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      )`;
       await sql`CREATE TABLE IF NOT EXISTS users (
         id BIGSERIAL PRIMARY KEY, login TEXT UNIQUE NOT NULL, name TEXT,
         pass_hash TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'assistant',
@@ -39,3 +45,15 @@ export function ensureSchema() {
   }
   return ready;
 }
+
+// O'zim qo'shgan havolalar: utm_source (kod) → nom. 60 soniya keshlanadi.
+let linkCache = { at: 0, map: {} };
+export async function customLinks(force) {
+  if (!sql) return {};
+  if (!force && Date.now() - linkCache.at < 60000) return linkCache.map;
+  await ensureSchema();
+  const rows = await sql`SELECT code, name FROM utm_links`;
+  linkCache = { at: Date.now(), map: Object.fromEntries(rows.map((r) => [r.code, r.name])) };
+  return linkCache.map;
+}
+export const resetLinkCache = () => { linkCache = { at: 0, map: {} }; };

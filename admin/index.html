@@ -33,6 +33,7 @@
       <button data-tab="funnel">Voronka</button>
       <button data-tab="sources">Manbalar</button>
       <button data-tab="behavior">Xatti-harakat</button>
+      <button data-tab="visits">Tashriflar</button>
       <button data-tab="utm">UTM havolalar</button>
       <button data-tab="settings">Sozlamalar</button>
     </nav>
@@ -109,10 +110,25 @@
       </div>
     </section>
 
+    <!-- TASHRIFLAR -->
+    <section class="view" data-view="visits">
+      <div class="card card--flush">
+        <div class="card__head" style="padding:20px 20px 0"><h2>Oxirgi tashriflar</h2><p class="hint">Oxirgi 300 ta sessiya — davr va manba filtriga bo'ysunadi</p></div>
+        <div class="table-wrap" id="visits"></div>
+      </div>
+    </section>
+
     <!-- UTM -->
     <section class="view" data-view="utm">
       <div class="card">
-        <div class="card__head"><h2>Reklama havolalari</h2><p class="hint">Har bir joyga o'z havolasini qo'ying — manbalar shu orqali ajratiladi</p></div>
+        <div class="card__head"><h2>Reklama havolalari</h2><button class="btn btn--primary" id="linkAddBtn" type="button">Link +</button></div>
+        <p class="hint" style="margin:-6px 0 16px">Har bir joyga o'z qisqa havolasini qo'ying — panel manbani shu orqali ajratadi. Eski uzun UTM havolalar ham ishlayveradi.</p>
+        <form class="link-form" id="linkForm" hidden>
+          <label class="fld"><span>Link nomi</span><input name="name" placeholder="masalan: Bloger Aziz" maxlength="60" autocomplete="off"></label>
+          <label class="fld"><span>UTM kodi (utm_source)</span><input name="code" placeholder="bloger_aziz" maxlength="40" autocomplete="off" spellcheck="false"></label>
+          <div class="link-form__btns"><button class="btn btn--primary" type="submit">Saqlash</button><button class="btn btn--ghost" type="button" id="linkCancel">Bekor qilish</button></div>
+          <p class="err" id="linkErr"></p>
+        </form>
         <div class="utm-form">
           <label class="fld"><span>Kampaniya (ixtiyoriy)</span><input id="utmCamp" placeholder="masalan: noyabr_chegirma"></label>
           <label class="fld"><span>Kontent / bloger / post (ixtiyoriy)</span><input id="utmCont" placeholder="masalan: storis_1"></label>

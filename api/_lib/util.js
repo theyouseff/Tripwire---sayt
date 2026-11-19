@@ -1,12 +1,14 @@
 // Umumiy yordamchilar: manbani aniqlash, qurilma, geo, so'rov tanasi.
 
-export const SOURCE_NAMES = {
-  instagram_stories: "Instagram storis",
-  instagram_direct: "Instagram direct",
-  telegram_channel: "Telegram kanal",
-  youtube_video: "YouTube video",
-  youtube_bio: "YouTube bio",
+// Tayyor manbalar: qisqa kod → [utm_source, utm_medium, paneldagi nom]
+export const BUILTIN_LINKS = {
+  is: ["instagram_stories", "stories", "Instagram storis"],
+  id: ["instagram_direct", "direct", "Instagram direct"],
+  tg: ["telegram_channel", "channel", "Telegram kanal"],
+  yv: ["youtube_video", "video", "YouTube video"],
+  yb: ["youtube_bio", "bio", "YouTube bio"],
 };
+export const SOURCE_NAMES = Object.fromEntries(Object.values(BUILTIN_LINKS).map(([src, , name]) => [src, name]));
 
 export const BOT_RE = /bot|crawl|spider|preview|lighthouse|headless|vercel|screenshot|pagespeed|gtmetrix|pingdom|uptime|facebookexternalhit|facebot|meta-external|bytespider|slurp|scrapy|monitor|checker|validator|inspect|adsbot|mediapartners|telegrambot|whatsapp|python|curl|wget|node-fetch|axios|go-http|okhttp\/[0-9.]+$|java\//i;
 
@@ -14,20 +16,27 @@ export function refHost(ref) {
   try { return ref ? new URL(ref).hostname.replace(/^www\./, "") : ""; } catch { return ""; }
 }
 
-// Sessiya manbai: avval UTM, bo'lmasa referrer domeni
-export function deriveSource(utm, ref) {
+// Sessiya manbai: 1) UTM (tayyor nom yoki men qo'shgan havolaning nomi), 2) referrer domeni,
+// 3) referrer yo'q: sof havola → To'g'ridan-to'g'ri, ?… bor-u UTM yo'q → Boshqa havola (parametrli)
+export function deriveSource(utm, ref, q, custom = {}) {
   const u = (utm && utm.utm_source ? String(utm.utm_source) : "").toLowerCase().trim();
-  if (u) return SOURCE_NAMES[u] || u;
+  if (u) return SOURCE_NAMES[u] || custom[u] || u;
   const h = refHost(ref);
-  if (!h || /tripwire-sayt/.test(h)) return "To'g'ridan-to'g'ri";
-  if (/instagram/.test(h)) return "Instagram (UTM'siz)";
-  if (/(^|\.)t\.me$|telegram/.test(h)) return "Telegram (UTM'siz)";
-  if (/youtu/.test(h)) return "YouTube (UTM'siz)";
-  if (/facebook|fb\.|messenger/.test(h)) return "Facebook";
-  if (/google\./.test(h)) return "Google";
-  if (/yandex/.test(h)) return "Yandex";
-  return h;
+  if (h && !/tripwire-sayt/.test(h)) {
+    if (/instagram/.test(h)) return "Instagram (UTM'siz)";
+    if (/(^|\.)t\.me$|telegram/.test(h)) return "Telegram (UTM'siz)";
+    if (/youtu/.test(h)) return "YouTube (UTM'siz)";
+    if (/facebook|fb\.|messenger/.test(h)) return "Facebook";
+    if (/google\./.test(h)) return "Google";
+    if (/yandex/.test(h)) return "Yandex";
+    return h;
+  }
+  const query = String(q || "").replace(/^\?/, "").trim();
+  return query ? "Boshqa havola (parametrli)" : "To'g'ridan-to'g'ri";
 }
+
+// Kampaniya / kontent qiymatini tozalash: bo'sh joy → _, xavfli belgilar olib tashlanadi
+export const cleanTag = (v) => String(v || "").trim().replace(/\s+/g, "_").replace(/[^\p{L}\p{N}_.-]/gu, "").slice(0, 60);
 
 export function parseUA(ua = "") {
   const device = /iPad|Tablet/i.test(ua) ? "Planshet" : /Mobi|Android|iPhone/i.test(ua) ? "Telefon" : "Kompyuter";

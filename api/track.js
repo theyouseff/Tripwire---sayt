@@ -1,5 +1,5 @@
 // Saytdan kelgan analitika hodisalarini bazaga yozadi. Doim 204 qaytaradi — sayt hech qachon sinmaydi.
-import { sql, ensureSchema } from "./_lib/db.js";
+import { sql, ensureSchema, customLinks } from "./_lib/db.js";
 import { deriveSource, parseUA, geo, body, clip, refHost, BOT_RE } from "./_lib/util.js";
 
 const TYPES = new Set(["pageview", "section", "scroll", "click", "cta", "telegram", "faq", "video", "leave"]);
@@ -15,14 +15,14 @@ export default async function handler(req, res) {
   try {
     await ensureSchema();
     const utm = b.utm && typeof b.utm === "object" ? b.utm : {};
-    const src = deriveSource(utm, b.ref);
+    const src = deriveSource(utm, b.ref, b.q, await customLinks().catch(() => ({})));
     const { device, os, browser } = parseUA(ua);
     const { country, city } = geo(req);
     const host = refHost(b.ref);
 
     const evs = b.events.slice(0, 50).filter((e) => e && TYPES.has(e.type));
     if (!evs.length) return res.status(204).end();
-    const cols = 18;
+    const cols = 19;
     const values = [];
     const rows = evs.map((e, i) => {
       const num = Number.isFinite(e.ms) ? Math.min(Math.round(e.ms / 1000), 86400)
@@ -35,12 +35,12 @@ export default async function handler(req, res) {
         clip(b.vid, 40), clip(b.sid, 40), e.type, clip(e.name, 120), clip(e.section, 40), num,
         src, clip(utm.utm_source, 100), clip(utm.utm_medium, 100), clip(utm.utm_campaign, 100), clip(utm.utm_content, 100),
         clip(host, 100), device, os, browser, clip(country, 8), clip(city, 80),
-        Object.keys(meta).length ? JSON.stringify(meta) : null,
+        Object.keys(meta).length ? JSON.stringify(meta) : null, clip(b.q, 300),
       );
       return "(" + Array.from({ length: cols }, (_, j) => `$${i * cols + j + 1}`).join(",") + ")";
     });
     await sql(
-      `INSERT INTO events (vid, sid, type, name, section, num, src, utm_source, utm_medium, utm_campaign, utm_content, ref_host, device, os, browser, country, city, meta) VALUES ${rows.join(",")}`,
+      `INSERT INTO events (vid, sid, type, name, section, num, src, utm_source, utm_medium, utm_campaign, utm_content, ref_host, device, os, browser, country, city, meta, q) VALUES ${rows.join(",")}`,
       values,
     );
     return res.status(204).end();
