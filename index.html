@@ -503,25 +503,37 @@
   /* ---------- 3. KRUJOKLAR ---------- */
   .students { background: var(--teal-06); padding-bottom: 92px; }
   .students .container { max-width: 1440px; }
+  /* Karusel: kompyuterda 6 ta ko'rinadi, qolganlari strelka yoki surish bilan */
+  .circles-wrap { position: relative; }
   .circles {
     display: flex;
     align-items: center;
     gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding: 0 10px;
+    scrollbar-width: none;
+    margin: 0 -10px;
+    padding: 14px 10px 26px;
+    -webkit-overflow-scrolling: touch;
   }
-  .circle { flex: 1 1 0; min-width: 0; }
-  .circle.expanded { flex-grow: 2.4; z-index: 3; }
+  .circles::-webkit-scrollbar { display: none; }
+  .circle { flex: 0 0 calc((100% - 5 * 16px) / 6); min-width: 0; scroll-snap-align: start; }
+  .circle.expanded { flex-basis: calc((100% - 5 * 16px) / 6 * 2.4); z-index: 3; }
+  .c-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 6;
+    width: 50px; height: 50px; border-radius: 50%;
+    display: grid; place-items: center; color: #4fc3e8;
+    background: rgba(11,42,60,.94); border: 1.5px solid rgba(79,195,232,.75);
+    box-shadow: 0 0 22px -6px #4fc3e8, 0 10px 24px -10px rgba(0,0,0,.5);
+    transition: opacity .25s, transform .25s, box-shadow .25s;
+  }
+  .c-arrow:hover { box-shadow: 0 0 30px -4px #4fc3e8, 0 10px 24px -10px rgba(0,0,0,.5); transform: translateY(-50%) scale(1.06); }
+  .c-arrow--prev { left: 4px; }
+  .c-arrow--next { right: 4px; }
+  .c-arrow[hidden] { display: none; }
   @media (max-width: 1240px) {
-    .circles {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x proximity;
-      scroll-padding-left: 16px;
-      gap: 16px;
-      margin: 0 -16px;
-      padding: 8px 16px 14px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .circle { flex: 0 0 210px; scroll-snap-align: start; }
+    .circle { flex: 0 0 210px; }
     .circle.expanded { flex-basis: 420px; }
   }
   .circle {
@@ -842,6 +854,9 @@
     section { padding: 48px 0; }
     .circle { flex-basis: 170px; }
     .circle.expanded { flex-basis: 310px; }
+    .c-arrow { width: 40px; height: 40px; }
+    .c-arrow--prev { left: 0; }
+    .c-arrow--next { right: 0; }
     .cta { min-width: 0; width: 100%; max-width: 340px; padding-right: 84px; gap: 12px; }
     .cta-icon { flex-basis: 48px; width: 48px; height: 48px; }
     .cta.cta-tg { padding-right: 20px; }
@@ -959,13 +974,20 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
 <section class="students" id="fikrlar-1">
   <div class="container">
     <h2 class="reveal">Dasturimda o‘qigan Hamkasblarim fikrlari</h2>
-    <div class="circles reveal">
+    <div class="circles-wrap reveal">
+    <button class="c-arrow c-arrow--prev" type="button" aria-label="Oldingi videolar" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="circles">
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp1" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp2" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp3" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp4" data-vid="dgNbTb2EfUgeAtgNMee12n"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp5" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp6" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed local"><div class="circle-inner"><video src="videos/fikr-7.mp4#t=0.1" preload="metadata" playsinline webkit-playsinline disablepictureinpicture aria-label="Fikr 7"></video><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed local"><div class="circle-inner"><video src="videos/fikr-8.mp4#t=0.1" preload="metadata" playsinline webkit-playsinline disablepictureinpicture aria-label="Fikr 8"></video><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed local"><div class="circle-inner"><video src="videos/fikr-9.mp4#t=0.1" preload="metadata" playsinline webkit-playsinline disablepictureinpicture aria-label="Fikr 9"></video><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+    </div>
+    <button class="c-arrow c-arrow--next" type="button" aria-label="Keyingi videolar" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </section>
@@ -1115,13 +1137,20 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
 <section class="students" id="fikrlar-2">
   <div class="container">
     <h2 class="reveal">Dasturimda o‘qigan Hamkasblarim fikrlari</h2>
-    <div class="circles reveal">
+    <div class="circles-wrap reveal">
+    <button class="c-arrow c-arrow--prev" type="button" aria-label="Oldingi videolar" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="circles">
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp7" data-vid="qfQKvrNSEzueTaLCAGHpQj"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp8" data-vid="tDmW8p3ozuyESu1R64hZ9t"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp9" data-vid="tQ7PT96D2N1s6RtQjGoCCU"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp10" data-vid="dgNbTb2EfUgeAtgNMee12n"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp11" data-vid="2TLfJW3uGGcU2RogDJcpF1"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
       <div class="circle embed"><div class="circle-inner"><div class="kp" id="kp12" data-vid="2UBbS1P8L4J9akqmCBUE2z"></div><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed local"><div class="circle-inner"><video src="videos/fikr-7.mp4#t=0.1" preload="metadata" playsinline webkit-playsinline disablepictureinpicture aria-label="Fikr 7"></video><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed local"><div class="circle-inner"><video src="videos/fikr-8.mp4#t=0.1" preload="metadata" playsinline webkit-playsinline disablepictureinpicture aria-label="Fikr 8"></video><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+      <div class="circle embed local"><div class="circle-inner"><video src="videos/fikr-9.mp4#t=0.1" preload="metadata" playsinline webkit-playsinline disablepictureinpicture aria-label="Fikr 9"></video><div class="play" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg></span></div></div></div>
+    </div>
+    <button class="c-arrow c-arrow--next" type="button" aria-label="Keyingi videolar" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </section>
@@ -1171,7 +1200,7 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
   // Krujoklar: bosilganda ovoz bilan o'ynaydi, qayta bosilsa to'xtaydi
   document.querySelectorAll('.circle').forEach(function (c) {
     var v = c.querySelector('video');
-    if (!v) return; // Kinescope iframe o'zi boshqariladi
+    if (!v || c.classList.contains('local')) return; // Kinescope iframe va mahalliy videolar quyida boshqariladi
     c.addEventListener('click', function () {
       document.querySelectorAll('.circle').forEach(function (o) {
         var ov = o.querySelector('video');
@@ -1193,6 +1222,18 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
     circles.forEach(function (c) {
       var box = c.querySelector('.kp');
       c.player = null;
+      if (!box) { // mahalliy video (videos/fikr-N.mp4): pleyer kerak emas, <video> o'zi
+        var v = c.querySelector('video');
+        c.player = { play: function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); }, pause: function () { v.pause(); } };
+        c.init = function () { return Promise.resolve(c.player); };
+        v.addEventListener('ended', function () { if (c.classList.contains('expanded')) shrink(c); });
+        v.addEventListener('pause', function () {
+          if (v.ended) return;
+          setTimeout(function () { if (v.paused && c.classList.contains('expanded')) shrink(c); }, 300);
+        });
+        c.addEventListener('click', function () { if (c.classList.contains('expanded')) v.pause(); }); // kattalashgan videoni bossa — to'xtab, joyiga qaytadi
+        return;
+      }
       c.init = function () {
         if (c._ready) return c._ready;
         c._ready = (typeof Kinescope === 'undefined') ? Promise.resolve(null) :
@@ -1231,7 +1272,9 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
       if (current && current !== c) shrink(current);
       current = c;
       c.classList.add('expanded');
-      c.init().then(function (pl) { if (pl) pl.play(); });
+      // mahalliy video: ovozli o'ynash uchun play() bosish hodisasining o'zida chaqiriladi (iPhone Safari talabi)
+      if (c.classList.contains('local')) c.player.play();
+      else c.init().then(function (pl) { if (pl) pl.play(); });
       setTimeout(function () { c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 650);
     }
 
@@ -1243,6 +1286,23 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && current) shrink(current); });
   })();
+
+  // Karusel strelkalari: qolgan videolarni o'ngga/chapga suradi
+  document.querySelectorAll('.circles-wrap').forEach(function (wrap) {
+    var row = wrap.querySelector('.circles'), prev = wrap.querySelector('.c-arrow--prev'), next = wrap.querySelector('.c-arrow--next');
+    function update() {
+      var max = row.scrollWidth - row.clientWidth;
+      prev.hidden = row.scrollLeft < 14;
+      next.hidden = max < 14 || row.scrollLeft > max - 14;
+    }
+    function go(dir) { row.scrollBy({ left: dir * row.clientWidth * 0.8, behavior: 'smooth' }); }
+    prev.addEventListener('click', function (e) { e.stopPropagation(); go(-1); });
+    next.addEventListener('click', function (e) { e.stopPropagation(); go(1); });
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    setTimeout(update, 600); // rasmlar/pleyerlar yuklangach o'lchamlar o'zgarishi mumkin
+  });
 
   // ---- Taymer ----
   (function () {
