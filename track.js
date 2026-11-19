@@ -105,7 +105,7 @@
 
   // ---- Bosishlar ----
   const label = (el) => (el.dataset.trk || el.getAttribute("aria-label") || el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80);
-  const sectionOf = (el) => el.closest("section[id]")?.id || (el.closest(".sticky") ? "sticky" : "boshqa");
+  const sectionOf = (el) => el.closest("section[id]")?.id || "boshqa";
   document.addEventListener("click", (e) => {
     // Video sharhlar (krujoklar): kattalashib, ovoz bilan o'ynaydi
     const circle = e.target.closest(".circle.embed");

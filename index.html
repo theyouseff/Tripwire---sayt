@@ -830,36 +830,6 @@
   .faq + .final { margin-top: -1px; border-radius: 0; padding-top: 32px; }
   @media (max-width: 560px) { .faq { padding: 56px 0 24px; } .faq-item summary { font-size: 16.5px; padding: 18px; } .faq-a { padding: 0 18px 20px; font-size: 15.5px; } }
 
-  /* ---------- Mobil sticky CTA ---------- */
-  .sticky {
-    position: fixed;
-    left: 12px; right: 12px; bottom: 12px;
-    z-index: 50;
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    background: var(--night);
-    border: 1px solid var(--white-20);
-    border-radius: 999px;
-    padding: 8px 8px 8px 22px;
-    color: var(--white);
-    box-shadow: 0 12px 40px -10px var(--night);
-    transform: translateY(140%);
-    transition: transform .35s ease;
-  }
-  .sticky.show { transform: translateY(0); }
-  .sticky-price { font-weight: 800; font-size: 18px; white-space: nowrap; }
-  .sticky a {
-    background: var(--teal);
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 999px;
-    padding: 13px 22px;
-    white-space: nowrap;
-  }
-
   /* ---------- Animatsiya ---------- */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -882,7 +852,6 @@
     .item { font-size: 16px; }
     .story { font-size: 16.5px; }
     .story .hl { font-size: 18px; padding: 18px 20px; }
-    .sticky { display: flex; }
   }
   @media (max-width: 380px) {
     .badge { font-size: 11.5px; gap: 8px; }
@@ -1200,12 +1169,6 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
 
 <!-- Keyingi bloklar (ro'yxatdan o'tish, taymer, forma) shu yerga qo'shiladi -->
 
-<!-- Mobil sticky CTA -->
-<div class="sticky" aria-hidden="true">
-  <span class="sticky-price">97 000 so‘m</span>
-  <a href="#dars" tabindex="-1" data-trk="Pastki tugma: Darslikni olish">Darslikni olish</a>
-</div>
-
 <script src="/track.js"></script>
 <script src="https://player.kinescope.io/latest/iframe.player.js"></script>
 <script>
@@ -1346,15 +1309,6 @@ src="https://www.facebook.com/tr?id=1406085868176574&ev=PageView&noscript=1"
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-
-    // Sticky CTA: hero'dan o'tgach chiqadi, ro'yxatdan o'tish joyida yashirinadi
-    var sticky = document.querySelector('.sticky');
-    var heroVisible = true, darsVisible = false;
-    var update = function () { sticky.classList.toggle('show', !heroVisible && !darsVisible); };
-    new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); })
-      .observe(document.querySelector('.hero .cta'));
-    new IntersectionObserver(function (e) { darsVisible = e[0].isIntersecting; update(); })
-      .observe(document.querySelector('#dars'));
   } else {
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
